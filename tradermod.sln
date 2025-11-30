@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tradermod.bep", "tradermod.bep\tradermod.bep.csproj", "{17F263B8-C0BF-18C0-3538-C11E08259D95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tradermod.shared", "tradermod.shared\tradermod.shared.csproj", "{C179AAAB-4704-E980-893F-8F45AC63566B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17F263B8-C0BF-18C0-3538-C11E08259D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17F263B8-C0BF-18C0-3538-C11E08259D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17F263B8-C0BF-18C0-3538-C11E08259D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17F263B8-C0BF-18C0-3538-C11E08259D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C179AAAB-4704-E980-893F-8F45AC63566B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C179AAAB-4704-E980-893F-8F45AC63566B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C179AAAB-4704-E980-893F-8F45AC63566B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C179AAAB-4704-E980-893F-8F45AC63566B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3018CF2-7B77-462C-BF14-9E6E30CCB1C0}
+	EndGlobalSection
+EndGlobal
