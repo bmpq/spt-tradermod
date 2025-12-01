@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 
-namespace tarkin.tradermod.bep.UI
+namespace tarkin.tradermod.bep.UI.Trading
 {
     internal class Patch_BarterSchemePanel_Awake : ModulePatch
     {

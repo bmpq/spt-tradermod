@@ -7,7 +7,7 @@ using System;
 using System.Reflection;
 using UnityEngine;
 
-namespace tarkin.tradermod.bep.UI
+namespace tarkin.tradermod.bep.UI.Trading
 {
     internal class Patch_BarterSchemePanel_OnGameStarted : ModulePatch
     {
