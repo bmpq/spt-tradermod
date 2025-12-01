@@ -26,6 +26,7 @@ namespace tarkin.tradermod.bep
             new Patch_EnvironmentUIRoot_SetCameraActive().Enable();
             new Patch_MenuScreen_Awake().Enable();
 
+            new Patch_TraderScreensGroup_Awake().Enable();
 
             new Patch_TraderDealScreen_Awake().Enable();
             new Patch_BarterSchemePanel_Awake().Enable();
