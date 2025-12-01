@@ -10,22 +10,24 @@ using UnityEngine.UI.Extensions;
 
 namespace tarkin.tradermod.bep.UI
 {
-    internal class Patch_BarterSchemePanel_Show : ModulePatch
+    internal class Patch_BarterSchemePanel_Awake : ModulePatch
     {
-        public static event Action OnPostfix;
-
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(BarterSchemePanel), nameof(BarterSchemePanel.Show));
+            return AccessTools.Method(typeof(BarterSchemePanel), nameof(BarterSchemePanel.Awake));
         }
 
         [PatchPostfix]
-        private static void PatchPostfix(BarterSchemePanel __instance, 
+        private static void PatchPostfix(BarterSchemePanel __instance,
             Transform ____requisitesContainer,
             CustomTextMeshProUGUI ____buyRestrictionLabel,
             GameObject ____validSchemeWarning
             )
         {
+            RectTransform rectTransform = __instance.transform as RectTransform;
+            rectTransform.offsetMin = new Vector2(rectTransform.offsetMin.x, 118f);
+            rectTransform.offsetMax = new Vector2(rectTransform.offsetMax.x, -205f);
+
             FlowLayoutGroup flowLayoutGroup = ____requisitesContainer.GetComponent<FlowLayoutGroup>();
             flowLayoutGroup.SpacingX = 50;
             flowLayoutGroup.SpacingY = 10;
@@ -49,13 +51,29 @@ namespace tarkin.tradermod.bep.UI
                 GameObject newDivider = new GameObject("Divider", typeof(RectTransform));
                 newDivider.transform.SetParent(barterPanel, false);
                 newDivider.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
-                RectTransform rectTransform = newDivider.transform as RectTransform;
-                rectTransform.anchorMin = new Vector2(0, 0);
-                rectTransform.anchorMax = new Vector2(1, 0);
-                rectTransform.offsetMin = new Vector2(-1000, -15.5f);
-                rectTransform.offsetMax = new Vector2(1000, -14.5f);
+                RectTransform newDividerRect = newDivider.transform as RectTransform;
+                newDividerRect.anchorMin = new Vector2(0, 0);
+                newDividerRect.anchorMax = new Vector2(1, 0);
+                newDividerRect.offsetMin = new Vector2(-1000, -15.5f);
+                newDividerRect.offsetMax = new Vector2(1000, -14.5f);
                 newDivider.gameObject.AddComponent<Image>().color = new Color(1f, 1f, 1f, 0.3f);
             }
+
+            RectTransform border = __instance.transform.Find("Scroll View/Border") as RectTransform;
+            border.offsetMax = Vector2.zero;
+
+            RectTransform content = __instance.transform.Find("Scroll View/Viewport/Content") as RectTransform;
+            content.pivot = new Vector2(0.5f, 0);
+            content.anchorMin = new Vector2(0, 0.5f);
+            content.anchorMax = new Vector2(1, 0.5f);
+
+            RectTransform background = __instance.transform.Find("Background") as RectTransform;
+            background.SetParent(content);
+            background.SetAsFirstSibling();
+            background.anchorMin = new Vector2(0, 0);
+            background.anchorMax = new Vector2(1, 1);
+            background.offsetMin = new Vector2(-1000, 0);
+            background.offsetMax = new Vector2(1000, 0);
         }
     }
 }
