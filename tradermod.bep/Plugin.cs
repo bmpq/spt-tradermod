@@ -3,8 +3,10 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using EFT;
 using EFT.UI.Screens;
+using System.Collections.Generic;
 using tarkin.tradermod.bep.Patches;
 using tarkin.tradermod.bep.UI;
+using tarkin.tradermod.bep.UI.Trading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,35 +35,11 @@ namespace tarkin.tradermod.bep
             new Patch_TradingTable_Awake().Enable();
             new Patch_BarterSchemePanel_OnGameStarted().Enable();
 
+            new Patch_TraderDealScreen_Show().Enable();
+
+            new TraderScenesManager();
 
             InitConfiguration();
-        }
-
-        private async void Instance_OnScreenChanged(EEftScreenType screenType)
-        {
-            Log.LogWarning(screenType);
-
-            if (screenType == EEftScreenType.Trader)
-            {
-                Patch_EnvironmentUIRoot_SetCameraActive.CurrentEnvironmentUIRoot?.SetCameraActive(false);
-
-                string vendorBundle = "vendors_therapist";
-
-                await BundleManager.LoadTraderScene(vendorBundle);
-
-                StaticCameraObservationPoint camPoint = null;
-                Scene scene = SceneManager.GetSceneByName(vendorBundle);
-                foreach (var rootGo in scene.GetRootGameObjects())
-                {
-                    if (camPoint == null)
-                        camPoint = rootGo.GetComponentInChildren<StaticCameraObservationPoint>();
-                }
-
-                GameObject newCam = Instantiate(Resources.Load<GameObject>("Cam2_fps_hideout"));
-
-                newCam.transform.SetParent(camPoint.transform, false);
-                newCam.transform.localPosition = Vector3.zero;
-            }
         }
 
         private void InitConfiguration()
