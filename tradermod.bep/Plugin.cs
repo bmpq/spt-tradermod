@@ -31,6 +31,7 @@ namespace tarkin.tradermod.bep
             new Patch_TraderDealScreen_Awake().Enable();
             new Patch_BarterSchemePanel_Awake().Enable();
             new Patch_TradingTable_Awake().Enable();
+            new Patch_BarterSchemePanel_OnGameStarted().Enable();
 
 
             InitConfiguration();
