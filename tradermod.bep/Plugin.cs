@@ -4,6 +4,7 @@ using BepInEx.Logging;
 using EFT;
 using EFT.UI.Screens;
 using tarkin.tradermod.bep.Patches;
+using tarkin.tradermod.bep.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,6 +27,7 @@ namespace tarkin.tradermod.bep
             new Patch_MenuScreen_Awake().Enable();
 
             CurrentScreenSingletonClass.Instance.OnScreenChanged += Instance_OnScreenChanged;
+            new Patch_BarterSchemePanel_Show().Enable();
 
             InitConfiguration();
         }
