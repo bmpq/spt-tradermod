@@ -13,7 +13,7 @@ namespace tarkin.tradermod.bep
         private static readonly ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource(nameof(BundleManager));
 
         private static readonly string BundleDirectory = Path.Combine(BepInEx.Paths.PluginPath, "tarkin", "bundles", "vendors");
-        private static readonly string[] DependencyBundles = new string[] { "combined_guns", "vendors_shared" };
+        private static readonly string[] DependencyBundles = new string[] { "vendors_shared" };
 
         private static readonly Dictionary<string, AssetBundle> _loadedAssetBundles = new Dictionary<string, AssetBundle>();
         private static readonly Dictionary<string, Task<AssetBundle>> _pendingBundleLoads = new Dictionary<string, Task<AssetBundle>>();

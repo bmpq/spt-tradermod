@@ -57,28 +57,28 @@ namespace tarkin.tradermod.bep
             if (!_traderIdToBundleMap.TryGetValue(trader.Id, out string vendorBundle))
             {
                 _logger.LogInfo($"Trader id {trader.Id} has no bundle mapped.");
+                SetEnvironmentUIVisible(true);
                 return;
             }
 
             await BundleManager.LoadTraderScene(vendorBundle);
 
-            if (Singleton<EnvironmentUI>.Instance != null)
-            {
-                Singleton<EnvironmentUI>.Instance.ShowCameraContainer(false);
-                Singleton<EnvironmentUI>.Instance.EnableOverlay(false);
-            }
-
             Scene scene = SceneManager.GetSceneByName(vendorBundle);
+            bool loaded = scene.IsValid() && scene.isLoaded;
 
-            if (!scene.IsValid())
+            SetEnvironmentUIVisible(!loaded);
+
+            if (!loaded)
             {
-                _logger.LogError($"Scene {vendorBundle} was loaded but is invalid.");
+                _logger.LogError($"Scene {vendorBundle} is invalid.");
                 return;
             }
 
-            _openedScenes[trader.Id] = scene;
+            SceneManager.SetActiveScene(scene);
 
             ManageSceneVisibility(scene);
+
+            _openedScenes[trader.Id] = scene;
 
             var camPoint = scene.GetRootGameObjects()
                 .Select(go => go.GetComponentInChildren<StaticCameraObservationPoint>())
@@ -93,16 +93,25 @@ namespace tarkin.tradermod.bep
             SetupCamera(camPoint);
         }
 
-        private void ManageSceneVisibility(Scene activeScene)
+        private void SetEnvironmentUIVisible(bool value)
         {
-            foreach (var rootGo in activeScene.GetRootGameObjects())
+            if (Singleton<EnvironmentUI>.Instance != null)
+            {
+                Singleton<EnvironmentUI>.Instance.ShowCameraContainer(value);
+                Singleton<EnvironmentUI>.Instance.EnableOverlay(value);
+            }
+        }
+
+        private void ManageSceneVisibility(Scene targetSceneVisible)
+        {
+            foreach (var rootGo in targetSceneVisible.GetRootGameObjects())
             {
                 rootGo.SetActive(true);
             }
 
             foreach (var kvp in _openedScenes)
             {
-                if (kvp.Value == activeScene) continue;
+                if (kvp.Value == targetSceneVisible) continue;
 
                 if (kvp.Value.IsValid() && kvp.Value.isLoaded)
                 {
@@ -119,6 +128,9 @@ namespace tarkin.tradermod.bep
             if (_cam == null)
             {
                 _cam = GameObject.Instantiate(Resources.Load<GameObject>("Cam2_fps_hideout")).GetComponent<Camera>();
+                _cam.GetComponent<PrismEffects>().useExposure = true;
+                _cam.fieldOfView = 60;
+                GameObject.DontDestroyOnLoad(_cam.gameObject);
             }
 
             _cam.gameObject.SetActive(true);

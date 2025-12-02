@@ -74,6 +74,7 @@ namespace tarkin.tradermod.bep.UI.Trading
             background.anchorMax = new Vector2(1, 1);
             background.offsetMin = new Vector2(-1000, 0);
             background.offsetMax = new Vector2(1000, 0);
+            background.GetComponent<Graphic>().color = new Color(0, 0, 0, 0.78f); 
         }
     }
 }
