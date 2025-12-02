@@ -86,18 +86,41 @@ namespace tarkin.tradermod.bep
                 float targetBrightness = black ? -100f : 0;
                 float startBrightness = effectControl.brightness;
 
+                Quaternion startWorldRot = black 
+                    ? _cam.transform.rotation
+                    : Quaternion.LookRotation(-_cam.transform.right + _cam.transform.forward * 2f, _cam.transform.up);
+                Quaternion targetWorldRot = black
+                    ? Quaternion.LookRotation(_cam.transform.right + _cam.transform.forward * 2f, _cam.transform.up)
+                    : _cam.transform.rotation;
+
                 while (t < 1f)
                 {
                     t += Time.deltaTime * 3f;
                     t = Mathf.Clamp01(t);
+                    float easedT = black ? EaseInCubic(0, 1f, t) : EaseOutCubic(0, 1f, t);
 
-                    float brightness = Mathf.Lerp(startBrightness, targetBrightness, t);
+                    float brightness = Mathf.Lerp(startBrightness, targetBrightness, easedT);
                     effectControl.brightness = brightness;
+
+                    _cam.transform.rotation = Quaternion.Slerp(startWorldRot, targetWorldRot, easedT);
 
                     yield return null;
                 }
 
                 completionSource.TrySetResult(true);
+            }
+
+            static float EaseInCubic(float start, float end, float value)
+            {
+                end -= start;
+                return end * value * value * value + start;
+            }
+
+            static float EaseOutCubic(float start, float end, float value)
+            {
+                value--;
+                end -= start;
+                return end * (value * value * value + 1) + start;
             }
         }
 
