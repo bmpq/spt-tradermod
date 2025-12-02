@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace tarkin.tradermod.bep.UI.Quests
 {
-    internal class Patch_QuestsScreen_OnGameStarted : ModulePatch
+    internal class Patch_QuestsScreen_Awake : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
