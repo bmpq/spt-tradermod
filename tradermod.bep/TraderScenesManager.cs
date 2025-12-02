@@ -1,5 +1,7 @@
 ﻿using BepInEx.Logging;
+using Comfort.Common;
 using EFT;
+using EFT.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,10 +62,10 @@ namespace tarkin.tradermod.bep
 
             await BundleManager.LoadTraderScene(vendorBundle);
 
-            if (Patch_EnvironmentUIRoot_SetCameraActive.CurrentEnvironmentUIRoot != null)
+            if (Singleton<EnvironmentUI>.Instance != null)
             {
-                Patch_EnvironmentUIRoot_SetCameraActive.CurrentEnvironmentUIRoot.SetCameraActive(false);
-                Patch_EnvironmentUIRoot_SetCameraActive.CurrentEnvironmentUIRoot.Shading?.gameObject.SetActive(false);
+                Singleton<EnvironmentUI>.Instance.ShowCameraContainer(false);
+                Singleton<EnvironmentUI>.Instance.EnableOverlay(false);
             }
 
             Scene scene = SceneManager.GetSceneByName(vendorBundle);

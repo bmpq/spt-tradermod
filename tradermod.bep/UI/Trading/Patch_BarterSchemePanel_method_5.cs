@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace tarkin.tradermod.bep.UI.Trading
 {
-    internal class Patch_BarterSchemePanel_OnGameStarted : ModulePatch
+    internal class Patch_BarterSchemePanel_method_5 : ModulePatch
     {
         protected override MethodBase GetTargetMethod()
         {
