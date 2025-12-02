@@ -3,6 +3,7 @@ using Comfort.Common;
 using EFT;
 using EFT.UI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace tarkin.tradermod.bep
     {
         private readonly ManualLogSource _logger;
         private Camera _cam;
+
+        Coroutine fadeCoroutine;
+
+        private string _requestedTraderId = null;
 
         private readonly Dictionary<string, Scene> _openedScenes = new Dictionary<string, Scene>();
 
@@ -38,6 +43,8 @@ namespace tarkin.tradermod.bep
 
         private async void OnTraderTradingOpenHandler(TraderClass trader)
         {
+            _requestedTraderId = trader.Id;
+
             try
             {
                 await HandleTraderOpen(trader);
@@ -45,55 +52,112 @@ namespace tarkin.tradermod.bep
             catch (Exception ex)
             {
                 _logger.LogError($"Error switching trader scene: {ex}");
+                SetMainMenuBGVisible(true);
+
+                FadeToBlack(false);
+            }
+        }
+
+        Task FadeToBlack(bool blackScreen)
+        {
+            // bridge Coroutine and Async
+            var tcs = new TaskCompletionSource<bool>();
+
+            if (fadeCoroutine != null)
+                CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
+
+            fadeCoroutine = CoroutineRunner.Instance.StartCoroutine(FadeCoroutine(blackScreen, tcs));
+
+            return tcs.Task;
+
+            IEnumerator FadeCoroutine(bool black, TaskCompletionSource<bool> completionSource)
+            {
+                if (_cam == null)
+                {
+                    completionSource.TrySetResult(false);
+                    yield break;
+                }
+
+                float t = 0;
+
+                var effectControl = _cam.GetComponent<CC_BrightnessContrastGamma>();
+                effectControl.enabled = true;
+
+                float targetBrightness = black ? -100f : 0;
+                float startBrightness = effectControl.brightness;
+
+                while (t < 1f)
+                {
+                    t += Time.deltaTime * 3f;
+                    t = Mathf.Clamp01(t);
+
+                    float brightness = Mathf.Lerp(startBrightness, targetBrightness, t);
+                    effectControl.brightness = brightness;
+
+                    yield return null;
+                }
+
+                completionSource.TrySetResult(true);
             }
         }
 
         private async Task HandleTraderOpen(TraderClass trader)
         {
-            _cam?.gameObject.SetActive(false);
-
-            _logger.LogInfo($"Opened trader id {trader.Id}");
-
             if (!_traderIdToBundleMap.TryGetValue(trader.Id, out string vendorBundle))
             {
-                _logger.LogInfo($"Trader id {trader.Id} has no bundle mapped.");
-                SetEnvironmentUIVisible(true);
+                SetMainMenuBGVisible(true);
                 return;
             }
 
-            await BundleManager.LoadTraderScene(vendorBundle);
+            var loadHandle = await BundleManager.LoadTraderSceneWithHandle(vendorBundle);
 
-            Scene scene = SceneManager.GetSceneByName(vendorBundle);
-            bool loaded = scene.IsValid() && scene.isLoaded;
-
-            SetEnvironmentUIVisible(!loaded);
-
-            if (!loaded)
+            if (loadHandle == null)
             {
-                _logger.LogError($"Scene {vendorBundle} is invalid.");
+                SetMainMenuBGVisible(true);
+                return;
+            }
+
+            // wait for scene to be ready (90%)
+            await loadHandle.WaitUntilReady();
+
+            if (_requestedTraderId != trader.Id)
+            {
+                _logger.LogInfo($"User switched from {trader.Id} before load finished. Aborting switch.");
+                return;
+            }
+
+            await FadeToBlack(true);
+
+            Scene scene = await loadHandle.Activate();
+
+            if (!scene.IsValid())
+            {
+                SetMainMenuBGVisible(true);
                 return;
             }
 
             SceneManager.SetActiveScene(scene);
-
             ManageSceneVisibility(scene);
-
             _openedScenes[trader.Id] = scene;
 
             var camPoint = scene.GetRootGameObjects()
                 .Select(go => go.GetComponentInChildren<StaticCameraObservationPoint>())
                 .FirstOrDefault(campoint => campoint != null);
 
-            if (camPoint == null)
+            if (camPoint != null)
             {
-                _logger.LogError($"Trader scene {vendorBundle} has no 'StaticCameraObservationPoint'.");
-                return;
+                SetupCamera(camPoint);
+                SetMainMenuBGVisible(false);
+            }
+            else
+            {
+                SetMainMenuBGVisible(true);
             }
 
-            SetupCamera(camPoint);
+            FadeToBlack(false);
         }
 
-        private void SetEnvironmentUIVisible(bool value)
+        private void SetMainMenuBGVisible(bool value)
         {
             if (Singleton<EnvironmentUI>.Instance != null)
             {

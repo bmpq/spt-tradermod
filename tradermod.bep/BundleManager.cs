@@ -17,24 +17,25 @@ namespace tarkin.tradermod.bep
 
         private static readonly Dictionary<string, AssetBundle> _loadedAssetBundles = new Dictionary<string, AssetBundle>();
         private static readonly Dictionary<string, Task<AssetBundle>> _pendingBundleLoads = new Dictionary<string, Task<AssetBundle>>();
-        private static readonly Dictionary<string, Task<Scene>> _pendingSceneLoads = new Dictionary<string, Task<Scene>>();
 
-        public static async Task LoadTraderScene(string traderSceneBundleName)
+        private static readonly Dictionary<string, SceneLoadHandle> _pendingSceneLoads = new Dictionary<string, SceneLoadHandle>();
+
+        public static async Task<SceneLoadHandle> LoadTraderSceneWithHandle(string traderSceneBundleName)
         {
             await EnsureDependencyBundlesAreLoaded();
 
             AssetBundle bundle = await LoadAssetBundleAsync(traderSceneBundleName);
-            if (bundle == null) return;
+            if (bundle == null) return null;
 
             if (!bundle.isStreamedSceneAssetBundle || bundle.GetAllScenePaths().Length == 0)
             {
                 Logger.LogError($"Bundle {traderSceneBundleName} is not a scene bundle!");
-                return;
+                return null;
             }
 
             string sceneName = Path.GetFileNameWithoutExtension(bundle.GetAllScenePaths()[0]);
 
-            await LoadSceneAsync(sceneName);
+            return PrepareScene(sceneName);
         }
 
         private static async Task EnsureDependencyBundlesAreLoaded()
@@ -55,9 +56,7 @@ namespace tarkin.tradermod.bep
 
             var tcs = new TaskCompletionSource<AssetBundle>();
             _pendingBundleLoads[bundleName] = tcs.Task;
-
             CoroutineRunner.Instance.StartCoroutine(LoadAssetBundleCoroutine(bundleName, tcs));
-
             return tcs.Task;
         }
 
@@ -93,40 +92,50 @@ namespace tarkin.tradermod.bep
             }
         }
 
-        public static Task<Scene> LoadSceneAsync(string sceneName)
+        public static SceneLoadHandle PrepareScene(string sceneName)
         {
             Scene existingScene = SceneManager.GetSceneByName(sceneName);
             if (existingScene.IsValid() && existingScene.isLoaded)
             {
-                return Task.FromResult(existingScene);
+                var handle = new SceneLoadHandle();
+                handle.SetReady();
+                handle.SetResult(existingScene);
+                return handle;
             }
 
-            if (_pendingSceneLoads.TryGetValue(sceneName, out Task<Scene> pendingTask))
+            if (_pendingSceneLoads.TryGetValue(sceneName, out SceneLoadHandle existingHandle))
             {
-                Logger.LogInfo($"Scene {sceneName} is already loading. Waiting...");
-                return pendingTask;
+                return existingHandle;
             }
 
-            var tcs = new TaskCompletionSource<Scene>();
-            _pendingSceneLoads[sceneName] = tcs.Task;
+            var newHandle = new SceneLoadHandle();
+            _pendingSceneLoads[sceneName] = newHandle;
 
-            CoroutineRunner.Instance.StartCoroutine(LoadSceneCoroutine(sceneName, tcs));
+            CoroutineRunner.Instance.StartCoroutine(LoadSceneCoroutine(sceneName, newHandle));
 
-            return tcs.Task;
+            return newHandle;
         }
 
-        private static IEnumerator LoadSceneCoroutine(string sceneName, TaskCompletionSource<Scene> tcs)
+        private static IEnumerator LoadSceneCoroutine(string sceneName, SceneLoadHandle handle)
         {
             try
             {
-                Scene existing = SceneManager.GetSceneByName(sceneName);
-                if (existing.IsValid() && existing.isLoaded)
+                AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                asyncOp.allowSceneActivation = false;
+
+                while (asyncOp.progress < 0.9f)
                 {
-                    tcs.SetResult(existing);
-                    yield break;
+                    yield return null;
                 }
 
-                AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                handle.SetReady();
+
+                while (!handle.ShouldActivate)
+                {
+                    yield return null;
+                }
+
+                asyncOp.allowSceneActivation = true;
 
                 while (!asyncOp.isDone)
                 {
@@ -134,15 +143,7 @@ namespace tarkin.tradermod.bep
                 }
 
                 Scene loadedScene = SceneManager.GetSceneByName(sceneName);
-                if (loadedScene.IsValid())
-                {
-                    tcs.SetResult(loadedScene);
-                }
-                else
-                {
-                    Logger.LogError($"Scene {sceneName} loaded but handle is invalid.");
-                    tcs.SetResult(default);
-                }
+                handle.SetResult(loadedScene);
             }
             finally
             {
@@ -159,24 +160,6 @@ namespace tarkin.tradermod.bep
             _loadedAssetBundles.Clear();
             _pendingBundleLoads.Clear();
             _pendingSceneLoads.Clear();
-        }
-
-        private class CoroutineRunner : MonoBehaviour
-        {
-            private static CoroutineRunner _instance;
-            public static CoroutineRunner Instance
-            {
-                get
-                {
-                    if (_instance == null)
-                    {
-                        var go = new GameObject("TarkinBundleRunner");
-                        _instance = go.AddComponent<CoroutineRunner>();
-                        DontDestroyOnLoad(go);
-                    }
-                    return _instance;
-                }
-            }
         }
     }
 }
