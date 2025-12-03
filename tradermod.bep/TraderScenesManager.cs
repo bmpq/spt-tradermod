@@ -11,6 +11,11 @@ using tarkin.tradermod.bep.Patches;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using CombinedAnimationData = GClass4067;
+using AnimationParams = GClass4071;
+using LipSyncParams = GClass4072;
+using SubtitleParams = GClass4073;
+
 namespace tarkin.tradermod.bep
 {
     internal class TraderScenesManager
@@ -178,6 +183,23 @@ namespace tarkin.tradermod.bep
             }
 
             FadeToBlack(false);
+
+            await Task.Yield();
+            await Task.Yield();
+
+            var npc = scene.GetRootGameObjects()
+                .Select(go => go.GetComponentInChildren<NPCObject>())
+                .FirstOrDefault(n => n != null);
+
+            var clip = new CombinedAnimationData(
+                [new AnimationParams() { Key = "Enterance1", End = 5.2f }],
+                [],
+                [new LipSyncParams() { Key = "GreetPos1", End = 3f }],
+                [new SubtitleParams() { Key = "682f27b9406ea97be6360e5d", End = 3f }],
+                null
+                );
+
+            npc.PlayAction(clip);
         }
 
         private void SetMainMenuBGVisible(bool value)
