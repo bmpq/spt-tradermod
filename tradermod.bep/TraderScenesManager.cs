@@ -137,24 +137,24 @@ namespace tarkin.tradermod.bep
                 return;
             }
 
+            Task fadeTask = FadeToBlack(true);
             var loadHandle = await BundleManager.LoadTraderSceneWithHandle(vendorBundle);
 
             if (loadHandle == null)
             {
+                await fadeTask;
                 SetMainMenuBGVisible(true);
                 return;
             }
 
-            // wait for scene to be ready (90%)
-            await loadHandle.WaitUntilReady();
+            // wait for BOTH the Fade animation AND the Loading to finish
+            await Task.WhenAll(fadeTask, loadHandle.WaitUntilReady());
 
             if (_requestedTraderId != trader.Id)
             {
                 _logger.LogInfo($"User switched from {trader.Id} before load finished. Aborting switch.");
                 return;
             }
-
-            await FadeToBlack(true);
 
             Scene scene = await loadHandle.Activate();
 
