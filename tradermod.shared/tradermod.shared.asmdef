@@ -1,3 +1,14 @@
 {
-	"name": "tradermod.shared"
+    "name": "tradermod.shared",
+    "rootNamespace": "tarkin.tradermod.shared",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

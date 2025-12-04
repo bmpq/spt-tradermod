@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using tarkin.tradermod.bep.Patches;
 using tarkin.tradermod.bep.UI;
 using tarkin.tradermod.bep.UI.Trading;
+using tarkin.tradermod.shared;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +24,7 @@ namespace tarkin.tradermod.bep
         private void Start()
         {
             Log = base.Logger;
-            //var prewarm = typeof();
+            var prewarm = typeof(TraderScene);
 
             new DialogueDeserialization();
 

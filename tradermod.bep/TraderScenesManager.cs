@@ -15,6 +15,8 @@ using CombinedAnimationData = GClass4067;
 using AnimationParams = GClass4071;
 using LipSyncParams = GClass4072;
 using SubtitleParams = GClass4073;
+using tarkin.tradermod.shared;
+using EFT.AnimationSequencePlayer;
 
 namespace tarkin.tradermod.bep
 {
@@ -158,38 +160,43 @@ namespace tarkin.tradermod.bep
 
             Scene scene = await loadHandle.Activate();
 
-            if (!scene.IsValid())
+            TraderScene traderScene = scene.GetRootGameObjects()[0].GetComponent<TraderScene>();
+            if (!scene.IsValid() || traderScene == null)
             {
+                SceneManager.UnloadSceneAsync(scene);
                 SetMainMenuBGVisible(true);
                 return;
             }
+
+            static void ReplaceShadersToNative(Renderer[] rends)
+            {
+                int counter = 0;
+                foreach (Renderer rend in rends)
+                {
+                    if (rend == null) continue;
+                    foreach (Material mat in rend.sharedMaterials)
+                    {
+                        if (mat == null || mat.shader == null) continue;
+                        Shader nativeShader = Shader.Find(mat.shader.name);
+                        if (nativeShader != null && mat.shader != nativeShader)
+                        {
+                            mat.shader = nativeShader;
+                            counter++;
+                        }
+                    }
+                }
+                Plugin.Log.LogInfo($"Replaced {counter} shaders to native");
+            }
+            ReplaceShadersToNative(traderScene.AllRenderers);
 
             SceneManager.SetActiveScene(scene);
             ManageSceneVisibility(scene);
             _openedScenes[trader.Id] = scene;
 
-            var camPoint = scene.GetRootGameObjects()
-                .Select(go => go.GetComponentInChildren<StaticCameraObservationPoint>())
-                .FirstOrDefault(campoint => campoint != null);
+            SetupCamera(traderScene.CameraPoint);
+            SetMainMenuBGVisible(false);
 
-            if (camPoint != null)
-            {
-                SetupCamera(camPoint);
-                SetMainMenuBGVisible(false);
-            }
-            else
-            {
-                SetMainMenuBGVisible(true);
-            }
-
-            FadeToBlack(false);
-
-            await Task.Yield();
-            await Task.Yield();
-
-            var npc = scene.GetRootGameObjects()
-                .Select(go => go.GetComponentInChildren<NPCObject>())
-                .FirstOrDefault(n => n != null);
+            var npc = traderScene.Trader.GetComponent<SequenceReader>();
 
             var clip = new CombinedAnimationData(
                 [new AnimationParams() { Key = "Enterance1", End = 5.2f }],
@@ -199,7 +206,14 @@ namespace tarkin.tradermod.bep
                 null
                 );
 
-            npc.PlayAction(clip);
+            npc.Play(clip);
+
+            FadeToBlack(false);
+        }
+
+        void PrepareScene()
+        {
+
         }
 
         private void SetMainMenuBGVisible(bool value)
@@ -232,7 +246,7 @@ namespace tarkin.tradermod.bep
             }
         }
 
-        private void SetupCamera(StaticCameraObservationPoint camPoint)
+        private void SetupCamera(Transform camPoint)
         {
             if (_cam == null)
             {
@@ -243,7 +257,7 @@ namespace tarkin.tradermod.bep
             }
 
             _cam.gameObject.SetActive(true);
-            _cam.transform.SetPositionAndRotation(camPoint.transform.position, camPoint.transform.rotation);
+            _cam.transform.SetPositionAndRotation(camPoint.position, camPoint.rotation);
         }
     }
 }
