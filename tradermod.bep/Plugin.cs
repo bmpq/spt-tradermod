@@ -25,6 +25,8 @@ namespace tarkin.tradermod.bep
             Log = base.Logger;
             //var prewarm = typeof();
 
+            new DialogueDeserialization();
+
             new Patch_MenuScreen_Awake().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();
