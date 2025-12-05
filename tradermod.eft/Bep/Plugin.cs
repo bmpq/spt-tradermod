@@ -31,8 +31,6 @@ namespace tarkin.tradermod.eft
             Log = base.Logger;
             var prewarm = typeof(TraderScene);
 
-            new SafeDeserializer(File.ReadAllText(Path.Combine(BundleManager.BundleDirectory, "dialogue.json")));
-
             new Patch_MenuScreen_Awake().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();

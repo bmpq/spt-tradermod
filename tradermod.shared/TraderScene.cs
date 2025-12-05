@@ -25,10 +25,7 @@ namespace tarkin.tradermod.shared
         [SerializeField] private List<string> DialogCombinedAnimHandover;
         [SerializeField] private List<string> DialogCombinedAnimDunno;
 
-        void Update()
-        {
-
-        }
+        public List<string> GetDialogsGreetings() => DialogCombinedAnimGreetings;
 
 #if UNITY_EDITOR
         private void OnValidate()

@@ -17,8 +17,12 @@ using LipSyncParams = GClass4072;
 using SubtitleParams = GClass4073;
 using tarkin.tradermod.shared;
 using EFT.AnimationSequencePlayer;
+using tarkin.tradermod.eft.Bep.Patches;
+using tarkin.tradermod.bep;
+using EFT.Dialogs;
+using System.IO;
 
-namespace tarkin.tradermod.bep
+namespace tarkin.tradermod.eft
 {
     internal class TraderScenesManager
     {
@@ -42,10 +46,14 @@ namespace tarkin.tradermod.bep
             { "54cb57776803fa99248b456e", "vendors_therapist" },
         };
 
+        DialogDataWrapper dialogData;
+        
         public TraderScenesManager()
         {
             _logger = BepInEx.Logging.Logger.CreateLogSource(nameof(TraderScenesManager));
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += OnTraderTradingOpenHandler;
+
+            dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(BundleManager.BundleDirectory, "dialogue.json"))));
         }
 
         private async void OnTraderTradingOpenHandler(TraderClass trader)
@@ -198,8 +206,15 @@ namespace tarkin.tradermod.bep
 
             var npc = traderScene.Trader.GetComponent<SequenceReader>();
 
+            List<string> greetings = traderScene.GetDialogsGreetings();
+            if (greetings.Count > 0)
+            {
+                string randomId = greetings[UnityEngine.Random.Range(0, greetings.Count)];
 
-            npc.Play(clip);
+                CombinedAnimationData cad = dialogData.GetLine(randomId)?.AnimationData;
+
+                npc.Play(cad);
+            }
 
             FadeToBlack(false);
         }
