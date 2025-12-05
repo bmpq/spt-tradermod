@@ -16,6 +16,7 @@ using CombinedAnimationData = GClass4067;
 using AnimationParams = GClass4071;
 using LipSyncParams = GClass4072;
 using SubtitleParams = GClass4073;
+using NarrateController = EFT.TarkovApplication.GClass2302;
 #endif
 
 using tarkin.tradermod.shared;
@@ -27,9 +28,9 @@ using System.IO;
 
 namespace tarkin.tradermod.eft
 {
-    internal class TraderScenesManager
+    internal class TraderScenesManager : IDisposable
     {
-        private readonly ManualLogSource _logger;
+        private static readonly ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource(nameof(TraderScenesManager));
         private Camera _cam;
 
         DialogDataWrapper dialogData;
@@ -43,15 +44,12 @@ namespace tarkin.tradermod.eft
         private Dictionary<string, DateTime> lastSeenTraderTimestamp = new Dictionary<string, DateTime>();
         TraderClass currentlyActiveTrader = null;
 
-        public TraderScenesManager()
+        public TraderScenesManager(TraderDialogsDTO traderDialogsDTO)
         {
-            _logger = BepInEx.Logging.Logger.CreateLogSource(nameof(TraderScenesManager));
-            Patch_TraderDealScreen_Show.OnTraderTradingOpen += OnTraderTradingOpenHandler;
-
-            dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json"))));
+            dialogData = new DialogDataWrapper(traderDialogsDTO);
         }
 
-        private async void OnTraderTradingOpenHandler(TraderClass trader)
+        public async void TraderTradingOpenHandler(TraderClass trader)
         {
             if (currentlyActiveTrader == trader)
                 return;
@@ -188,6 +186,9 @@ namespace tarkin.tradermod.eft
         {
             bool ShouldPlayGreeting(string traderId)
             {
+                if (string.IsNullOrEmpty(traderId))
+                    return false;
+
                 if (!lastSeenTraderTimestamp.TryGetValue(traderId, out DateTime lastTime))
                     return true; // first visit
 
@@ -252,6 +253,17 @@ namespace tarkin.tradermod.eft
 
             _cam.gameObject.SetActive(true);
             _cam.transform.SetPositionAndRotation(camPoint.position, camPoint.rotation);
+        }
+
+        public void Dispose()
+        {
+            _logger.LogInfo("Disposing self");
+
+            if (fadeCoroutine != null)
+                CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
+
+            if (_cam != null)
+                GameObject.Destroy(_cam.gameObject);
         }
     }
 }

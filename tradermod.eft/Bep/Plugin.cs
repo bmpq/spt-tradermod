@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using EFT;
+using EFT.Dialogs;
 using EFT.UI.Screens;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,9 @@ namespace tarkin.tradermod.eft
         internal static ConfigEntry<KeyboardShortcut> KeyCapture;
         internal static ConfigEntry<int> ResolutionWidth;
 
+        private static TraderScenesManager scenesManager;
+        private static TraderDialogsDTO traderDialogsDTO;
+
         private void Start()
         {
             Log = base.Logger;
@@ -44,7 +48,25 @@ namespace tarkin.tradermod.eft
 
             new Patch_TraderDealScreen_Show().Enable();
 
-            new TraderScenesManager();
+            new Patch_NarrateController_Unload().Enable();
+
+            traderDialogsDTO = SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json")));
+
+            Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
+            {
+                if (scenesManager == null)
+                    scenesManager = new TraderScenesManager(traderDialogsDTO);
+                scenesManager.TraderTradingOpenHandler(trader);
+            };
+
+            Patch_NarrateController_Unload.OnPostfix += () =>
+            {
+                if (scenesManager != null)
+                {
+                    scenesManager.Dispose();
+                    scenesManager = null;
+                }
+            };
 
             InitConfiguration();
         }

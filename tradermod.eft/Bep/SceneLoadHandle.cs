@@ -20,6 +20,11 @@ namespace tarkin.tradermod.bep
         internal bool ShouldActivate { get; private set; } = false;
 
         internal void SetReady() => _readyTcs.TrySetResult(true);
-        internal void SetResult(Scene scene) => _activationTcs.TrySetResult(scene);
+        internal void SetResult(Scene scene) => _activationTcs.TrySetResult(scene); 
+        internal void SetCanceled()
+        {
+            _readyTcs.TrySetCanceled();
+            _activationTcs.TrySetCanceled();
+        }
     }
 }
