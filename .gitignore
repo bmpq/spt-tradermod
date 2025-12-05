@@ -4,4 +4,4 @@
 .bin/
 .obj/
 
-BundleResources/
+BundleResources/Equi/*.png
