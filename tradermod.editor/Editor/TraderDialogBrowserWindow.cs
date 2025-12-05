@@ -61,7 +61,7 @@ namespace tarkin.tradermod.Editor
 
             _serializedObject.Update();
 
-            SerializedProperty traderIdProp = _serializedObject.FindProperty("TraderId");
+            SerializedProperty traderIdProp = _serializedObject.FindProperty("traderId");
             if (traderIdProp.stringValue != _cachedTraderId)
             {
                 ReloadData(traderIdProp.stringValue);

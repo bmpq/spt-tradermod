@@ -11,10 +11,13 @@ using tarkin.tradermod.bep.Patches;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if SPT_4_0
 using CombinedAnimationData = GClass4067;
 using AnimationParams = GClass4071;
 using LipSyncParams = GClass4072;
 using SubtitleParams = GClass4073;
+#endif
+
 using tarkin.tradermod.shared;
 using EFT.AnimationSequencePlayer;
 using tarkin.tradermod.eft.Bep.Patches;
@@ -37,6 +40,8 @@ namespace tarkin.tradermod.eft
 
         private readonly Dictionary<string, Scene> _openedScenes = new Dictionary<string, Scene>();
 
+        private Dictionary<string, DateTime> lastSeenTraderTimestamp = new Dictionary<string, DateTime>();
+        TraderClass currentlyActiveTrader = null;
 
         public TraderScenesManager()
         {
@@ -48,6 +53,9 @@ namespace tarkin.tradermod.eft
 
         private async void OnTraderTradingOpenHandler(TraderClass trader)
         {
+            if (currentlyActiveTrader == trader)
+                return;
+
             _requestedTraderId = trader.Id;
 
             try
@@ -160,6 +168,9 @@ namespace tarkin.tradermod.eft
                 return;
             }
 
+            if (currentlyActiveTrader != null)
+                lastSeenTraderTimestamp[currentlyActiveTrader.Id] = DateTime.Now;
+            currentlyActiveTrader = trader;
 
             SceneManager.SetActiveScene(scene);
             ManageSceneVisibility(scene);
@@ -168,19 +179,35 @@ namespace tarkin.tradermod.eft
             SetupCamera(traderScene.CameraPoint);
             SetMainMenuBGVisible(false);
 
-            var npc = traderScene.Trader.GetComponent<SequenceReader>();
-
-            List<string> greetings = traderScene.GetDialogsGreetings();
-            if (greetings.Count > 0)
-            {
-                string randomId = greetings[UnityEngine.Random.Range(0, greetings.Count)];
-
-                CombinedAnimationData cad = dialogData.GetLine(randomId)?.AnimationData;
-
-                npc.Play(cad);
-            }
+            VisitInteract(traderScene);
 
             FadeToBlack(false);
+        }
+
+        void VisitInteract(TraderScene traderScene)
+        {
+            bool ShouldPlayGreeting(string traderId)
+            {
+                if (!lastSeenTraderTimestamp.TryGetValue(traderId, out DateTime lastTime))
+                    return true; // first visit
+
+                float GREETING_COOLDOWN_SEC = 60;
+                return (DateTime.Now - lastTime).TotalSeconds > GREETING_COOLDOWN_SEC;
+            }
+
+            if (ShouldPlayGreeting(traderScene.TraderId))
+            {
+                var npc = traderScene.TraderGameObject.GetComponent<SequenceReader>();
+                List<string> greetings = traderScene.GetDialogsGreetings();
+                if (greetings.Count > 0)
+                {
+                    string randomId = greetings[UnityEngine.Random.Range(0, greetings.Count)];
+
+                    CombinedAnimationData cad = dialogData.GetLine(randomId)?.AnimationData;
+
+                    npc.Play(cad);
+                }
+            }
         }
 
         private void SetMainMenuBGVisible(bool value)

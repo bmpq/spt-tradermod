@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +11,11 @@ namespace tarkin.tradermod.shared
 
         [SerializeField] private Renderer[] allRenderers;
         public Renderer[] AllRenderers => allRenderers;
-        [SerializeField] private Animator trader;
-        public Animator Trader => trader;
+        [SerializeField] private Animator traderGameObject;
+        public Animator TraderGameObject => traderGameObject;
 
-        [SerializeField] private string TraderId;
+        [SerializeField] private string traderId;
+        public string TraderId => traderId;
 
         [SerializeField] private List<string> DialogCombinedAnimGreetings;
         [SerializeField] private List<string> DialogCombinedAnimGoodbye;
