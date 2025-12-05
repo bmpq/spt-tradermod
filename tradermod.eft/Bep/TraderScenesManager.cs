@@ -29,31 +29,21 @@ namespace tarkin.tradermod.eft
         private readonly ManualLogSource _logger;
         private Camera _cam;
 
+        DialogDataWrapper dialogData;
+
         Coroutine fadeCoroutine;
 
         private string _requestedTraderId = null;
 
         private readonly Dictionary<string, Scene> _openedScenes = new Dictionary<string, Scene>();
 
-        private static readonly Dictionary<string, string> _traderIdToBundleMap = new Dictionary<string, string>
-        {
-            { "579dc571d53a0658a154fbec", "vendors_fence" },
-            { "5c0647fdd443bc2504c2d371", "vendors_jaeger" },
-            { "5a7c2eca46aef81a7ca2145d", "vendors_mechanic" },
-            { "54cb50c76803fa8b248b4571", "vendors_prapor" },
-            { "5ac3b934156ae10c4430e83c", "vendors_ragman" },
-            { "58330581ace78e27b8b10cee", "vendors_skier" },
-            { "54cb57776803fa99248b456e", "vendors_therapist" },
-        };
 
-        DialogDataWrapper dialogData;
-        
         public TraderScenesManager()
         {
             _logger = BepInEx.Logging.Logger.CreateLogSource(nameof(TraderScenesManager));
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += OnTraderTradingOpenHandler;
 
-            dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(BundleManager.BundleDirectory, "dialogue.json"))));
+            dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json"))));
         }
 
         private async void OnTraderTradingOpenHandler(TraderClass trader)
@@ -141,14 +131,8 @@ namespace tarkin.tradermod.eft
 
         private async Task HandleTraderOpen(TraderClass trader)
         {
-            if (!_traderIdToBundleMap.TryGetValue(trader.Id, out string vendorBundle))
-            {
-                SetMainMenuBGVisible(true);
-                return;
-            }
-
             Task fadeTask = FadeToBlack(true);
-            var loadHandle = await BundleManager.LoadTraderSceneWithHandle(vendorBundle);
+            var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(trader.Id);
 
             if (loadHandle == null)
             {
@@ -176,26 +160,6 @@ namespace tarkin.tradermod.eft
                 return;
             }
 
-            static void ReplaceShadersToNative(Renderer[] rends)
-            {
-                int counter = 0;
-                foreach (Renderer rend in rends)
-                {
-                    if (rend == null) continue;
-                    foreach (Material mat in rend.sharedMaterials)
-                    {
-                        if (mat == null || mat.shader == null) continue;
-                        Shader nativeShader = Shader.Find(mat.shader.name);
-                        if (nativeShader != null && mat.shader != nativeShader)
-                        {
-                            mat.shader = nativeShader;
-                            counter++;
-                        }
-                    }
-                }
-                Plugin.Log.LogInfo($"Replaced {counter} shaders to native");
-            }
-            ReplaceShadersToNative(traderScene.AllRenderers);
 
             SceneManager.SetActiveScene(scene);
             ManageSceneVisibility(scene);
