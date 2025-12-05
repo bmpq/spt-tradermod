@@ -198,22 +198,10 @@ namespace tarkin.tradermod.bep
 
             var npc = traderScene.Trader.GetComponent<SequenceReader>();
 
-            var clip = new CombinedAnimationData(
-                [new AnimationParams() { Key = "Enterance1", End = 5.2f }],
-                [],
-                [new LipSyncParams() { Key = "GreetPos1", End = 3f }],
-                [new SubtitleParams() { Key = "682f27b9406ea97be6360e5d", End = 3f }],
-                null
-                );
 
             npc.Play(clip);
 
             FadeToBlack(false);
-        }
-
-        void PrepareScene()
-        {
-
         }
 
         private void SetMainMenuBGVisible(bool value)

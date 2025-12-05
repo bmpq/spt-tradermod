@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8fdddc1d2ef4b41bed85b0e6af1293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shader: {fileID: 4800000, guid: 89fbe3a6078c6f24db1d74f55b846351, type: 3}
   method: 0
   keycodeCapture: 278
   resolution: 4096

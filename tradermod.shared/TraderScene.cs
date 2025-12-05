@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace tarkin.tradermod.shared
@@ -11,6 +12,23 @@ namespace tarkin.tradermod.shared
         public Renderer[] AllRenderers => allRenderers;
         [SerializeField] private Animator trader;
         public Animator Trader => trader;
+
+        [SerializeField] private string TraderId;
+
+        [SerializeField] private List<string> DialogCombinedAnimGreetings;
+        [SerializeField] private List<string> DialogCombinedAnimGoodbye;
+        [SerializeField] private List<string> DialogCombinedAnimChatter;
+        [SerializeField] private List<string> DialogCombinedAnimQuestAvailable;
+        [SerializeField] private List<string> DialogCombinedAnimGreetingsWhileWork;
+        [SerializeField] private List<string> DialogCombinedAnimNoJob;
+        [SerializeField] private List<string> DialogCombinedAnimTradeStart;
+        [SerializeField] private List<string> DialogCombinedAnimHandover;
+        [SerializeField] private List<string> DialogCombinedAnimDunno;
+
+        void Update()
+        {
+
+        }
 
 #if UNITY_EDITOR
         private void OnValidate()

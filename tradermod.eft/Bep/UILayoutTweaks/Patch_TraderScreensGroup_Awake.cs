@@ -5,7 +5,7 @@ using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
 
-namespace tarkin.tradermod.bep.UI
+namespace tarkin.tradermod.eft.Bep.UILayoutTweaks
 {
     internal class Patch_TraderScreensGroup_Awake : ModulePatch
     {

@@ -5,7 +5,7 @@ using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
 
-namespace tarkin.tradermod.bep.Patches
+namespace tarkin.tradermod.eft.Bep.Patches
 {
     internal class Patch_TraderDealScreen_Show : ModulePatch
     {

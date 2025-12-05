@@ -4,8 +4,9 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>tradermod.bep</AssemblyName>
     <Version>1.0.0</Version>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <RootNamespace>tarkin.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <DefineConstants>$(DefineConstants);SPT_4_0</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>
