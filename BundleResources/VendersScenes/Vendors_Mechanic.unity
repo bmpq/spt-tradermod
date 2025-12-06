@@ -3051,17 +3051,12 @@ GameObject:
   - component: {fileID: 10004}
   - component: {fileID: 9872}
   - component: {fileID: 10003}
-  - component: {fileID: 9977}
   - component: {fileID: 9915}
   - component: {fileID: 9972}
   - component: {fileID: 10006}
   - component: {fileID: 9965}
   - component: {fileID: 9894}
-  - component: {fileID: 9976}
   - component: {fileID: 9942}
-  - component: {fileID: 10007}
-  - component: {fileID: 10008}
-  - component: {fileID: 9781}
   m_Layer: 0
   m_Name: Mechanic_model
   m_TagString: Untagged
@@ -15854,18 +15849,6 @@ MonoBehaviour:
   _isActive: 1
   _areaType: 19
   AffectedObject: {fileID: 0}
---- !u!114 &9781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18781,7 +18764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headMesh: {fileID: 9731}
-  _eyeTargetFollower: {fileID: 9976}
+  _eyeTargetFollower: {fileID: 0}
   minDelayBetweenBlinking: 2
   maxDelayBetweenBlinking: 5
   minBlinkTime: 0.15
@@ -18992,52 +18975,6 @@ MonoBehaviour:
   _transformForPlaySounds: {fileID: 6054}
   _audioConfigDictionary: {fileID: 10006}
   _mixerGroup: {fileID: 24300554, guid: 91f140ece31583744b866c03b6fbaab2, type: 2}
---- !u!114 &9976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a303a8d4de772f1e9fe50f163cccf9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformToLookAt: {fileID: 0}
-  _headMesh: {fileID: 9731}
-  _lerpToTargetRotationSpeed: 10
-  _angleDifForStartRotation: 2
-  _angleDifForStopRotation: 1
-  _returnStartRotationOnEnd: 1
-  angleToBlendShapeMultiplier: 5
-  _eyeToShow: 1
-  _leftEye: {fileID: 0}
-  _leBlendOnRight: ARKIT_Blendshapes.eyeLookInLeft
-  _leBlendOnLeft: ARKIT_Blendshapes.eyeLookOutLeft
-  _leBlendOnUp: ARKIT_Blendshapes.eyeLookUpLeft
-  _leBlendOnDown: ARKIT_Blendshapes.eyeLookDownLeft
-  _leAdditionalRotation: {x: -90, y: 0, z: 0}
-  _leAdditionalRotSpace: 1
-  _rightEye: {fileID: 0}
-  _reBlendOnRight: ARKIT_Blendshapes.eyeLookOutRight
-  _reBlendOnLeft: ARKIT_Blendshapes.eyeLookInRight
-  _reBlendOnUp: ARKIT_Blendshapes.eyeLookUpRight
-  _reBlendOnDown: ARKIT_Blendshapes.eyeLookDownRight
-  _reAdditionalRotation: {x: -90, y: 0, z: 0}
-  _reAdditionalRotSpace: 1
---- !u!114 &9977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba569cc8354291cf171d51496831f471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19685,7 +19622,7 @@ MonoBehaviour:
   _onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 10007}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCCurveToHeadLook, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -19697,7 +19634,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 10008}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCEyeLookBlendshapes, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -21155,67 +21092,6 @@ MonoBehaviour:
       fadeInTime: 0
       fadeOutTime: 0
       spatialBlend: 0
---- !u!114 &10007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53beb61f426c875ed9c62e757e98117d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 9669}
-  _headBone: {fileID: 6392}
-  _curveName: HeadToPlayer
-  _targetTransform: {fileID: 0}
-  _forwardAxis: 2
-  _maxHorizontalAngle: 80
-  _maxVerticalAngle: 60
---- !u!114 &10008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10e7e6d0fe4e10219ce5c5874c6d5ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 9669}
-  _curveName: LookToPlayer
-  _faceMeshRenderer: {fileID: 9731}
-  _headBone: {fileID: 6392}
-  _targetTransform: {fileID: 0}
-  _leftEyeLookInName: ARKIT_Blendshapes.eyeLookInLeft
-  _leftEyeLookOutName: ARKIT_Blendshapes.eyeLookOutLeft
-  _leftEyeLookUpName: ARKIT_Blendshapes.eyeLookUpLeft
-  _leftEyeLookDownName: ARKIT_Blendshapes.eyeLookDownLeft
-  _rightEyeLookInName: ARKIT_Blendshapes.eyeLookInRight
-  _rightEyeLookOutName: ARKIT_Blendshapes.eyeLookOutRight
-  _rightEyeLookUpName: ARKIT_Blendshapes.eyeLookUpRight
-  _rightEyeLookDownName: ARKIT_Blendshapes.eyeLookDownRight
-  _forwardAxis: 2
-  _maxHorizontalAngle: 35
-  _maxHorizontalBlendshapeWeight: 50
-  _maxVerticalAngle: 30
-  _maxVerticalBlendshapeWeight: 100
-  _blendshapeMultiplier: 100
-  _smoothSpeed: 10
-  _enableIdleMovement: 1
-  _idleHorizontalRange: 0.6
-  _idleVerticalRange: 0.5
-  _idleMovementSpeed: 1
-  _idleChangeInterval: 2
-  _idleChangeVariation: 1
-  _idleStrengthDuringTracking: 0.5
-  _enableGizmos: 1
-  _debugMode: 0
-  _debugCurveValue: 0
 --- !u!114 &10164
 MonoBehaviour:
   m_ObjectHideFlags: 0

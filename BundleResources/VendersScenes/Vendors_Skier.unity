@@ -2009,16 +2009,11 @@ GameObject:
   - component: {fileID: 4367}
   - component: {fileID: 4392}
   - component: {fileID: 4337}
-  - component: {fileID: 4333}
-  - component: {fileID: 4342}
   - component: {fileID: 4373}
   - component: {fileID: 4393}
-  - component: {fileID: 4345}
-  - component: {fileID: 4369}
   - component: {fileID: 4350}
   - component: {fileID: 4323}
   - component: {fileID: 4390}
-  - component: {fileID: 4394}
   m_Layer: 0
   m_Name: skier_model
   m_TagString: Untagged
@@ -13771,18 +13766,6 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: -3
---- !u!114 &4333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba569cc8354291cf171d51496831f471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13811,7 +13794,7 @@ MonoBehaviour:
   _onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4393}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCCurveToHeadLook, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -13823,7 +13806,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4394}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCEyeLookBlendshapes, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -14572,40 +14555,6 @@ MonoBehaviour:
   directivityIntensity: 1
   directivityPattern: 1
   directSoundEnabled: 1
---- !u!114 &4342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a303a8d4de772f1e9fe50f163cccf9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformToLookAt: {fileID: 0}
-  _headMesh: {fileID: 4269}
-  _lerpToTargetRotationSpeed: 10
-  _angleDifForStartRotation: 2
-  _angleDifForStopRotation: 1
-  _returnStartRotationOnEnd: 1
-  angleToBlendShapeMultiplier: 5
-  _eyeToShow: 1
-  _leftEye: {fileID: 0}
-  _leBlendOnRight: ARKIT_Blendshapes.eyeLookInLeft
-  _leBlendOnLeft: ARKIT_Blendshapes.eyeLookOutLeft
-  _leBlendOnUp: ARKIT_Blendshapes.eyeLookUpLeft
-  _leBlendOnDown: ARKIT_Blendshapes.eyeLookDownLeft
-  _leAdditionalRotation: {x: -90, y: 0, z: 0}
-  _leAdditionalRotSpace: 1
-  _rightEye: {fileID: 0}
-  _reBlendOnRight: ARKIT_Blendshapes.eyeLookOutRight
-  _reBlendOnLeft: ARKIT_Blendshapes.eyeLookInRight
-  _reBlendOnUp: ARKIT_Blendshapes.eyeLookUpRight
-  _reBlendOnDown: ARKIT_Blendshapes.eyeLookDownRight
-  _reAdditionalRotation: {x: -90, y: 0, z: 0}
-  _reAdditionalRotSpace: 1
 --- !u!114 &4343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14720,100 +14669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9822b5765dc7ccea6a07e54076144d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 919384309054e5ae3295c38c9840a9bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entries:
-  - key: 002_ClothesTweak_012
-    value:
-      clip: {fileID: 8300000, guid: b747cb810455cd34b9155cf824e54211, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: 001_ClothesTweak_011
-    value:
-      clip: {fileID: 8300000, guid: 586426a61841d414cae274c75ef68835, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Case_To_Player
-    value:
-      clip: {fileID: 8300000, guid: eefdbbfd7532e2648a002da1d6fc3561, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Case_From_Player
-    value:
-      clip: {fileID: 8300000, guid: f74326a565d54c546ada9ddfc19a515d, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Item_To_Player
-    value:
-      clip: {fileID: 8300000, guid: 813d070e345e5984ba918593ca0e5b9e, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Item_From_Player
-    value:
-      clip: {fileID: 8300000, guid: 4aac47f0edb401c48884994d18ddf0e9, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Idle_Phone_001
-    value:
-      clip: {fileID: 8300000, guid: 1a2a6daf172286b4c823ab353c5c7663, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Idle_Phone_005
-    value:
-      clip: {fileID: 8300000, guid: 7876873e9edd99e40b3381c984b32cbf, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Skier_Idle_Money_008
-    value:
-      clip: {fileID: 8300000, guid: 82b42f89925243b489d1e9da774b0d64, type: 3}
-      volume: 1
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
 --- !u!114 &4346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16237,22 +16092,6 @@ MonoBehaviour:
   - {fileID: 4389}
   - {fileID: 4365}
   - {fileID: 4340}
---- !u!114 &4369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e334152b3b52bf3e9abfca2ee6847304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animationsEventReceiver: {fileID: 4323}
-  _transformForPlaySounds: {fileID: 2408}
-  _audioConfigDictionary: {fileID: 4345}
-  _mixerGroup: {fileID: 24300554, guid: 91f140ece31583744b866c03b6fbaab2, type: 2}
 --- !u!114 &4370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16400,7 +16239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headMesh: {fileID: 4269}
-  _eyeTargetFollower: {fileID: 4342}
+  _eyeTargetFollower: {fileID: 0}
   minDelayBetweenBlinking: 2
   maxDelayBetweenBlinking: 5
   minBlinkTime: 0.15
@@ -16932,58 +16771,91 @@ MonoBehaviour:
   m_GameObject: {fileID: 790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53beb61f426c875ed9c62e757e98117d, type: 3}
+  m_Script: {fileID: 11500000, guid: 919384309054e5ae3295c38c9840a9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 4229}
-  _headBone: {fileID: 2402}
-  _curveName: HeadToPlayer
-  _targetTransform: {fileID: 0}
-  _forwardAxis: 2
-  _maxHorizontalAngle: 80
-  _maxVerticalAngle: 60
---- !u!114 &4394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10e7e6d0fe4e10219ce5c5874c6d5ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 4229}
-  _curveName: LookToPlayer
-  _faceMeshRenderer: {fileID: 4269}
-  _headBone: {fileID: 2402}
-  _targetTransform: {fileID: 0}
-  _leftEyeLookInName: ARKIT_Blendshapes.eyeLookInLeft
-  _leftEyeLookOutName: ARKIT_Blendshapes.eyeLookOutLeft
-  _leftEyeLookUpName: ARKIT_Blendshapes.eyeLookUpLeft
-  _leftEyeLookDownName: ARKIT_Blendshapes.eyeLookDownLeft
-  _rightEyeLookInName: ARKIT_Blendshapes.eyeLookInRight
-  _rightEyeLookOutName: ARKIT_Blendshapes.eyeLookOutRight
-  _rightEyeLookUpName: ARKIT_Blendshapes.eyeLookUpRight
-  _rightEyeLookDownName: ARKIT_Blendshapes.eyeLookDownRight
-  _forwardAxis: 2
-  _maxHorizontalAngle: 35
-  _maxHorizontalBlendshapeWeight: 50
-  _maxVerticalAngle: 30
-  _maxVerticalBlendshapeWeight: 100
-  _blendshapeMultiplier: 100
-  _smoothSpeed: 10
-  _enableIdleMovement: 1
-  _idleHorizontalRange: 0.6
-  _idleVerticalRange: 0.5
-  _idleMovementSpeed: 1
-  _idleChangeInterval: 2
-  _idleChangeVariation: 1
-  _idleStrengthDuringTracking: 0.5
-  _enableGizmos: 1
-  _debugMode: 0
-  _debugCurveValue: 0
+  entries:
+  - key: 002_ClothesTweak_012
+    value:
+      clip: {fileID: 8300000, guid: b747cb810455cd34b9155cf824e54211, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: 001_ClothesTweak_011
+    value:
+      clip: {fileID: 8300000, guid: 586426a61841d414cae274c75ef68835, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Case_To_Player
+    value:
+      clip: {fileID: 8300000, guid: eefdbbfd7532e2648a002da1d6fc3561, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Case_From_Player
+    value:
+      clip: {fileID: 8300000, guid: f74326a565d54c546ada9ddfc19a515d, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Item_To_Player
+    value:
+      clip: {fileID: 8300000, guid: 813d070e345e5984ba918593ca0e5b9e, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Item_From_Player
+    value:
+      clip: {fileID: 8300000, guid: 4aac47f0edb401c48884994d18ddf0e9, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Idle_Phone_001
+    value:
+      clip: {fileID: 8300000, guid: 1a2a6daf172286b4c823ab353c5c7663, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Idle_Phone_005
+    value:
+      clip: {fileID: 8300000, guid: 7876873e9edd99e40b3381c984b32cbf, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Skier_Idle_Money_008
+    value:
+      clip: {fileID: 8300000, guid: 82b42f89925243b489d1e9da774b0d64, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
 --- !u!114 &4395
 MonoBehaviour:
   m_ObjectHideFlags: 0

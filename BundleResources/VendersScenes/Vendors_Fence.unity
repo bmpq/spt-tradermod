@@ -1006,12 +1006,10 @@ GameObject:
   - component: {fileID: 3487}
   - component: {fileID: 3488}
   - component: {fileID: 3458}
-  - component: {fileID: 3457}
-  - component: {fileID: 3459}
   - component: {fileID: 3503}
-  - component: {fileID: 3491}
   - component: {fileID: 3501}
   - component: {fileID: 3462}
+  - component: {fileID: 3505}
   m_Layer: 0
   m_Name: Fence_Model
   m_TagString: Untagged
@@ -3194,6 +3192,7 @@ MonoBehaviour:
   - 68f40ed9fa93fbfed4f89962
   - 68f40ed9837ba663d306eb20
   - 68f40ed9877baa717b195dd4
+  DialogCombinedAnimQuestFailed: []
   DialogCombinedAnimGreetingsWhileWork: []
   DialogCombinedAnimNoJob: []
   DialogCombinedAnimTradeStart: []
@@ -8463,18 +8462,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   _useCustomSpreadCurve: 0
   _loopClip: {fileID: 8300000, guid: 57e2bdc6289cf2f4ab9bfac82e9b363f, type: 3}
---- !u!114 &3457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba569cc8354291cf171d51496831f471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8494,22 +8481,6 @@ MonoBehaviour:
   _onExit:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e334152b3b52bf3e9abfca2ee6847304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animationsEventReceiver: {fileID: 3503}
-  _transformForPlaySounds: {fileID: 2219}
-  _audioConfigDictionary: {fileID: 3491}
-  _mixerGroup: {fileID: 24300554, guid: 91f140ece31583744b866c03b6fbaab2, type: 2}
 --- !u!114 &3461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9695,73 +9666,6 @@ MonoBehaviour:
   gainBoostDb: 0
   enableAcoustics: 1
   reverbSendDb: -3
---- !u!114 &3491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 919384309054e5ae3295c38c9840a9bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entries:
-  - key: Fence_Entrance
-    value:
-      clip: {fileID: 8300000, guid: 5c09d41059b959c4e8aa967535ab4427, type: 3}
-      volume: 0.85
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Fence_Hands_Crossed
-    value:
-      clip: {fileID: 8300000, guid: 10a1949918523d34b8624ab6b4a9f1cb, type: 3}
-      volume: 0.85
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Fence_Item_From_Player
-    value:
-      clip: {fileID: 8300000, guid: 31f72a6dd3a78b14aba2a30bdc205f73, type: 3}
-      volume: 0.85
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Fence_Item_To_Player
-    value:
-      clip: {fileID: 8300000, guid: 954e238351bee164c9a745f580db074d, type: 3}
-      volume: 0.85
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Fence_Case_From_Player
-    value:
-      clip: {fileID: 8300000, guid: 31f72a6dd3a78b14aba2a30bdc205f73, type: 3}
-      volume: 0.85
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Fence_Case_To_Player
-    value:
-      clip: {fileID: 8300000, guid: 954e238351bee164c9a745f580db074d, type: 3}
-      volume: 0.85
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
 --- !u!114 &3493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10207,6 +10111,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _metaXRAudioSource: {fileID: 3489}
   _metaXRAudioSourceExperimental: {fileID: 3475}
+--- !u!114 &3505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919384309054e5ae3295c38c9840a9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entries:
+  - key: Fence_Entrance
+    value:
+      clip: {fileID: 8300000, guid: 5c09d41059b959c4e8aa967535ab4427, type: 3}
+      volume: 0.85
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Fence_Hands_Crossed
+    value:
+      clip: {fileID: 8300000, guid: 10a1949918523d34b8624ab6b4a9f1cb, type: 3}
+      volume: 0.85
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Fence_Item_From_Player
+    value:
+      clip: {fileID: 8300000, guid: 31f72a6dd3a78b14aba2a30bdc205f73, type: 3}
+      volume: 0.85
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Fence_Item_To_Player
+    value:
+      clip: {fileID: 8300000, guid: 954e238351bee164c9a745f580db074d, type: 3}
+      volume: 0.85
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Fence_Case_From_Player
+    value:
+      clip: {fileID: 8300000, guid: 31f72a6dd3a78b14aba2a30bdc205f73, type: 3}
+      volume: 0.85
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Fence_Case_To_Player
+    value:
+      clip: {fileID: 8300000, guid: 954e238351bee164c9a745f580db074d, type: 3}
+      volume: 0.85
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
 --- !u!1001 &36540531
 PrefabInstance:
   m_ObjectHideFlags: 0

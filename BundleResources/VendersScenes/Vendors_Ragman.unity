@@ -1698,16 +1698,11 @@ GameObject:
   - component: {fileID: 5910}
   - component: {fileID: 5845}
   - component: {fileID: 5883}
-  - component: {fileID: 5922}
   - component: {fileID: 5863}
-  - component: {fileID: 5877}
-  - component: {fileID: 5943}
   - component: {fileID: 5880}
-  - component: {fileID: 5899}
   - component: {fileID: 5853}
   - component: {fileID: 5846}
   - component: {fileID: 5894}
-  - component: {fileID: 5944}
   m_Layer: 0
   m_Name: Ragman_Model
   m_TagString: Untagged
@@ -13158,7 +13153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headMesh: {fileID: 5680}
-  _eyeTargetFollower: {fileID: 5877}
+  _eyeTargetFollower: {fileID: 0}
   minDelayBetweenBlinking: 2
   maxDelayBetweenBlinking: 5
   minBlinkTime: 0.15
@@ -13799,40 +13794,6 @@ MonoBehaviour:
       props: []
       propsStartOffset: 0
       propsEndOffset: 0
---- !u!114 &5877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a303a8d4de772f1e9fe50f163cccf9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformToLookAt: {fileID: 0}
-  _headMesh: {fileID: 5680}
-  _lerpToTargetRotationSpeed: 10
-  _angleDifForStartRotation: 2
-  _angleDifForStopRotation: 1
-  _returnStartRotationOnEnd: 1
-  angleToBlendShapeMultiplier: 5
-  _eyeToShow: 1
-  _leftEye: {fileID: 0}
-  _leBlendOnRight: ARKIT_Blendshapes.eyeLookInLeft
-  _leBlendOnLeft: ARKIT_Blendshapes.eyeLookOutLeft
-  _leBlendOnUp: ARKIT_Blendshapes.eyeLookUpLeft
-  _leBlendOnDown: ARKIT_Blendshapes.eyeLookDownLeft
-  _leAdditionalRotation: {x: -90, y: 0, z: 0}
-  _leAdditionalRotSpace: 1
-  _rightEye: {fileID: 0}
-  _reBlendOnRight: ARKIT_Blendshapes.eyeLookOutRight
-  _reBlendOnLeft: ARKIT_Blendshapes.eyeLookInRight
-  _reBlendOnUp: ARKIT_Blendshapes.eyeLookUpRight
-  _reBlendOnDown: ARKIT_Blendshapes.eyeLookDownRight
-  _reAdditionalRotation: {x: -90, y: 0, z: 0}
-  _reAdditionalRotSpace: 1
 --- !u!114 &5878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14032,7 +13993,7 @@ MonoBehaviour:
   _onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5943}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCCurveToHeadLook, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -14044,7 +14005,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5944}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCEyeLookBlendshapes, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -14240,22 +14201,6 @@ MonoBehaviour:
     floatValue: 0
     intValue: 0
     boolValue: 0
---- !u!114 &5899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e334152b3b52bf3e9abfca2ee6847304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animationsEventReceiver: {fileID: 5853}
-  _transformForPlaySounds: {fileID: 3840}
-  _audioConfigDictionary: {fileID: 5846}
-  _mixerGroup: {fileID: 24300554, guid: 91f140ece31583744b866c03b6fbaab2, type: 2}
 --- !u!114 &5902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16099,18 +16044,6 @@ MonoBehaviour:
   directivityIntensity: 1
   directivityPattern: 1
   directSoundEnabled: 1
---- !u!114 &5922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba569cc8354291cf171d51496831f471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16205,67 +16138,6 @@ MonoBehaviour:
   _useCustomSpreadCurve: 0
   _randomTimeRange: {x: 19, y: 26}
   _ambientBank: {fileID: 11400000, guid: 2c724e4609e8de4428be0b38f0c3a8b3, type: 2}
---- !u!114 &5943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53beb61f426c875ed9c62e757e98117d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 5614}
-  _headBone: {fileID: 3037}
-  _curveName: HeadToPlayer
-  _targetTransform: {fileID: 0}
-  _forwardAxis: 2
-  _maxHorizontalAngle: 80
-  _maxVerticalAngle: 60
---- !u!114 &5944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10e7e6d0fe4e10219ce5c5874c6d5ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 5614}
-  _curveName: LookToPlayer
-  _faceMeshRenderer: {fileID: 5680}
-  _headBone: {fileID: 3037}
-  _targetTransform: {fileID: 0}
-  _leftEyeLookInName: ARKIT_Blendshapes.eyeLookInLeft
-  _leftEyeLookOutName: ARKIT_Blendshapes.eyeLookOutLeft
-  _leftEyeLookUpName: ARKIT_Blendshapes.eyeLookUpLeft
-  _leftEyeLookDownName: ARKIT_Blendshapes.eyeLookDownLeft
-  _rightEyeLookInName: ARKIT_Blendshapes.eyeLookInRight
-  _rightEyeLookOutName: ARKIT_Blendshapes.eyeLookOutRight
-  _rightEyeLookUpName: ARKIT_Blendshapes.eyeLookUpRight
-  _rightEyeLookDownName: ARKIT_Blendshapes.eyeLookDownRight
-  _forwardAxis: 2
-  _maxHorizontalAngle: 35
-  _maxHorizontalBlendshapeWeight: 50
-  _maxVerticalAngle: 30
-  _maxVerticalBlendshapeWeight: 100
-  _blendshapeMultiplier: 100
-  _smoothSpeed: 10
-  _enableIdleMovement: 1
-  _idleHorizontalRange: 0.6
-  _idleVerticalRange: 0.5
-  _idleMovementSpeed: 1
-  _idleChangeInterval: 2
-  _idleChangeVariation: 1
-  _idleStrengthDuringTracking: 0.5
-  _enableGizmos: 1
-  _debugMode: 0
-  _debugCurveValue: 0
 --- !u!1001 &1029508838
 PrefabInstance:
   m_ObjectHideFlags: 0

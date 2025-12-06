@@ -4759,16 +4759,11 @@ GameObject:
   - component: {fileID: 12127}
   - component: {fileID: 11879}
   - component: {fileID: 12143}
-  - component: {fileID: 13436}
   - component: {fileID: 11861}
-  - component: {fileID: 11877}
-  - component: {fileID: 13445}
-  - component: {fileID: 12150}
+  - component: {fileID: 13438}
   - component: {fileID: 11851}
   - component: {fileID: 11834}
   - component: {fileID: 12148}
-  - component: {fileID: 13451}
-  - component: {fileID: 13452}
   m_Layer: 0
   m_Name: Jaeger_Model
   m_TagString: Untagged
@@ -46133,7 +46128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headMesh: {fileID: 11715}
-  _eyeTargetFollower: {fileID: 11877}
+  _eyeTargetFollower: {fileID: 0}
   minDelayBetweenBlinking: 2
   maxDelayBetweenBlinking: 5
   minBlinkTime: 0.15
@@ -46531,40 +46526,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 3
   CountMin: 3
   CountRange: 1
---- !u!114 &11877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a303a8d4de772f1e9fe50f163cccf9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformToLookAt: {fileID: 0}
-  _headMesh: {fileID: 11715}
-  _lerpToTargetRotationSpeed: 10
-  _angleDifForStartRotation: 2
-  _angleDifForStopRotation: 1
-  _returnStartRotationOnEnd: 1
-  angleToBlendShapeMultiplier: 5
-  _eyeToShow: 1
-  _leftEye: {fileID: 0}
-  _leBlendOnRight: ARKIT_Blendshapes.eyeLookInLeft
-  _leBlendOnLeft: ARKIT_Blendshapes.eyeLookOutLeft
-  _leBlendOnUp: ARKIT_Blendshapes.eyeLookUpLeft
-  _leBlendOnDown: ARKIT_Blendshapes.eyeLookDownLeft
-  _leAdditionalRotation: {x: -90, y: 0, z: 0}
-  _leAdditionalRotSpace: 1
-  _rightEye: {fileID: 0}
-  _reBlendOnRight: ARKIT_Blendshapes.eyeLookOutRight
-  _reBlendOnLeft: ARKIT_Blendshapes.eyeLookInRight
-  _reBlendOnUp: ARKIT_Blendshapes.eyeLookUpRight
-  _reBlendOnDown: ARKIT_Blendshapes.eyeLookDownRight
-  _reAdditionalRotation: {x: -90, y: 0, z: 0}
-  _reAdditionalRotSpace: 1
 --- !u!114 &11878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47398,7 +47359,7 @@ MonoBehaviour:
   _onEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 13452}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EFT.NPCEyeLookBlendshapes, Assembly-CSharp
         m_MethodName: OnEnter
         m_Mode: 0
@@ -47622,172 +47583,6 @@ MonoBehaviour:
   _seasonRandomTimeRange:
     _keys: []
     _values: []
---- !u!114 &12150
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 919384309054e5ae3295c38c9840a9bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entries:
-  - key: Jaeger_Case_From_Player
-    value:
-      clip: {fileID: 8300000, guid: 9384c5296a217834fbe646f98824c696, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Case_To_Player
-    value:
-      clip: {fileID: 8300000, guid: de4f8ceea74d2e9438d0e89f38773a3c, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Entrance
-    value:
-      clip: {fileID: 8300000, guid: fbdd9e5155d18614197d9dcc06e7322f, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Exit
-    value:
-      clip: {fileID: 8300000, guid: 685a86e6d0cbec44fb040fa3503e8b2b, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: 001_Frustrated_036
-    value:
-      clip: {fileID: 8300000, guid: 97579fe6f8a47d046acc5362f3888218, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: 002_Frustrated_037
-    value:
-      clip: {fileID: 8300000, guid: 23bdb77103e129146b60d8b3422e330b, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Cup_Drink_009
-    value:
-      clip: {fileID: 8300000, guid: 9f3829c2ccef01342906a759ff305bcb, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Kills_Mosquito_013
-    value:
-      clip: {fileID: 8300000, guid: f00e7c28d6fb03446a6833375ba58693, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Kills_Mosquito_014
-    value:
-      clip: {fileID: 8300000, guid: 00abfc4502dc08f488c28561947c0b15, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Look_Around_004
-    value:
-      clip: {fileID: 8300000, guid: ae96d3c577c086245b0899d9dd73659a, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Look_Around_018
-    value:
-      clip: {fileID: 8300000, guid: 2b4e095671f93d84ba0ce13f58cf36cc, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Scartch_Beard_016
-    value:
-      clip: {fileID: 8300000, guid: 69d5833ac5cc74d4b80099d17e23de70, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Idle_Variations_Scartch_Beard_017
-    value:
-      clip: {fileID: 8300000, guid: 2352bf2ca4aabe144ad22a2c2acf1574, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Item_From_Player
-    value:
-      clip: {fileID: 8300000, guid: 4e100b883b95af846b7195db0abecc72, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Item_To_Player
-    value:
-      clip: {fileID: 8300000, guid: 662ed4f93911b534f8db9df550bb41ac, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Look_Left
-    value:
-      clip: {fileID: 8300000, guid: ea47f3c7d1049434b8970cc3f817d2cb, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
-  - key: Jaeger_Look_RIght
-    value:
-      clip: {fileID: 8300000, guid: 8ce15a62b9aa38a4abfe04d60b5fcb0d, type: 3}
-      volume: 0.7
-      pitch: 1
-      loop: 0
-      fadeInTime: 0
-      fadeOutTime: 0
-      spatialBlend: 0
 --- !u!114 &12151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49232,18 +49027,6 @@ MonoBehaviour:
     - Halloween
     _values:
     - {fileID: 11400000, guid: 60fc1ea9519a0814fad357094898ec4c, type: 2}
---- !u!114 &13436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba569cc8354291cf171d51496831f471, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &13437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50294,7 +50077,7 @@ MonoBehaviour:
       props: []
       propsStartOffset: 0
       propsEndOffset: 0
---- !u!114 &13445
+--- !u!114 &13438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50303,13 +50086,163 @@ MonoBehaviour:
   m_GameObject: {fileID: 3571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e334152b3b52bf3e9abfca2ee6847304, type: 3}
+  m_Script: {fileID: 11500000, guid: 919384309054e5ae3295c38c9840a9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationsEventReceiver: {fileID: 11834}
-  _transformForPlaySounds: {fileID: 7490}
-  _audioConfigDictionary: {fileID: 12150}
-  _mixerGroup: {fileID: 24300554, guid: 91f140ece31583744b866c03b6fbaab2, type: 2}
+  entries:
+  - key: Jaeger_Case_From_Player
+    value:
+      clip: {fileID: 8300000, guid: 9384c5296a217834fbe646f98824c696, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Case_To_Player
+    value:
+      clip: {fileID: 8300000, guid: de4f8ceea74d2e9438d0e89f38773a3c, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Entrance
+    value:
+      clip: {fileID: 8300000, guid: fbdd9e5155d18614197d9dcc06e7322f, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Exit
+    value:
+      clip: {fileID: 8300000, guid: 685a86e6d0cbec44fb040fa3503e8b2b, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: 001_Frustrated_036
+    value:
+      clip: {fileID: 8300000, guid: 97579fe6f8a47d046acc5362f3888218, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: 002_Frustrated_037
+    value:
+      clip: {fileID: 8300000, guid: 23bdb77103e129146b60d8b3422e330b, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Cup_Drink_009
+    value:
+      clip: {fileID: 8300000, guid: 9f3829c2ccef01342906a759ff305bcb, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Kills_Mosquito_013
+    value:
+      clip: {fileID: 8300000, guid: f00e7c28d6fb03446a6833375ba58693, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Kills_Mosquito_014
+    value:
+      clip: {fileID: 8300000, guid: 00abfc4502dc08f488c28561947c0b15, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Look_Around_004
+    value:
+      clip: {fileID: 8300000, guid: ae96d3c577c086245b0899d9dd73659a, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Look_Around_018
+    value:
+      clip: {fileID: 8300000, guid: 2b4e095671f93d84ba0ce13f58cf36cc, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Scartch_Beard_016
+    value:
+      clip: {fileID: 8300000, guid: 69d5833ac5cc74d4b80099d17e23de70, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Idle_Variations_Scartch_Beard_017
+    value:
+      clip: {fileID: 8300000, guid: 2352bf2ca4aabe144ad22a2c2acf1574, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Item_From_Player
+    value:
+      clip: {fileID: 8300000, guid: 4e100b883b95af846b7195db0abecc72, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Item_To_Player
+    value:
+      clip: {fileID: 8300000, guid: 662ed4f93911b534f8db9df550bb41ac, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Look_Left
+    value:
+      clip: {fileID: 8300000, guid: ea47f3c7d1049434b8970cc3f817d2cb, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
+  - key: Jaeger_Look_RIght
+    value:
+      clip: {fileID: 8300000, guid: 8ce15a62b9aa38a4abfe04d60b5fcb0d, type: 3}
+      volume: 0.7
+      pitch: 1
+      loop: 0
+      fadeInTime: 0
+      fadeOutTime: 0
+      spatialBlend: 0
 --- !u!114 &13446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50651,67 +50584,6 @@ MonoBehaviour:
   _seasonRandomTimeRange:
     _keys: []
     _values: []
---- !u!114 &13451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53beb61f426c875ed9c62e757e98117d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 11672}
-  _headBone: {fileID: 7920}
-  _curveName: HeadToPlayer
-  _targetTransform: {fileID: 0}
-  _forwardAxis: 2
-  _maxHorizontalAngle: 80
-  _maxVerticalAngle: 60
---- !u!114 &13452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10e7e6d0fe4e10219ce5c5874c6d5ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 11672}
-  _curveName: LookToPlayer
-  _faceMeshRenderer: {fileID: 11715}
-  _headBone: {fileID: 7920}
-  _targetTransform: {fileID: 0}
-  _leftEyeLookInName: ARKIT_Blendshapes.eyeLookInLeft
-  _leftEyeLookOutName: ARKIT_Blendshapes.eyeLookOutLeft
-  _leftEyeLookUpName: ARKIT_Blendshapes.eyeLookUpLeft
-  _leftEyeLookDownName: ARKIT_Blendshapes.eyeLookDownLeft
-  _rightEyeLookInName: ARKIT_Blendshapes.eyeLookInRight
-  _rightEyeLookOutName: ARKIT_Blendshapes.eyeLookOutRight
-  _rightEyeLookUpName: ARKIT_Blendshapes.eyeLookUpRight
-  _rightEyeLookDownName: ARKIT_Blendshapes.eyeLookDownRight
-  _forwardAxis: 2
-  _maxHorizontalAngle: 35
-  _maxHorizontalBlendshapeWeight: 50
-  _maxVerticalAngle: 30
-  _maxVerticalBlendshapeWeight: 100
-  _blendshapeMultiplier: 100
-  _smoothSpeed: 10
-  _enableIdleMovement: 1
-  _idleHorizontalRange: 0.6
-  _idleVerticalRange: 0.5
-  _idleMovementSpeed: 1
-  _idleChangeInterval: 2
-  _idleChangeVariation: 1
-  _idleStrengthDuringTracking: 0.5
-  _enableGizmos: 1
-  _debugMode: 0
-  _debugCurveValue: 0
 --- !u!114 &13453
 MonoBehaviour:
   m_ObjectHideFlags: 0
