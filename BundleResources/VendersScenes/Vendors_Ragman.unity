@@ -4159,17 +4159,57 @@ MonoBehaviour:
   - {fileID: 4415}
   - {fileID: 4705}
   - {fileID: 4491}
-  trader: {fileID: 5614}
-  TraderId: 5ac3b934156ae10c4430e83c
-  DialogCombinedAnimGreetingIds:
-  - 68ca99a891bd0534bef6d6f6
-  - 68d08be5452743f229674251
+  traderGameObject: {fileID: 5614}
+  traderId: 5ac3b934156ae10c4430e83c
+  DialogCombinedAnimGreetings:
+  - 68ca99a81770eeeb0cf1537d
+  - 68ca99a85fd504e872713fce
+  - 68ca99a8edfdba683b20331d
   - 68ca99a818a9cc8f8d0b0d01
+  - 68d08be5452743f229674251
+  - 68ca99a891bd0534bef6d6f6
   - 68ca99a87df770cb185bde86
+  - 68d08c89d78265b6b3b405a9
   - 68ca99a8b29b31c5d34837f7
-  DialogCombinedAnimGoodbyeIds: []
-  DialogCombinedAnimQuestGiveIds: []
-  DialogCombinedAnimQuestDoneIds: []
+  DialogCombinedAnimGoodbye:
+  - 68ca99a8f702a6ac88122bbd
+  - 68ca99a8b9d87d7e539fe3c7
+  DialogCombinedAnimChatter:
+  - 68ca99a83f2068a7f4a881dd
+  - 68ca99a82140e68c8910a9ca
+  - 68d08ee55ff7892eb7c70968
+  - 68ca99a833478c9ba4ce6715
+  - 68ca99a84a798ee05f7904ce
+  DialogCombinedAnimQuestAvailable:
+  - 68d09a36cb66a05bfe64fda1
+  - 68d09a3074f29bcaaff4d21d
+  - 68d09a2d7436c4b2d63bc0b7
+  - 68d09a2a07d186b51e8978e9
+  - 68d09a27b173defea5d6e836
+  - 68ca99a84503d9fa080c3b0e
+  - 68d09a0a6c1a56d1d8406ea7
+  DialogCombinedAnimQuestFailed:
+  - 68d08ee706fea15ea610d045
+  - 68d08ee248cd6f7209c791e1
+  - 68d08f2b84f47c8c8a2990d2
+  DialogCombinedAnimGreetingsWhileWork:
+  - 68d08e050f686bb1bc123a1a
+  - 68d08e2247bd8880556c686b
+  - 68d08e1f209030d18f02f280
+  - 68d08e1bd2d2d73d279b1a72
+  DialogCombinedAnimNoJob:
+  - 68dfb14cb978945f72cd87b0
+  DialogCombinedAnimTradeStart: []
+  DialogCombinedAnimHandover: []
+  DialogCombinedAnimDunno:
+  - 68d08da92f408ac4cef35a1d
+  - 68d08da78a5c89ff405c9779
+  - 68d08d4134ec01f21b002d7a
+  - 68d08d4169d1f296258b0237
+  - 68d08d415340eab0c127fc86
+  - 68d08d413d7ff37f74a2e950
+  - 68d08d4173b87a67780f120a
+  - 68d08d414c67cf0e71bdc516
 --- !u!4 &2204
 Transform:
   m_ObjectHideFlags: 0

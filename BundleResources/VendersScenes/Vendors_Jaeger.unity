@@ -6028,13 +6028,39 @@ MonoBehaviour:
   - {fileID: 9475}
   traderGameObject: {fileID: 11672}
   traderId: 5c0647fdd443bc2504c2d371
-  DialogCombinedAnimGreetings: []
+  DialogCombinedAnimGreetings:
+  - 68cc091446c747f0fc0906be
+  - 68cc0914dfd572445d0d9e27
+  - 68cc09142739dd3806db5335
+  - 68d03510be8b0c06d4ac4bb5
+  - 690276a96ab8d30ad1da70ce
+  - 68cc0914847db697066de87e
+  - 68d037952a685cffca6804bf
+  - 68cc09141a07ae8566815773
+  - 68d0350da4e0c557c3bed4ab
+  - 6914dd64de86dfcf46153160
+  - 68cc0914751d1d5885dbec6f
+  - 68cc0914d6527fcfdaaa0e1d
+  - 68cc0914b74066dedcd9d85a
   DialogCombinedAnimGoodbye: []
   DialogCombinedAnimChatter: []
-  DialogCombinedAnimQuestAvailable: []
-  DialogCombinedAnimGreetingsWhileWork: []
-  DialogCombinedAnimNoJob: []
-  DialogCombinedAnimTradeStart: []
+  DialogCombinedAnimQuestAvailable:
+  - 68d03752bdc106e4ee21ac4a
+  - 68d037662766cf244d319f55
+  - 68d0376bf7342c5d7b6fe2de
+  DialogCombinedAnimQuestFailed:
+  - 68dfb88ebb495668944d2765
+  - 68dfb8a0354be82e073e65e5
+  DialogCombinedAnimGreetingsWhileWork:
+  - 68dfb7155acf989936adc476
+  - 68dfb7225f586245c6dda68a
+  - 68dfb725e9fc61361b6760e9
+  - 68dfb72ae1ee43bd646efd9c
+  - 68dfb72dc086f400ff53c869
+  DialogCombinedAnimNoJob:
+  - 68dfb6cd0a2b6df26f9488fc
+  DialogCombinedAnimTradeStart:
+  - 68cc0914637ce22621ca95d1
   DialogCombinedAnimHandover: []
   DialogCombinedAnimDunno: []
 --- !u!4 &6019

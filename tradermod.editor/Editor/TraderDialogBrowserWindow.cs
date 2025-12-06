@@ -32,6 +32,7 @@ namespace tarkin.tradermod.Editor
             "Goodbyes", 
             "Chatter", 
             "QuestAvailable", 
+            "QuestFailed", 
             "GreetingsWhileWork", 
             "NoJob", 
             "TradeStart",
@@ -43,16 +44,6 @@ namespace tarkin.tradermod.Editor
         public static void ShowWindow()
         {
             GetWindow<TraderDialogWindow>("Trader Dialogs");
-        }
-
-        private void OnEnable()
-        {
-            _targetScript = FindFirstObjectByType<TraderScene>();
-            if (_targetScript != null)
-            {
-                _serializedObject = new SerializedObject(_targetScript);
-                ReloadData(_targetScript.GetType().GetField("TraderId").GetValue(_targetScript) as string);
-            }
         }
 
         private void OnGUI()
@@ -94,6 +85,8 @@ namespace tarkin.tradermod.Editor
 
             if (GUILayout.Button("Refresh Data", EditorStyles.toolbarButton, GUILayout.Width(80)))
             {
+                _targetScript = FindFirstObjectByType<TraderScene>();
+                _serializedObject = new SerializedObject(_targetScript);
                 _cachedTraderId = null;
                 if (_serializedObject != null)
                     ReloadData(_serializedObject.FindProperty("TraderId").stringValue);
@@ -208,11 +201,12 @@ namespace tarkin.tradermod.Editor
                 case 1: return _serializedObject.FindProperty("DialogCombinedAnimGoodbye");
                 case 2: return _serializedObject.FindProperty("DialogCombinedAnimChatter");
                 case 3: return _serializedObject.FindProperty("DialogCombinedAnimQuestAvailable");
-                case 4: return _serializedObject.FindProperty("DialogCombinedAnimGreetingsWhileWork");
-                case 5: return _serializedObject.FindProperty("DialogCombinedAnimNoJob");
-                case 6: return _serializedObject.FindProperty("DialogCombinedAnimTradeStart");
-                case 7: return _serializedObject.FindProperty("DialogCombinedAnimHandover");
-                case 8: return _serializedObject.FindProperty("DialogCombinedAnimDunno");
+                case 4: return _serializedObject.FindProperty("DialogCombinedAnimQuestFailed");
+                case 5: return _serializedObject.FindProperty("DialogCombinedAnimGreetingsWhileWork");
+                case 6: return _serializedObject.FindProperty("DialogCombinedAnimNoJob");
+                case 7: return _serializedObject.FindProperty("DialogCombinedAnimTradeStart");
+                case 8: return _serializedObject.FindProperty("DialogCombinedAnimHandover");
+                case 9: return _serializedObject.FindProperty("DialogCombinedAnimDunno");
                 default: return null;
             }
         }

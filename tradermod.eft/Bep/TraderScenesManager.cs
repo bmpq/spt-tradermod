@@ -40,7 +40,7 @@ namespace tarkin.tradermod.eft
 
         private string _requestedTraderId = null;
 
-        private readonly Dictionary<string, Scene> _openedScenes = new Dictionary<string, Scene>();
+        private readonly Dictionary<string, TraderScene> _openedScenes = new Dictionary<string, TraderScene>();
 
         private Dictionary<string, DateTime> lastSeenTraderTimestamp = new Dictionary<string, DateTime>();
         TraderClass currentlyActiveTrader = null;
@@ -59,7 +59,9 @@ namespace tarkin.tradermod.eft
 
             try
             {
-                await HandleTraderOpen(trader);
+                await SwitchToTrader(trader);
+
+                Interact(trader, ETraderInteraction.Visit);
             }
             catch (Exception ex)
             {
@@ -136,7 +138,7 @@ namespace tarkin.tradermod.eft
             }
         }
 
-        private async Task HandleTraderOpen(TraderClass trader)
+        private async Task SwitchToTrader(TraderClass trader)
         {
             Task fadeTask = FadeToBlack(true);
             var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(trader.Id);
@@ -172,18 +174,16 @@ namespace tarkin.tradermod.eft
             currentlyActiveTrader = trader;
 
             SceneManager.SetActiveScene(scene);
-            ManageSceneVisibility(scene);
-            _openedScenes[trader.Id] = scene;
+            _openedScenes[trader.Id] = traderScene;
+            ManageSceneVisibility(traderScene);
 
             SetupCamera(traderScene.CameraPoint);
             SetMainMenuBGVisible(false);
 
-            VisitInteract(traderScene);
-
             FadeToBlack(false);
         }
 
-        void VisitInteract(TraderScene traderScene)
+        public async Task Interact(TraderClass trader, ETraderInteraction interaction)
         {
             bool ShouldPlayGreeting(string traderId)
             {
@@ -197,18 +197,47 @@ namespace tarkin.tradermod.eft
                 return (DateTime.Now - lastTime).TotalSeconds > GREETING_COOLDOWN_SEC;
             }
 
-            if (ShouldPlayGreeting(traderScene.TraderId))
+            if (trader == null)
+                return;
+
+            if (!_openedScenes.TryGetValue(trader.Id, out TraderScene traderScene))
             {
-                var npc = traderScene.TraderGameObject.GetComponent<SequenceReader>();
-                List<string> greetings = traderScene.GetDialogsGreetings();
-                if (greetings.Count > 0)
+                await SwitchToTrader(trader);
+            }
+
+            CombinedAnimationData GetAnimation()
+            {
+                List<string> dialogs = null;
+                switch (interaction)
                 {
-                    string randomId = greetings[UnityEngine.Random.Range(0, greetings.Count)];
-
-                    CombinedAnimationData cad = dialogData.GetLine(randomId)?.AnimationData;
-
-                    npc.Play(cad);
+                    case ETraderInteraction.Visit:
+                        dialogs = traderScene.GetDialogsGreetings();
+                        break;
+                    case ETraderInteraction.QuestAvailable:
+                        dialogs = traderScene.GetDialogsQuestAvailable();
+                        break;
+                    case ETraderInteraction.QuestFailed:
+                        dialogs = traderScene.GetDialogsQuestFailed();
+                        break;
+                    case ETraderInteraction.QuestNoJob:
+                        dialogs = traderScene.GetDialogsNoJob();
+                        break;
                 }
+                if (dialogs != null && dialogs.Count > 0)
+                {
+                    string randomId = dialogs[UnityEngine.Random.Range(0, dialogs.Count)];
+
+                    return dialogData.GetLine(randomId)?.AnimationData;
+                }
+                return null;
+            }
+
+            SequenceReader npc = traderScene.TraderGameObject.GetComponent<SequenceReader>();
+            if (npc != null)
+            {
+                var cad = GetAnimation();
+                if (cad != null)
+                    npc.Play(cad);
             }
         }
 
@@ -221,9 +250,9 @@ namespace tarkin.tradermod.eft
             }
         }
 
-        private void ManageSceneVisibility(Scene targetSceneVisible)
+        private void ManageSceneVisibility(TraderScene targetSceneVisible)
         {
-            foreach (var rootGo in targetSceneVisible.GetRootGameObjects())
+            foreach (var rootGo in targetSceneVisible.gameObject.scene.GetRootGameObjects())
             {
                 rootGo.SetActive(true);
             }
@@ -232,9 +261,9 @@ namespace tarkin.tradermod.eft
             {
                 if (kvp.Value == targetSceneVisible) continue;
 
-                if (kvp.Value.IsValid() && kvp.Value.isLoaded)
+                if (kvp.Value.gameObject.scene.IsValid() && kvp.Value.gameObject.scene.isLoaded)
                 {
-                    foreach (var rootGo in kvp.Value.GetRootGameObjects())
+                    foreach (var rootGo in kvp.Value.gameObject.scene.GetRootGameObjects())
                     {
                         rootGo.SetActive(false);
                     }

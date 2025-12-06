@@ -21,6 +21,7 @@ namespace tarkin.tradermod.shared
         [SerializeField] private List<string> DialogCombinedAnimGoodbye;
         [SerializeField] private List<string> DialogCombinedAnimChatter;
         [SerializeField] private List<string> DialogCombinedAnimQuestAvailable;
+        [SerializeField] private List<string> DialogCombinedAnimQuestFailed;
         [SerializeField] private List<string> DialogCombinedAnimGreetingsWhileWork;
         [SerializeField] private List<string> DialogCombinedAnimNoJob;
         [SerializeField] private List<string> DialogCombinedAnimTradeStart;
@@ -28,6 +29,9 @@ namespace tarkin.tradermod.shared
         [SerializeField] private List<string> DialogCombinedAnimDunno;
 
         public List<string> GetDialogsGreetings() => DialogCombinedAnimGreetings;
+        public List<string> GetDialogsQuestAvailable() => DialogCombinedAnimQuestAvailable;
+        public List<string> GetDialogsNoJob() => DialogCombinedAnimNoJob;
+        public List<string> GetDialogsQuestFailed() => DialogCombinedAnimQuestFailed;
 
 #if UNITY_EDITOR
         private void OnValidate()

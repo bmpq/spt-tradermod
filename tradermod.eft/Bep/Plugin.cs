@@ -6,6 +6,7 @@ using EFT.Dialogs;
 using EFT.UI.Screens;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using tarkin.tradermod.bep;
 using tarkin.tradermod.bep.Patches;
 using tarkin.tradermod.bep.UI;
@@ -49,6 +50,8 @@ namespace tarkin.tradermod.eft
             new Patch_TraderDealScreen_Show().Enable();
             new Patch_QuestsScreen_Show().Enable();
 
+            new Patch_QuestsListView_Show().Enable();
+
             new Patch_NarrateController_Unload().Enable();
 
             traderDialogsDTO = SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json")));
@@ -66,6 +69,59 @@ namespace tarkin.tradermod.eft
                     _scenesManager.Dispose();
                     _scenesManager = null;
                 }
+            };
+
+            Patch_QuestsListView_Show.OnPostfix += (questController, trader) =>
+            {
+                int counterAvailableToStart = 0;
+                int counterStarted = 0;
+                int counterFailed = 0;
+
+                foreach (var quest in questController.Quests)
+                {
+                    if (!quest.IsVisible)
+                        continue;
+
+                    if (quest.Template == null)
+                        continue;
+
+                    if (quest.Template.TraderId != trader.Id)
+                        continue;
+
+                    switch (quest.QuestStatus)
+                    {
+                        case EFT.Quests.EQuestStatus.AvailableForStart:
+                            counterAvailableToStart++;
+                            break;
+                        case EFT.Quests.EQuestStatus.Started:
+                            counterStarted++;
+                            break;
+                        case EFT.Quests.EQuestStatus.Fail:
+                        case EFT.Quests.EQuestStatus.Expired:
+                        case EFT.Quests.EQuestStatus.MarkedAsFailed:
+                            counterFailed++;
+                            break;
+                    }
+                }
+
+                if (counterFailed > 0)
+                {
+                    GetOrCreateScenesManager().Interact(trader, ETraderInteraction.QuestFailed);
+                    return;
+                }
+
+                if (counterAvailableToStart > 0)
+                {
+                    GetOrCreateScenesManager().Interact(trader, ETraderInteraction.QuestAvailable);
+                    return;
+                }
+
+                if (counterStarted > 0)
+                {
+                    return;
+                }
+
+                GetOrCreateScenesManager().Interact(trader, ETraderInteraction.QuestNoJob);
             };
 
             InitConfiguration();
