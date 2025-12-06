@@ -27,7 +27,7 @@ namespace tarkin.tradermod.eft
         internal static ConfigEntry<KeyboardShortcut> KeyCapture;
         internal static ConfigEntry<int> ResolutionWidth;
 
-        private static TraderScenesManager scenesManager;
+        private static TraderScenesManager _scenesManager;
         private static TraderDialogsDTO traderDialogsDTO;
 
         private void Start()
@@ -47,28 +47,35 @@ namespace tarkin.tradermod.eft
             new Patch_QuestsScreen_Awake().Enable();
 
             new Patch_TraderDealScreen_Show().Enable();
+            new Patch_QuestsScreen_Show().Enable();
 
             new Patch_NarrateController_Unload().Enable();
 
             traderDialogsDTO = SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json")));
 
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
-            {
-                if (scenesManager == null)
-                    scenesManager = new TraderScenesManager(traderDialogsDTO);
-                scenesManager.TraderTradingOpenHandler(trader);
-            };
+                GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Trade);
+
+            Patch_QuestsScreen_Show.OnPostfix += (trader) =>
+                GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Tasks);
 
             Patch_NarrateController_Unload.OnPostfix += () =>
             {
-                if (scenesManager != null)
+                if (_scenesManager != null)
                 {
-                    scenesManager.Dispose();
-                    scenesManager = null;
+                    _scenesManager.Dispose();
+                    _scenesManager = null;
                 }
             };
 
             InitConfiguration();
+        }
+
+        private static TraderScenesManager GetOrCreateScenesManager()
+        {
+            if (_scenesManager == null)
+                _scenesManager = new TraderScenesManager(traderDialogsDTO);
+            return _scenesManager;
         }
 
         private void InitConfiguration()

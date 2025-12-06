@@ -25,6 +25,7 @@ using tarkin.tradermod.eft.Bep.Patches;
 using tarkin.tradermod.bep;
 using EFT.Dialogs;
 using System.IO;
+using EFT.UI.Screens;
 
 namespace tarkin.tradermod.eft
 {
@@ -49,7 +50,7 @@ namespace tarkin.tradermod.eft
             dialogData = new DialogDataWrapper(traderDialogsDTO);
         }
 
-        public async void TraderTradingOpenHandler(TraderClass trader)
+        public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)
         {
             if (currentlyActiveTrader == trader)
                 return;
