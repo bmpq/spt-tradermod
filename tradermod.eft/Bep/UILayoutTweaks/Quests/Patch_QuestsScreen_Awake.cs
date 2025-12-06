@@ -42,9 +42,6 @@ namespace tarkin.tradermod.bep.UI.Quests
             descriptionBlock.GetComponent<LayoutElement>().enabled = false;
             SetupVLG(descriptionBlock).padding = new RectOffset(700, 0, 0, 0);
 
-            Transform questImage = descriptionBlock.Find("Image");
-            questImage.gameObject.SetActive(false);
-
             RectTransform textBlock = descriptionBlock.Find("TextBlock") as RectTransform;
             SetupVLG(textBlock).padding = new RectOffset(15, 15, 15, 15);
 
@@ -55,11 +52,14 @@ namespace tarkin.tradermod.bep.UI.Quests
             ScrollRectNoDrag scrollRectDescription = textBlock.Find("Scroll").GetComponent<ScrollRectNoDrag>();
             scrollRectDescription.verticalScrollbar.gameObject.SetActive(false);
             scrollRectDescription.enabled = false;
-            SetupVLG(scrollRectDescription.RectTransform());
+            SetupVLG(scrollRectDescription.RectTransform()).spacing = 20f;
+
+            Transform questImage = descriptionBlock.Find("Image");
+            questImage.SetParent(scrollRectDescription.RectTransform());
+            questImage.SetAsFirstSibling();
 
             CustomTextMeshProUGUI textDescription = scrollRectDescription.GetComponentInChildren<CustomTextMeshProUGUI>();
             textDescription.gameObject.GetComponent<ContentSizeFitter>().enabled = false;
-            textDescription.gameObject.AddComponent<LayoutElement>().minHeight = 360f;
         }
 
         static VerticalLayoutGroup SetupVLG(Transform tr)
