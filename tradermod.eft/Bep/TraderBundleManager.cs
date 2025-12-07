@@ -269,6 +269,64 @@ namespace tarkin.tradermod.bep
             Plugin.Log.LogInfo($"Replaced {counter} shaders to native");
         }
 
+        public static async Task<T> LoadAssetFromBundleAsync<T>(string bundleName, string assetName, bool fuzzyAssetName = false) where T : UnityEngine.Object
+        {
+            AssetBundle bundle = await LoadAssetBundleAsync(bundleName);
+            if (bundle == null)
+            {
+                Logger.LogError($"Cannot load asset '{assetName}': Bundle '{bundleName}' failed to load.");
+                return null;
+            }
+
+            if (_cts.IsCancellationRequested) return null;
+            var tcs = new TaskCompletionSource<T>();
+            CoroutineRunner.Instance.StartCoroutine(LoadAssetCoroutine(bundle, assetName, fuzzyAssetName, tcs, _cts.Token));
+
+            return await tcs.Task;
+        }
+
+        private static IEnumerator LoadAssetCoroutine<T>(AssetBundle bundle, string assetName, bool fuzzyAssetName, TaskCompletionSource<T> tcs, CancellationToken token) where T : UnityEngine.Object
+        {
+            if (token.IsCancellationRequested)
+            {
+                tcs.TrySetCanceled();
+                yield break;
+            }
+
+            if (fuzzyAssetName)
+            {
+                foreach (var fullPath in bundle.GetAllAssetNames())
+                {
+                    if (fullPath.Contains(assetName))
+                    {
+                        assetName = fullPath;
+                        break;
+                    }
+                }
+            }
+
+            AssetBundleRequest request = bundle.LoadAssetAsync<T>(assetName);
+            while (!request.isDone)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    tcs.TrySetCanceled();
+                    yield break;
+                }
+                yield return null;
+            }
+
+            if (request.asset == null)
+            {
+                Logger.LogError($"Asset '{assetName}' of type {typeof(T).Name} not found in bundle '{bundle.name}'.");
+                tcs.TrySetResult(null);
+            }
+            else
+            {
+                tcs.TrySetResult(request.asset as T);
+            }
+        }
+
         public static async Task UnloadAllBundles()
         {
             Logger.LogInfo("UnloadAllBundles...");

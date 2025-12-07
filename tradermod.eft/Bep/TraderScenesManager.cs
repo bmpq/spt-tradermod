@@ -45,9 +45,9 @@ namespace tarkin.tradermod.eft
         private Dictionary<string, DateTime> lastSeenTraderTimestamp = new Dictionary<string, DateTime>();
         TraderClass currentlyActiveTrader = null;
 
-        public TraderScenesManager(TraderDialogsDTO traderDialogsDTO)
+        public TraderScenesManager(DialogDataWrapper dialogData)
         {
-            dialogData = new DialogDataWrapper(traderDialogsDTO);
+            this.dialogData = dialogData;
         }
 
         public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)

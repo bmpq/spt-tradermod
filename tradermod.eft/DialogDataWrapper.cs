@@ -1,9 +1,5 @@
 ﻿using EFT.Dialogs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 #if SPT_4_0
 using DialogLineTemplate = GClass3666;
@@ -14,14 +10,15 @@ namespace tarkin.tradermod.eft
 {
     internal class DialogDataWrapper
     {
-        TraderDialogsDTO dto;
-
         Dictionary<string, DialogLineTemplate> mapLines;
+        Dictionary<string, string> subtitles;
 
         public DialogDataWrapper(TraderDialogsDTO dto)
         {
-            this.dto = dto;
             mapLines = new Dictionary<string, DialogLineTemplate>();
+            subtitles = new Dictionary<string, string>();
+
+            string locale = LocaleManagerClass.LocaleManagerClass.String_0;
 
             foreach (var tdt in dto.Elements)
             {
@@ -29,15 +26,29 @@ namespace tarkin.tradermod.eft
                 {
                     mapLines[line.Id] = line;
                 }
-                
+
+                if (tdt.LocalizationDictionary.TryGetValue(locale, out var subtitleDictionary))
+                {
+                    foreach (var kvp in subtitleDictionary)
+                    {
+                        subtitles[kvp.Key] = kvp.Value;
+                    }
+                }
             }
         }
 
         public DialogLineTemplate GetLine(string id)
         {
-            if (!mapLines.ContainsKey(id))
-                return null;
-            return mapLines[id];
+            mapLines.TryGetValue(id, out var line);
+            return line;
+        }
+
+        public string GetLocalizedSubtitle(string id)
+        {
+            if (subtitles.TryGetValue(id, out var subtitle))
+                return subtitle;
+
+            return string.Empty;
         }
     }
 }

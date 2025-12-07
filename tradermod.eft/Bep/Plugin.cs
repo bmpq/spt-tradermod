@@ -12,6 +12,7 @@ using tarkin.tradermod.bep.Patches;
 using tarkin.tradermod.bep.UI;
 using tarkin.tradermod.bep.UI.Quests;
 using tarkin.tradermod.bep.UI.Trading;
+using tarkin.tradermod.eft.Bep;
 using tarkin.tradermod.eft.Bep.Patches;
 using tarkin.tradermod.eft.Bep.UILayoutTweaks;
 using tarkin.tradermod.shared;
@@ -29,7 +30,9 @@ namespace tarkin.tradermod.eft
         internal static ConfigEntry<int> ResolutionWidth;
 
         private static TraderScenesManager _scenesManager;
-        private static TraderDialogsDTO traderDialogsDTO;
+        private static DialogDataWrapper dialogData;
+
+        private static SubtitlesManager _subtitlesManager;
 
         private void Start()
         {
@@ -54,10 +57,16 @@ namespace tarkin.tradermod.eft
 
             new Patch_NarrateController_Unload().Enable();
 
-            traderDialogsDTO = SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json")));
+            dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json"))));
 
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
                 GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Trade);
+
+            Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
+            {
+                if (_subtitlesManager == null)
+                    _subtitlesManager = new SubtitlesManager(dialogData);
+            };
 
             Patch_QuestsScreen_Show.OnPostfix += (trader) =>
                 GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Tasks);
@@ -68,6 +77,12 @@ namespace tarkin.tradermod.eft
                 {
                     _scenesManager.Dispose();
                     _scenesManager = null;
+                }
+
+                if (_subtitlesManager != null)
+                {
+                    _subtitlesManager.Dispose();
+                    _subtitlesManager = null;
                 }
             };
 
@@ -130,7 +145,7 @@ namespace tarkin.tradermod.eft
         private static TraderScenesManager GetOrCreateScenesManager()
         {
             if (_scenesManager == null)
-                _scenesManager = new TraderScenesManager(traderDialogsDTO);
+                _scenesManager = new TraderScenesManager(dialogData);
             return _scenesManager;
         }
 
