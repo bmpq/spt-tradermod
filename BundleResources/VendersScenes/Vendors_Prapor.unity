@@ -4810,13 +4810,13 @@ GameObject:
   - component: {fileID: 8545}
   - component: {fileID: 8549}
   - component: {fileID: 8521}
-  - component: {fileID: 8548}
   - component: {fileID: 8591}
   - component: {fileID: 8550}
   - component: {fileID: 8551}
   - component: {fileID: 8542}
   - component: {fileID: 8547}
   - component: {fileID: 8579}
+  - component: {fileID: 8592}
   m_Layer: 0
   m_Name: Vendor_Prapor
   m_TagString: Untagged
@@ -20229,28 +20229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speechSource: {fileID: 8216}
   _footstepAudioSource: {fileID: 0}
---- !u!114 &8548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd8df816ad2580e51c6c1db7a7167cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMesh: {fileID: 8275}
-  _eyeTargetFollower: {fileID: 0}
-  minDelayBetweenBlinking: 2
-  maxDelayBetweenBlinking: 5
-  minBlinkTime: 0.15
-  maxBlinkTime: 0.25
-  minTimeForClosedEyes: 0.03
-  maxTimeForClosedEyes: 0.05
-  leftEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkLeft
-  rightEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkRight
 --- !u!114 &8549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21531,6 +21509,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   json: 
+--- !u!114 &8592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2f645d7a960754bbcef4557b99194f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 8275}
+  blendShapeNames:
+  - ARKIT_Blendshapes.eyeBlinkLeft
+  - ARKIT_Blendshapes.eyeBlinkRight
+  minInterval: 2
+  maxInterval: 5
+  blinkDuration: 0.15
 --- !u!114 &8610
 MonoBehaviour:
   m_ObjectHideFlags: 0

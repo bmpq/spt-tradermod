@@ -1238,7 +1238,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7230}
   - component: {fileID: 11715}
-  - component: {fileID: 11762}
   m_Layer: 8
   m_Name: Head_FacialAnim
   m_TagString: Untagged
@@ -4759,11 +4758,11 @@ GameObject:
   - component: {fileID: 12127}
   - component: {fileID: 11879}
   - component: {fileID: 12143}
-  - component: {fileID: 11861}
   - component: {fileID: 13438}
   - component: {fileID: 11851}
   - component: {fileID: 11834}
   - component: {fileID: 12148}
+  - component: {fileID: 13439}
   m_Layer: 0
   m_Name: Jaeger_Model
   m_TagString: Untagged
@@ -43611,23 +43610,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 0}
   m_Enabled: 1
---- !u!114 &11762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36755ac6fd3d65f25843e07eaad70cc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lights:
-  - {fileID: 11713}
-  - {fileID: 11677}
-  - {fileID: 11674}
-  - {fileID: 11677}
 --- !u!114 &11764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46115,28 +46097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f74734ff396f473c1c3b95d346b61b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd8df816ad2580e51c6c1db7a7167cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMesh: {fileID: 11715}
-  _eyeTargetFollower: {fileID: 0}
-  minDelayBetweenBlinking: 2
-  maxDelayBetweenBlinking: 5
-  minBlinkTime: 0.15
-  maxBlinkTime: 0.25
-  minTimeForClosedEyes: 0.03
-  maxTimeForClosedEyes: 0.05
-  leftEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkLeft
-  rightEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkRight
 --- !u!114 &11862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50243,6 +50203,25 @@ MonoBehaviour:
       fadeInTime: 0
       fadeOutTime: 0
       spatialBlend: 0
+--- !u!114 &13439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2f645d7a960754bbcef4557b99194f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 11715}
+  blendShapeNames:
+  - ARKIT_Blendshapes.eyeBlinkLeft
+  - ARKIT_Blendshapes.eyeBlinkRight
+  minInterval: 2
+  maxInterval: 5
+  blinkDuration: 0.15
 --- !u!114 &13446
 MonoBehaviour:
   m_ObjectHideFlags: 0

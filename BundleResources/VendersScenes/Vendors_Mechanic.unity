@@ -3052,11 +3052,10 @@ GameObject:
   - component: {fileID: 9872}
   - component: {fileID: 10003}
   - component: {fileID: 9915}
-  - component: {fileID: 9972}
   - component: {fileID: 10006}
   - component: {fileID: 9965}
-  - component: {fileID: 9894}
   - component: {fileID: 9942}
+  - component: {fileID: 10007}
   m_Layer: 0
   m_Name: Mechanic_model
   m_TagString: Untagged
@@ -18751,28 +18750,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _metaXRAudioSource: {fileID: 9987}
   _metaXRAudioSourceExperimental: {fileID: 9907}
---- !u!114 &9894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd8df816ad2580e51c6c1db7a7167cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMesh: {fileID: 9731}
-  _eyeTargetFollower: {fileID: 0}
-  minDelayBetweenBlinking: 2
-  maxDelayBetweenBlinking: 5
-  minBlinkTime: 0.15
-  maxBlinkTime: 0.25
-  minTimeForClosedEyes: 0.03
-  maxTimeForClosedEyes: 0.05
-  leftEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkLeft
-  rightEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkRight
 --- !u!114 &9907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18959,22 +18936,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speechSource: {fileID: 9667}
   _footstepAudioSource: {fileID: 0}
---- !u!114 &9972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e334152b3b52bf3e9abfca2ee6847304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animationsEventReceiver: {fileID: 9915}
-  _transformForPlaySounds: {fileID: 6054}
-  _audioConfigDictionary: {fileID: 10006}
-  _mixerGroup: {fileID: 24300554, guid: 91f140ece31583744b866c03b6fbaab2, type: 2}
 --- !u!114 &9978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21092,6 +21053,25 @@ MonoBehaviour:
       fadeInTime: 0
       fadeOutTime: 0
       spatialBlend: 0
+--- !u!114 &10007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2f645d7a960754bbcef4557b99194f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 9731}
+  blendShapeNames:
+  - ARKIT_Blendshapes.eyeBlinkLeft
+  - ARKIT_Blendshapes.eyeBlinkRight
+  minInterval: 2
+  maxInterval: 5
+  blinkDuration: 0.15
 --- !u!114 &10164
 MonoBehaviour:
   m_ObjectHideFlags: 0

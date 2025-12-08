@@ -2009,11 +2009,11 @@ GameObject:
   - component: {fileID: 4367}
   - component: {fileID: 4392}
   - component: {fileID: 4337}
-  - component: {fileID: 4373}
   - component: {fileID: 4393}
   - component: {fileID: 4350}
   - component: {fileID: 4323}
   - component: {fileID: 4390}
+  - component: {fileID: 4394}
   m_Layer: 0
   m_Name: skier_model
   m_TagString: Untagged
@@ -16226,28 +16226,6 @@ MonoBehaviour:
   frontMaterial: 26
   backMaterial: 26
   clutterFactor: 0.3
---- !u!114 &4373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd8df816ad2580e51c6c1db7a7167cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _headMesh: {fileID: 4269}
-  _eyeTargetFollower: {fileID: 0}
-  minDelayBetweenBlinking: 2
-  maxDelayBetweenBlinking: 5
-  minBlinkTime: 0.15
-  maxBlinkTime: 0.25
-  minTimeForClosedEyes: 0.03
-  maxTimeForClosedEyes: 0.05
-  leftEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkLeft
-  rightEyeBlinkShape: ARKIT_Blendshapes.eyeBlinkRight
 --- !u!114 &4374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16856,6 +16834,25 @@ MonoBehaviour:
       fadeInTime: 0
       fadeOutTime: 0
       spatialBlend: 0
+--- !u!114 &4394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2f645d7a960754bbcef4557b99194f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinnedMeshRenderer: {fileID: 4269}
+  blendShapeNames:
+  - ARKIT_Blendshapes.eyeBlinkLeft
+  - ARKIT_Blendshapes.eyeBlinkRight
+  minInterval: 2
+  maxInterval: 5
+  blinkDuration: 0.15
 --- !u!114 &4395
 MonoBehaviour:
   m_ObjectHideFlags: 0
