@@ -39,7 +39,11 @@ namespace tarkin.tradermod.eft
             Log = base.Logger;
             var prewarm = typeof(TraderScene);
 
+            // main menu controller, respawned every raid end
             new Patch_MenuUI_Awake().Enable();
+
+            // menu/pause screen, persistent through the entire game
+            new Patch_MenuScreen_Show().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();
 
@@ -72,6 +76,8 @@ namespace tarkin.tradermod.eft
 
             Patch_QuestsScreen_Show.OnPostfix += (trader) =>
                 GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Tasks);
+
+            Patch_MenuScreen_Show.OnPostfix += () => _scenesManager?.Close();
 
             Patch_NarrateController_Unload.OnPostfix += () =>
             {

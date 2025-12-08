@@ -66,10 +66,16 @@ namespace tarkin.tradermod.eft
             catch (Exception ex)
             {
                 _logger.LogError($"Error switching trader scene: {ex}");
-                SetMainMenuBGVisible(true);
-
-                FadeToBlack(false);
+                Close();
             }
+        }
+
+        public void Close()
+        {
+            ManageSceneVisibility(null);
+            currentlyActiveTrader = null;
+            FadeToBlack(false);
+            SetMainMenuBGVisible(true);
         }
 
         Task FadeToBlack(bool blackScreen)
@@ -146,7 +152,7 @@ namespace tarkin.tradermod.eft
             if (loadHandle == null)
             {
                 await fadeTask;
-                SetMainMenuBGVisible(true);
+                Close();
                 return;
             }
 
@@ -165,7 +171,7 @@ namespace tarkin.tradermod.eft
             if (!scene.IsValid() || traderScene == null)
             {
                 SceneManager.UnloadSceneAsync(scene);
-                SetMainMenuBGVisible(true);
+                Close();
                 return;
             }
 
@@ -211,7 +217,8 @@ namespace tarkin.tradermod.eft
                 switch (interaction)
                 {
                     case ETraderInteraction.Visit:
-                        dialogs = traderScene.GetDialogsGreetings();
+                        if (ShouldPlayGreeting(trader.Id))
+                            dialogs = traderScene.GetDialogsGreetings();
                         break;
                     case ETraderInteraction.QuestAvailable:
                         dialogs = traderScene.GetDialogsQuestAvailable();
@@ -252,9 +259,12 @@ namespace tarkin.tradermod.eft
 
         private void ManageSceneVisibility(TraderScene targetSceneVisible)
         {
-            foreach (var rootGo in targetSceneVisible.gameObject.scene.GetRootGameObjects())
+            if (targetSceneVisible != null)
             {
-                rootGo.SetActive(true);
+                foreach (var rootGo in targetSceneVisible.gameObject.scene.GetRootGameObjects())
+                {
+                    rootGo.SetActive(true);
+                }
             }
 
             foreach (var kvp in _openedScenes)
