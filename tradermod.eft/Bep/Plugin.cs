@@ -39,7 +39,7 @@ namespace tarkin.tradermod.eft
             Log = base.Logger;
             var prewarm = typeof(TraderScene);
 
-            new Patch_MenuScreen_Awake().Enable();
+            new Patch_MenuUI_Awake().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();
 
@@ -62,10 +62,12 @@ namespace tarkin.tradermod.eft
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
                 GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Trade);
 
-            Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
+            Patch_MenuUI_Awake.OnPostfix += () =>
             {
                 if (_subtitlesManager == null)
                     _subtitlesManager = new SubtitlesManager(dialogData);
+
+                TraderBundleManager.EnsureDependencyBundlesAreLoaded();
             };
 
             Patch_QuestsScreen_Show.OnPostfix += (trader) =>

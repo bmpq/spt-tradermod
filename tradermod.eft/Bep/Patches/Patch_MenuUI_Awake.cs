@@ -1,29 +1,32 @@
-﻿using EFT;
-using EFT.UI;
+﻿using EFT.UI;
 using HarmonyLib;
 using SPT.Reflection.Patching;
 using System;
 using System.Reflection;
+using tarkin.tradermod.eft;
 
 namespace tarkin.tradermod.bep.Patches
 {
-    internal class Patch_MenuScreen_Awake : ModulePatch
+    internal class Patch_MenuUI_Awake : ModulePatch
     {
         public static event Action OnPostfix;
 
         protected override MethodBase GetTargetMethod()
         {
-            return AccessTools.Method(typeof(MenuScreen), nameof(MenuScreen.Awake));
+            return AccessTools.Method(typeof(MenuUI), nameof(MenuUI.Awake));
         }
 
         [PatchPostfix]
-        private static void PatchPostfix(MenuScreen __instance)
+        private static void PatchPostfix(MenuUI __instance)
         {
             try
             {
                 OnPostfix?.Invoke();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Plugin.Log.LogError(ex);
+            }
         }
     }
 }

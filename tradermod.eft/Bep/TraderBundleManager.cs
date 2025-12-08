@@ -70,7 +70,7 @@ namespace tarkin.tradermod.bep
             }
         }
 
-        private static async Task EnsureDependencyBundlesAreLoaded()
+        public static async Task EnsureDependencyBundlesAreLoaded()
         {
             foreach (var depName in DependencyBundles)
             {
@@ -80,6 +80,10 @@ namespace tarkin.tradermod.bep
 
         public static Task<AssetBundle> LoadAssetBundleAsync(string bundleName)
         {
+#if DEBUG
+            Logger.LogWarning($"Requesting bundle load: {bundleName}");
+#endif
+
             if (_loadedAssetBundles.TryGetValue(bundleName, out AssetBundle cachedBundle) && cachedBundle != null)
                 return Task.FromResult(cachedBundle);
 
@@ -112,6 +116,10 @@ namespace tarkin.tradermod.bep
                     yield break;
                 }
 
+#if DEBUG
+                System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
+#endif
+
                 AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(fullPath);
 
                 // Wait for load, checking cancellation
@@ -140,6 +148,12 @@ namespace tarkin.tradermod.bep
                     else
                     {
                         _loadedAssetBundles[bundleName] = request.assetBundle;
+
+#if DEBUG
+                        sw.Stop();
+                        Logger.LogWarning($"[Load Time] '{bundleName}' loaded in {sw.ElapsedMilliseconds} ms");
+#endif
+
                         tcs.TrySetResult(request.assetBundle);
                     }
                 }
