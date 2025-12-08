@@ -431,7 +431,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7481}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_cylinder_crane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,9 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7899}
   - component: {fileID: 11754}
-  - component: {fileID: 11859}
-  - component: {fileID: 12142}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: handguard_mc255_ckib_255_std_wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -556,7 +554,7 @@ GameObject:
   - component: {fileID: 11320}
   - component: {fileID: 9293}
   - component: {fileID: 11881}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: hammer_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7905}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_R_hand_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7501}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: Bend_Goal_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7106}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: prop_bone_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6993}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,7 +703,7 @@ GameObject:
   - component: {fileID: 11313}
   - component: {fileID: 9383}
   - component: {fileID: 12147}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mag_mc255_ckib_mc255_cylinder_std_12g_5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +751,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6703}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: fireport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -869,8 +867,7 @@ GameObject:
   - component: {fileID: 11308}
   - component: {fileID: 9321}
   - component: {fileID: 11651}
-  - component: {fileID: 13457}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: handguard_mc255_ckib_255_std_wood_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +886,7 @@ GameObject:
   - component: {fileID: 11630}
   - component: {fileID: 9778}
   - component: {fileID: 11650}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: stock_mc255_ckib_255_std_wood_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +921,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7535}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_L_IK_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +954,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7411}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: aim_camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -995,7 +992,7 @@ GameObject:
   - component: {fileID: 11285}
   - component: {fileID: 9762}
   - component: {fileID: 11796}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_ckib_mc_255_12g_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,7 +1024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7900}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_mount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7163}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: patron_in_weapon_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1123,7 +1120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7913}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_cylinder_extractor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1155,7 +1152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7863}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1289,7 +1286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7168}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: prop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,9 +1336,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7400}
   - component: {fileID: 11755}
-  - component: {fileID: 11768}
   - component: {fileID: 11797}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mag_mc255_ckib_mc255_cylinder_std_12g_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1423,7 +1419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7045}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_cylinder_release
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2085,7 +2081,7 @@ GameObject:
   - component: {fileID: 12159}
   - component: {fileID: 11836}
   - component: {fileID: 11878}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: muzzleflash_000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2133,7 +2129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7021}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_align_rear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2182,7 +2178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7105}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_cylinder_extractor_helper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2198,7 +2194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7563}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2214,7 +2210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7298}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_mount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2279,9 +2275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6974}
   - component: {fileID: 11753}
-  - component: {fileID: 12153}
-  - component: {fileID: 12129}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: barrel_mc255_755mm_12g
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2315,7 +2309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7030}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: shellport_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2334,7 +2328,7 @@ GameObject:
   - component: {fileID: 11319}
   - component: {fileID: 9346}
   - component: {fileID: 11883}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: stock_mc255_ckib_255_std_wood_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2400,7 +2394,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7037}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_vest_IK_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2450,9 +2444,8 @@ GameObject:
   - component: {fileID: 7343}
   - component: {fileID: 11192}
   - component: {fileID: 9782}
-  - component: {fileID: 13455}
   - component: {fileID: 11847}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: handguard_mc255_ckib_255_std_wood_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2486,7 +2479,7 @@ GameObject:
   - component: {fileID: 7028}
   - component: {fileID: 11680}
   - component: {fileID: 11853}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: Muzzle Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2553,7 +2546,7 @@ GameObject:
   - component: {fileID: 11219}
   - component: {fileID: 9326}
   - component: {fileID: 11811}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: hammer_safety_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2601,7 +2594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7217}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_R_IK_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2639,7 +2632,7 @@ GameObject:
   - component: {fileID: 11586}
   - component: {fileID: 9325}
   - component: {fileID: 11860}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: trigger_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2687,7 +2680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7337}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: shellport_004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2754,7 +2747,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6976}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: patron_in_weapon_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2853,7 +2846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7925}
   - component: {fileID: 11876}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: extractor_smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2919,7 +2912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7062}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_magazine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2985,9 +2978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7104}
   - component: {fileID: 11752}
-  - component: {fileID: 11813}
-  - component: {fileID: 12154}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: stock_mc255_ckib_255_std_wood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3090,7 +3081,7 @@ GameObject:
   - component: {fileID: 11210}
   - component: {fileID: 9744}
   - component: {fileID: 11800}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: cylinder_extractor_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3139,7 +3130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7077}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3336,7 +3327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6977}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: patron_in_weapon_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3400,7 +3391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7918}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: shellport_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3432,7 +3423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7860}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: shellport_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4536,9 +4527,8 @@ GameObject:
   - component: {fileID: 7357}
   - component: {fileID: 11592}
   - component: {fileID: 9771}
-  - component: {fileID: 13456}
   - component: {fileID: 11815}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: barrel_mc255_755mm_12g_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4570,7 +4560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7851}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: patron_in_weapon_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4634,7 +4624,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7256}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: patron_in_weapon_004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4698,7 +4688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7528}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_RCollarbone_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4782,7 +4772,7 @@ GameObject:
   - component: {fileID: 11634}
   - component: {fileID: 9394}
   - component: {fileID: 11863}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: cylinder_crane_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5012,7 +5002,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7824}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: Bend_Goal_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5062,7 +5052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7349}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_handguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5110,7 +5100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7191}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_L_hand_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5126,7 +5116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7351}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_align_front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5289,7 +5279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7416}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: prop_bone_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5308,7 +5298,7 @@ GameObject:
   - component: {fileID: 11271}
   - component: {fileID: 9412}
   - component: {fileID: 11801}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: cylinder_release_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5388,7 +5378,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7127}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5404,7 +5394,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7250}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: shellport_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5439,7 +5429,7 @@ GameObject:
   - component: {fileID: 11082}
   - component: {fileID: 9479}
   - component: {fileID: 12128}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: cylinder_crane_extractor_helper_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5455,7 +5445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6990}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: mod_muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5471,7 +5461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7010}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_hammer_safety
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5487,7 +5477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7477}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: weapon_LCollarbone_marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5503,7 +5493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6971}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: smokeport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15116,7 +15106,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.27
+  m_AmbientIntensity: 1.13
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.41960785, g: 0.5125755, b: 0.627451, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: af5d1212a3179d343b159c90832e658a, type: 2}
@@ -43633,31 +43623,6 @@ MonoBehaviour:
   frontMaterial: 26
   backMaterial: 26
   clutterFactor: 0.3
---- !u!114 &11768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c113f52446984807af141fb5b2328761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivotPosition: {x: -0.0002912134, y: -0.000014744699, z: -0.042943552}
-  pivotRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  scale: {x: 1, y: 1, z: 1}
-  SpawnPosition: {x: 0, y: 0, z: 0}
-  Icon:
-    position: {x: 0, y: 0, z: 0}
-    hasOffset: 0
-    rotation: {x: 0.00000016811607, y: 0.8433914, z: -0.00000010710176, w: -0.53729963}
-    boundsScale: 0.9
-    perspective: 15
-    orthographic: 0
-    orthographicSize: 10
-    overrideIcon: {fileID: 0}
 --- !u!114 &11796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44094,31 +44059,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   _useCustomSpreadCurve: 0
   _loopClip: {fileID: 8300000, guid: 7157d05f6e83872439ce9afb8e80437d, type: 3}
---- !u!114 &11813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c113f52446984807af141fb5b2328761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivotPosition: {x: -0.0010082573, y: -0.054967493, z: -0.1422821}
-  pivotRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  scale: {x: 1, y: 1, z: 1}
-  SpawnPosition: {x: 0, y: 0, z: 0}
-  Icon:
-    position: {x: -0.15, y: 0.019, z: -0.055}
-    hasOffset: 0
-    rotation: {x: 0, y: 0.8433914, z: 0, w: -0.53729963}
-    boundsScale: 0.9
-    perspective: 15
-    orthographic: 0
-    orthographicSize: 10
-    overrideIcon: {fileID: 0}
 --- !u!114 &11814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46060,31 +46000,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &11859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c113f52446984807af141fb5b2328761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivotPosition: {x: 0.00016727671, y: 0.0020929836, z: 0.02323524}
-  pivotRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  scale: {x: 1, y: 1, z: 1}
-  SpawnPosition: {x: 0, y: 0, z: 0}
-  Icon:
-    position: {x: 0, y: 0, z: 0}
-    hasOffset: 0
-    rotation: {x: -0.00000046888238, y: 0.8433914, z: -0.00000073599784, w: -0.53729963}
-    boundsScale: 0.9
-    perspective: 15
-    orthographic: 0
-    orthographicSize: 10
-    overrideIcon: {fileID: 0}
 --- !u!114 &11860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47152,26 +47067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f74734ff396f473c1c3b95d346b61b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &12129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921b3cec9d0c1862dde716cdc8c865b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PoolHistory: []
-  Colliders:
-  - {fileID: 0}
-  Renderers:
-  - {fileID: 9771}
-  - {fileID: 0}
-  _originallyEnabledComponents: []
-  RegisteredComponentsToClean: []
 --- !u!114 &12141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47283,26 +47178,6 @@ MonoBehaviour:
   _seasonRandomTimeRange:
     _keys: []
     _values: []
---- !u!114 &12142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921b3cec9d0c1862dde716cdc8c865b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PoolHistory: []
-  Colliders:
-  - {fileID: 11651}
-  Renderers:
-  - {fileID: 9782}
-  - {fileID: 9321}
-  _originallyEnabledComponents: []
-  RegisteredComponentsToClean: []
 --- !u!114 &12143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47670,51 +47545,6 @@ MonoBehaviour:
   _enabledReverb: 1
   _fadeInTime: 1
   _fadeOutTime: 1
---- !u!114 &12153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c113f52446984807af141fb5b2328761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivotPosition: {x: 0.00000017136335, y: 0.00020293146, z: 0.25355697}
-  pivotRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  scale: {x: 1, y: 1, z: 1}
-  SpawnPosition: {x: 0, y: 0, z: 0}
-  Icon:
-    position: {x: 0.389, y: -0.01839, z: 0.16}
-    hasOffset: 0
-    rotation: {x: 0, y: 0.8433914, z: 0, w: -0.53729963}
-    boundsScale: 0.9
-    perspective: 15
-    orthographic: 0
-    orthographicSize: 10
-    overrideIcon: {fileID: 0}
---- !u!114 &12154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 921b3cec9d0c1862dde716cdc8c865b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PoolHistory: []
-  Colliders:
-  - {fileID: 11650}
-  Renderers:
-  - {fileID: 9346}
-  - {fileID: 9778}
-  _originallyEnabledComponents: []
-  RegisteredComponentsToClean: []
 --- !u!114 &12155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50808,297 +50638,6 @@ MonoBehaviour:
     _minAlpha: 1
     _maxAlpha: 1
     _texId: 0
---- !u!114 &13455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c15278c06981d6baa84dc086e44622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsApplyAllMaterials: 1
-  Temperature: {x: 0.1, y: 1, z: 1}
-  TemperatureCelsio: 30
-  materialsId: 
-  HeatBounds:
-    m_Center: {x: 0, y: -0.2707081, z: 0}
-    m_Extent: {x: 0.015, y: 0.13535406, z: 0.015}
-  VisibleHeatAlpha: 0
-  UseHeatHaze: 0
-  HeatHazeBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.009, y: 0.03, z: 0.009}
-  HeatParticleLifetimeDelta: {x: 0.3, y: 0.5}
-  HeatParticleCountByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  HeatParticleLifeTimeByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.15
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  HeatParticleSizeByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.01
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.14
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &13456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c15278c06981d6baa84dc086e44622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsApplyAllMaterials: 1
-  Temperature: {x: 0.1, y: 1, z: 1}
-  TemperatureCelsio: 30
-  materialsId: 
-  HeatBounds:
-    m_Center: {x: -0.000002861023, y: -0.564263, z: 0.000022411346}
-    m_Extent: {x: 0.0075, y: 0.23302914, z: 0.0075}
-  VisibleHeatAlpha: 1
-  UseHeatHaze: 1
-  HeatHazeBounds:
-    m_Center: {x: -0.000002861023, y: -0.564263, z: 0.000022411346}
-    m_Extent: {x: 0.009, y: 0.04, z: 0.009}
-  HeatParticleLifetimeDelta: {x: 0.3, y: 0.5}
-  HeatParticleCountByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  HeatParticleLifeTimeByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.15
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  HeatParticleSizeByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.01
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.14
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &13457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42c15278c06981d6baa84dc086e44622, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsApplyAllMaterials: 1
-  Temperature: {x: 0.1, y: 1, z: 1}
-  TemperatureCelsio: 30
-  materialsId: 
-  HeatBounds:
-    m_Center: {x: 0, y: -0.27033103, z: 0}
-    m_Extent: {x: 0.015, y: 0.13516551, z: 0.015}
-  VisibleHeatAlpha: 0
-  UseHeatHaze: 0
-  HeatHazeBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.009, y: 0.03, z: 0.009}
-  HeatParticleLifetimeDelta: {x: 0.3, y: 0.5}
-  HeatParticleCountByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 20
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  HeatParticleLifeTimeByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.15
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  HeatParticleSizeByTemp:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.01
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0.14
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1001 &633262081
 PrefabInstance:
   m_ObjectHideFlags: 0
