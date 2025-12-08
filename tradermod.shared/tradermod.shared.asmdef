@@ -2,7 +2,8 @@
     "name": "tradermod.shared",
     "rootNamespace": "tarkin.tradermod.shared",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:d444a9c79d21fec4181e6e12dc2e9706"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
