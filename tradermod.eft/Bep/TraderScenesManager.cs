@@ -45,6 +45,8 @@ namespace tarkin.tradermod.eft
         private Dictionary<string, DateTime> lastSeenTraderTimestamp = new Dictionary<string, DateTime>();
         TraderClass currentlyActiveTrader = null;
 
+        private Task _activeSwitchTask;
+
         public TraderScenesManager(DialogDataWrapper dialogData)
         {
             this.dialogData = dialogData;
@@ -61,7 +63,8 @@ namespace tarkin.tradermod.eft
             {
                 await SwitchToTrader(trader);
 
-                Interact(trader, ETraderInteraction.Visit);
+                if (mode == TraderScreensGroup.ETraderMode.Trade)
+                    Interact(trader, ETraderInteraction.Visit);
             }
             catch (Exception ex)
             {
@@ -146,6 +149,18 @@ namespace tarkin.tradermod.eft
 
         private async Task SwitchToTrader(TraderClass trader)
         {
+            if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted && _requestedTraderId == trader.Id)
+            {
+                await _activeSwitchTask;
+                return;
+            }
+
+            _activeSwitchTask = SwitchToTraderInternal(trader);
+            await _activeSwitchTask;
+        }
+
+        private async Task SwitchToTraderInternal(TraderClass trader)
+        {
             Task fadeTask = FadeToBlack(true);
             var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(trader.Id);
 
@@ -196,6 +211,9 @@ namespace tarkin.tradermod.eft
                 if (string.IsNullOrEmpty(traderId))
                     return false;
 
+#if DEBUG
+                return true;
+#endif
                 if (!lastSeenTraderTimestamp.TryGetValue(traderId, out DateTime lastTime))
                     return true; // first visit
 
@@ -206,10 +224,18 @@ namespace tarkin.tradermod.eft
             if (trader == null)
                 return;
 
-            if (!_openedScenes.TryGetValue(trader.Id, out TraderScene traderScene))
+            if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted)
+            {
+                await _activeSwitchTask;
+            }
+
+            if (currentlyActiveTrader?.Id != trader.Id)
             {
                 await SwitchToTrader(trader);
             }
+
+            if (!_openedScenes.TryGetValue(trader.Id, out TraderScene traderScene))
+                return;
 
             CombinedAnimationData GetAnimation()
             {
