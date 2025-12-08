@@ -129,13 +129,13 @@ namespace tarkin.tradermod.eft
 
                 if (counterFailed > 0)
                 {
-                    GetOrCreateScenesManager().Interact(trader, ETraderInteraction.QuestFailed);
+                    GetOrCreateScenesManager().Interact(trader, ETraderDialogType.QuestFailed);
                     return;
                 }
 
                 if (counterAvailableToStart > 0)
                 {
-                    GetOrCreateScenesManager().Interact(trader, ETraderInteraction.QuestAvailable);
+                    GetOrCreateScenesManager().Interact(trader, ETraderDialogType.QuestAvailable);
                     return;
                 }
 
@@ -144,7 +144,7 @@ namespace tarkin.tradermod.eft
                     return;
                 }
 
-                GetOrCreateScenesManager().Interact(trader, ETraderInteraction.QuestNoJob);
+                GetOrCreateScenesManager().Interact(trader, ETraderDialogType.NoJob);
             };
 
             InitConfiguration();

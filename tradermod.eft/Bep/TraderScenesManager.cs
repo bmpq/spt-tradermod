@@ -64,7 +64,7 @@ namespace tarkin.tradermod.eft
                 await SwitchToTrader(trader);
 
                 if (mode == TraderScreensGroup.ETraderMode.Trade)
-                    Interact(trader, ETraderInteraction.Visit);
+                    Interact(trader, ETraderDialogType.Greetings);
             }
             catch (Exception ex)
             {
@@ -204,7 +204,7 @@ namespace tarkin.tradermod.eft
             FadeToBlack(false);
         }
 
-        public async Task Interact(TraderClass trader, ETraderInteraction interaction)
+        public async Task Interact(TraderClass trader, ETraderDialogType interaction)
         {
             bool ShouldPlayGreeting(string traderId)
             {
@@ -239,23 +239,11 @@ namespace tarkin.tradermod.eft
 
             CombinedAnimationData GetAnimation()
             {
-                List<string> dialogs = null;
-                switch (interaction)
-                {
-                    case ETraderInteraction.Visit:
-                        if (ShouldPlayGreeting(trader.Id))
-                            dialogs = traderScene.GetDialogsGreetings();
-                        break;
-                    case ETraderInteraction.QuestAvailable:
-                        dialogs = traderScene.GetDialogsQuestAvailable();
-                        break;
-                    case ETraderInteraction.QuestFailed:
-                        dialogs = traderScene.GetDialogsQuestFailed();
-                        break;
-                    case ETraderInteraction.QuestNoJob:
-                        dialogs = traderScene.GetDialogsNoJob();
-                        break;
-                }
+                if (interaction == ETraderDialogType.Greetings && !ShouldPlayGreeting(trader.Id)) 
+                    return null;
+
+                List<string> dialogs = traderScene.GetDialogs(interaction);
+
                 if (dialogs != null && dialogs.Count > 0)
                 {
                     string randomId = dialogs[UnityEngine.Random.Range(0, dialogs.Count)];

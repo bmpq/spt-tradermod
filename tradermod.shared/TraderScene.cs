@@ -1,37 +1,52 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace tarkin.tradermod.shared
 {
-    public class TraderScene : MonoBehaviour
+    public enum ETraderDialogType
+    {
+        Greetings,
+        Goodbyes,
+        Chatter,
+        QuestAvailable,
+        QuestFailed,
+        GreetingsWhileWork,
+        NoJob,
+        TradeStart,
+        Handover,
+        Dunno,
+        QuestStart
+    }
+
+    public class TraderScene : SerializedMonoBehaviour
     {
         [SerializeField] private Transform cameraPoint;
         public Transform CameraPoint => cameraPoint;
 
         [SerializeField] private Renderer[] allRenderers;
         public Renderer[] AllRenderers => allRenderers;
+
         [SerializeField] private Animator traderGameObject;
         public Animator TraderGameObject => traderGameObject;
 
         [SerializeField] private string traderId;
         public string TraderId => traderId;
 
-        [SerializeField] private List<string> DialogCombinedAnimGreetings;
-        [SerializeField] private List<string> DialogCombinedAnimGoodbye;
-        [SerializeField] private List<string> DialogCombinedAnimChatter;
-        [SerializeField] private List<string> DialogCombinedAnimQuestAvailable;
-        [SerializeField] private List<string> DialogCombinedAnimQuestFailed;
-        [SerializeField] private List<string> DialogCombinedAnimGreetingsWhileWork;
-        [SerializeField] private List<string> DialogCombinedAnimNoJob;
-        [SerializeField] private List<string> DialogCombinedAnimTradeStart;
-        [SerializeField] private List<string> DialogCombinedAnimHandover;
-        [SerializeField] private List<string> DialogCombinedAnimDunno;
+        [SerializeField]
+        [DictionaryDrawerSettings(KeyLabel = "Type", ValueLabel = "Dialog IDs")]
+        private Dictionary<ETraderDialogType, List<string>> _dialogs = new Dictionary<ETraderDialogType, List<string>>();
 
-        public List<string> GetDialogsGreetings() => DialogCombinedAnimGreetings;
-        public List<string> GetDialogsQuestAvailable() => DialogCombinedAnimQuestAvailable;
-        public List<string> GetDialogsNoJob() => DialogCombinedAnimNoJob;
-        public List<string> GetDialogsQuestFailed() => DialogCombinedAnimQuestFailed;
+        public Dictionary<ETraderDialogType, List<string>> Dialogs => _dialogs;
+
+        public List<string> GetDialogs(ETraderDialogType type)
+        {
+            if (_dialogs.TryGetValue(type, out var list))
+            {
+                return list;
+            }
+            return null;
+        }
 
 #if UNITY_EDITOR
         private void OnValidate()

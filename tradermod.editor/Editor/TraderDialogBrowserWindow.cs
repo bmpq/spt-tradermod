@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,19 +27,8 @@ namespace tarkin.tradermod.Editor
         private string _searchFilter = "";
         private Vector2 _scrollPosAvailable;
         private Vector2 _scrollPosSelected;
-        private int _selectedTab = 0;
-        private readonly string[] _tabs = { 
-            "Greetings", 
-            "Goodbyes", 
-            "Chatter", 
-            "QuestAvailable", 
-            "QuestFailed", 
-            "GreetingsWhileWork", 
-            "NoJob", 
-            "TradeStart",
-            "Handover", 
-            "Dunno"
-        };
+
+        private ETraderDialogType _selectedTabType = ETraderDialogType.Greetings;
 
         [MenuItem("Tools/TraderMod/Trader Dialog Browser")]
         public static void ShowWindow()
@@ -50,6 +40,11 @@ namespace tarkin.tradermod.Editor
         {
             DrawTargetSelection();
 
+            if (_targetScript == null) return;
+
+            if (_serializedObject == null || _serializedObject.targetObject == null)
+                _serializedObject = new SerializedObject(_targetScript);
+
             _serializedObject.Update();
 
             SerializedProperty traderIdProp = _serializedObject.FindProperty("traderId");
@@ -59,14 +54,26 @@ namespace tarkin.tradermod.Editor
             }
 
             GUILayout.Space(10);
-            _selectedTab = GUILayout.Toolbar(_selectedTab, _tabs);
+            DrawEnumToolbar();
 
-            SerializedProperty activeListProp = GetActiveListProperty();
+            if (!_targetScript.Dialogs.ContainsKey(_selectedTabType))
+            {
+                _targetScript.Dialogs[_selectedTabType] = new List<string>();
+            }
+            List<string> activeList = _targetScript.Dialogs[_selectedTabType];
 
             GUILayout.Space(10);
-            DrawContentArea(activeListProp);
+            DrawContentArea(activeList);
 
             _serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawEnumToolbar()
+        {
+            string[] names = Enum.GetNames(typeof(ETraderDialogType));
+            int currentIndex = (int)_selectedTabType;
+            int newIndex = GUILayout.SelectionGrid(currentIndex, names, 5);
+            _selectedTabType = (ETraderDialogType)newIndex;
         }
 
         private void DrawTargetSelection()
@@ -79,22 +86,24 @@ namespace tarkin.tradermod.Editor
             if (EditorGUI.EndChangeCheck() && _targetScript != null)
             {
                 _serializedObject = new SerializedObject(_targetScript);
-                SerializedProperty traderIdProp = _serializedObject.FindProperty("TraderId");
+                SerializedProperty traderIdProp = _serializedObject.FindProperty("traderId");
                 ReloadData(traderIdProp.stringValue);
             }
 
             if (GUILayout.Button("Refresh Data", EditorStyles.toolbarButton, GUILayout.Width(80)))
             {
                 _targetScript = FindFirstObjectByType<TraderScene>();
-                _serializedObject = new SerializedObject(_targetScript);
-                _cachedTraderId = null;
-                if (_serializedObject != null)
-                    ReloadData(_serializedObject.FindProperty("TraderId").stringValue);
+                if (_targetScript != null)
+                {
+                    _serializedObject = new SerializedObject(_targetScript);
+                    _cachedTraderId = null;
+                    ReloadData(_serializedObject.FindProperty("traderId").stringValue);
+                }
             }
             GUILayout.EndHorizontal();
         }
 
-        private void DrawContentArea(SerializedProperty activeList)
+        private void DrawContentArea(List<string> activeList)
         {
             GUILayout.BeginHorizontal();
 
@@ -112,7 +121,7 @@ namespace tarkin.tradermod.Editor
 
             if (_allDialogs.Count == 0)
             {
-                GUILayout.Label("No dialogs found for this TraderId.");
+                GUILayout.Label("No dialogs found.");
             }
             else
             {
@@ -121,7 +130,8 @@ namespace tarkin.tradermod.Editor
                     if (!string.IsNullOrEmpty(_searchFilter))
                     {
                         if (!entry.Text.ToLower().Contains(_searchFilter.ToLower()) &&
-                            !entry.Id.Contains(_searchFilter))
+                            !entry.Id.Contains(_searchFilter) &&
+                            !entry.LipsyncKey.ToLower().Contains(_searchFilter.ToLower()))
                             continue;
                     }
 
@@ -136,19 +146,8 @@ namespace tarkin.tradermod.Editor
                     EditorGUILayout.SelectableLabel(entry.Id, EditorStyles.textArea, GUILayout.Width(185), GUILayout.Height(20));
                     EditorGUILayout.EndHorizontal();
 
-                    EditorGUILayout.BeginVertical();
-                    {
-                        var style = EditorStyles.label;
-                        style.wordWrap = true;
-                        var content = new GUIContent(entry.Text);
-
-                        GUILayout.Label(content, style, GUILayout.ExpandHeight(true));
-                    }
-                    {
-                        GUILayout.Label(entry.LipsyncKey, EditorStyles.miniLabel);
-                    }
-                    EditorGUILayout.EndVertical();
-
+                    GUILayout.Label(entry.Text, EditorStyles.wordWrappedLabel);
+                    GUILayout.Label(entry.LipsyncKey, EditorStyles.miniLabel);
                     EditorGUILayout.EndVertical();
                 }
             }
@@ -158,15 +157,13 @@ namespace tarkin.tradermod.Editor
 
             GUILayout.BeginVertical(EditorStyles.helpBox);
             {
-                GUILayout.Label($"Current List: {_tabs[_selectedTab]} ({activeList.arraySize})", EditorStyles.boldLabel);
+                GUILayout.Label($"Current List: {_selectedTabType} ({activeList.Count})", EditorStyles.boldLabel);
 
                 _scrollPosSelected = GUILayout.BeginScrollView(_scrollPosSelected);
 
-                for (int i = 0; i < activeList.arraySize; i++)
+                for (int i = 0; i < activeList.Count; i++)
                 {
-                    SerializedProperty element = activeList.GetArrayElementAtIndex(i);
-                    string currentId = element.stringValue;
-
+                    string currentId = activeList[i];
                     var cached = _allDialogs.FirstOrDefault(x => x.Id == currentId);
                     string displayText = cached != null ? cached.Text : "Unknown ID";
 
@@ -179,7 +176,7 @@ namespace tarkin.tradermod.Editor
 
                     if (GUILayout.Button("X", GUILayout.Width(25), GUILayout.Height(35)))
                     {
-                        activeList.DeleteArrayElementAtIndex(i);
+                        RemoveIdFromList(activeList, i);
                         break;
                     }
 
@@ -193,34 +190,22 @@ namespace tarkin.tradermod.Editor
             GUILayout.EndHorizontal();
         }
 
-        private SerializedProperty GetActiveListProperty()
+        private void AddIdToList(List<string> list, string id)
         {
-            switch (_selectedTab)
-            {
-                case 0: return _serializedObject.FindProperty("DialogCombinedAnimGreetings");
-                case 1: return _serializedObject.FindProperty("DialogCombinedAnimGoodbye");
-                case 2: return _serializedObject.FindProperty("DialogCombinedAnimChatter");
-                case 3: return _serializedObject.FindProperty("DialogCombinedAnimQuestAvailable");
-                case 4: return _serializedObject.FindProperty("DialogCombinedAnimQuestFailed");
-                case 5: return _serializedObject.FindProperty("DialogCombinedAnimGreetingsWhileWork");
-                case 6: return _serializedObject.FindProperty("DialogCombinedAnimNoJob");
-                case 7: return _serializedObject.FindProperty("DialogCombinedAnimTradeStart");
-                case 8: return _serializedObject.FindProperty("DialogCombinedAnimHandover");
-                case 9: return _serializedObject.FindProperty("DialogCombinedAnimDunno");
-                default: return null;
-            }
+            if (list.Contains(id)) return;
+
+            Undo.RecordObject(_targetScript, "Add Dialog ID");
+
+            list.Add(id);
+
+            EditorUtility.SetDirty(_targetScript);
         }
 
-        private void AddIdToList(SerializedProperty list, string id)
+        private void RemoveIdFromList(List<string> list, int index)
         {
-            for (int i = 0; i < list.arraySize; i++)
-            {
-                if (list.GetArrayElementAtIndex(i).stringValue == id) return;
-            }
-
-            int index = list.arraySize;
-            list.arraySize++;
-            list.GetArrayElementAtIndex(index).stringValue = id;
+            Undo.RecordObject(_targetScript, "Remove Dialog ID");
+            list.RemoveAt(index);
+            EditorUtility.SetDirty(_targetScript);
         }
 
         private void ReloadData(string traderId)

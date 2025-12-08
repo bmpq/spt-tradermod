@@ -5447,6 +5447,468 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9af81b935b051714a9ea2f99c6e86e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _dialogs
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[tarkin.tradermod.shared.ETraderDialogType,
+        tradermod.shared],[System.Collections.Generic.List`1[[System.String, mscorlib]],
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[tarkin.tradermod.shared.ETraderDialogType,
+        tradermod.shared]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 10
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 8
+    - Name: $v
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 10
+    - Name: 
+      Entry: 1
+      Data: 68fce22338729758d1910ba4
+    - Name: 
+      Entry: 1
+      Data: 68fce223b0f14631eb59d34e
+    - Name: 
+      Entry: 1
+      Data: 68f6af56476602ba167aee22
+    - Name: 
+      Entry: 1
+      Data: 68f6af566ddd524a304c34a2
+    - Name: 
+      Entry: 1
+      Data: 68f6af5693188d7e7b465816
+    - Name: 
+      Entry: 1
+      Data: 68f6af56e6f5efd4f34ed0f1
+    - Name: 
+      Entry: 1
+      Data: 68fce22322baf488df84a2a9
+    - Name: 
+      Entry: 1
+      Data: 68fce2236898ceb24df1a75e
+    - Name: 
+      Entry: 1
+      Data: 68fce22349a37f728e68c6de
+    - Name: 
+      Entry: 1
+      Data: 68f6af56849ad025835f5674
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 18
+    - Name: 
+      Entry: 1
+      Data: 6914771d3ef479b57ec64404
+    - Name: 
+      Entry: 1
+      Data: 691477904525196fa8bd856a
+    - Name: 
+      Entry: 1
+      Data: 69147795e06063c5b8464a87
+    - Name: 
+      Entry: 1
+      Data: 6914779bfd48f8d1b437f5c1
+    - Name: 
+      Entry: 1
+      Data: 691477a2a769c10bb97a6d1d
+    - Name: 
+      Entry: 1
+      Data: 68c30c9923d86986be3bd83a
+    - Name: 
+      Entry: 1
+      Data: 68c30c97e7e6c8619a93e4da
+    - Name: 
+      Entry: 1
+      Data: 68c30c95a1e380b903c72914
+    - Name: 
+      Entry: 1
+      Data: 68c30c9404f24d7e2bd90eb9
+    - Name: 
+      Entry: 1
+      Data: 68c30c9317e0860123aea246
+    - Name: 
+      Entry: 1
+      Data: 68c30c56e911d0d24893daf4
+    - Name: 
+      Entry: 1
+      Data: 67f92ae350ac994c4519e53a
+    - Name: 
+      Entry: 1
+      Data: 67f92ae37723f1c811fe50a2
+    - Name: 
+      Entry: 1
+      Data: 67f92ae471f349def1dede61
+    - Name: 
+      Entry: 1
+      Data: 67f92adf4a8f94c068c5f50d
+    - Name: 
+      Entry: 1
+      Data: 67f92adf4a718ab384fe07fc
+    - Name: 
+      Entry: 1
+      Data: 68fced19c9d0b2650dd271f1
+    - Name: 
+      Entry: 1
+      Data: 67ea8070ea09a43c4fefe289
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 5
+    - Name: $v
+      Entry: 7
+      Data: 4|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 1
+      Data: 68c30e344b53cb233a7c6596
+    - Name: 
+      Entry: 1
+      Data: 68c30e52cfa7f4646a5c968c
+    - Name: 
+      Entry: 1
+      Data: 68c30e65a18ffbcb9d66d087
+    - Name: 
+      Entry: 1
+      Data: 68c30e67d3a5b5fb8d6d7dd6
+    - Name: 
+      Entry: 1
+      Data: 68c30e692012a4d9d845e95d
+    - Name: 
+      Entry: 1
+      Data: 68c30e6cb0ac79e50ccbc9e3
+    - Name: 
+      Entry: 1
+      Data: 68c30e6fb31f75d2e16a804f
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 1
+      Data: 68cc221e609ad3172609e38a
+    - Name: 
+      Entry: 1
+      Data: 68cc221965dd3d16403ded69
+    - Name: 
+      Entry: 1
+      Data: 68cc22143f96c66674362f2f
+    - Name: 
+      Entry: 1
+      Data: 68cc220fec6ea8da23f91428
+    - Name: 
+      Entry: 1
+      Data: 68cc220ab0a8d810ab462218
+    - Name: 
+      Entry: 1
+      Data: 68cc22052df4e2d993dd9610
+    - Name: 
+      Entry: 1
+      Data: 68cc21ddc8b1e5d4d20645c9
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 6|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 29
+    - Name: 
+      Entry: 1
+      Data: 67d84c3fc214a8385d8b143e
+    - Name: 
+      Entry: 1
+      Data: 680b9fc4013d8ee55202de91
+    - Name: 
+      Entry: 1
+      Data: 68f553ac393d991c056785c5
+    - Name: 
+      Entry: 1
+      Data: 68f5539059b7ecf794ef89f1
+    - Name: 
+      Entry: 1
+      Data: 68f553836892afdc87c8f8ac
+    - Name: 
+      Entry: 1
+      Data: 68f55376ef5c0fbfede202f2
+    - Name: 
+      Entry: 1
+      Data: 68f5536989d25012f620a3b3
+    - Name: 
+      Entry: 1
+      Data: 68f5534058c60d6f4c846b04
+    - Name: 
+      Entry: 1
+      Data: 68f55326283919a60c515c4c
+    - Name: 
+      Entry: 1
+      Data: 68f552de5aefb415ef4e995b
+    - Name: 
+      Entry: 1
+      Data: 68f552bc5e89060c0f374f34
+    - Name: 
+      Entry: 1
+      Data: 68f55278c9d861c88b935fc7
+    - Name: 
+      Entry: 1
+      Data: 68f55256d9a29eff1d5a2d7f
+    - Name: 
+      Entry: 1
+      Data: 68f55232445da3e579af6d21
+    - Name: 
+      Entry: 1
+      Data: 68f55208fbb64a417bbf895d
+    - Name: 
+      Entry: 1
+      Data: 68f551e506dfac310482c499
+    - Name: 
+      Entry: 1
+      Data: 68f551cb688e1d7933389757
+    - Name: 
+      Entry: 1
+      Data: 68f551ba68732c7f693b84c6
+    - Name: 
+      Entry: 1
+      Data: 68f551ad0e6bf3fcebf74aec
+    - Name: 
+      Entry: 1
+      Data: 68f551a39faa41fc6193e694
+    - Name: 
+      Entry: 1
+      Data: 68f5518ab2a511abe9f922b6
+    - Name: 
+      Entry: 1
+      Data: 68f55159f501a4e57e524594
+    - Name: 
+      Entry: 1
+      Data: 67d84c9ac6f17dd99b553bf9
+    - Name: 
+      Entry: 1
+      Data: 68f55080e6d2894d84fb7a71
+    - Name: 
+      Entry: 1
+      Data: 68f5512c415ad6460a359230
+    - Name: 
+      Entry: 1
+      Data: 68f5514e2bbb38c915ce2344
+    - Name: 
+      Entry: 1
+      Data: 68f55298bdfddb713aaedf9c
+    - Name: 
+      Entry: 1
+      Data: 68f55312b67208bcb7a88896
+    - Name: 
+      Entry: 1
+      Data: 68f5535a7caaedf574f2e6bf
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 6
+    - Name: $v
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 1
+      Data: 68de9d2e374fd9ab7c812530
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 7
+    - Name: $v
+      Entry: 7
+      Data: 8|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 10
+    - Name: $v
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 10|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 9
+    - Name: $v
+      Entry: 7
+      Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   cameraPoint: {fileID: 5732}
   allRenderers:
   - {fileID: 2140527524}
@@ -5533,91 +5995,6 @@ MonoBehaviour:
   - {fileID: 6950}
   traderGameObject: {fileID: 8232}
   traderId: 54cb50c76803fa8b248b4571
-  DialogCombinedAnimGreetings:
-  - 6914771d3ef479b57ec64404
-  - 691477904525196fa8bd856a
-  - 69147795e06063c5b8464a87
-  - 6914779bfd48f8d1b437f5c1
-  - 691477a2a769c10bb97a6d1d
-  - 68c30c97e7e6c8619a93e4da
-  - 68c30c95a1e380b903c72914
-  - 68c30c9404f24d7e2bd90eb9
-  - 68c30c9317e0860123aea246
-  - 68c30c56e911d0d24893daf4
-  - 67f92ae350ac994c4519e53a
-  - 67f92ae37723f1c811fe50a2
-  - 67f92ae471f349def1dede61
-  - 67f92adf4a8f94c068c5f50d
-  - 67f92adf4a718ab384fe07fc
-  - 68fced19c9d0b2650dd271f1
-  - 68c957f6a3855ef4440ffb73
-  - 67ea8070ea09a43c4fefe289
-  DialogCombinedAnimGoodbye: []
-  DialogCombinedAnimChatter:
-  - 68f553ac393d991c056785c5
-  - 68f5539059b7ecf794ef89f1
-  - 68f553836892afdc87c8f8ac
-  - 68f55376ef5c0fbfede202f2
-  - 68f5536989d25012f620a3b3
-  - 68f5534058c60d6f4c846b04
-  - 68f55326283919a60c515c4c
-  - 68f552de5aefb415ef4e995b
-  - 68f552bc5e89060c0f374f34
-  - 68f55278c9d861c88b935fc7
-  - 68f55256d9a29eff1d5a2d7f
-  - 68f55232445da3e579af6d21
-  - 68f55208fbb64a417bbf895d
-  - 68f551e506dfac310482c499
-  - 68f551cb688e1d7933389757
-  - 68f551ba68732c7f693b84c6
-  - 68f551ad0e6bf3fcebf74aec
-  - 68f551a39faa41fc6193e694
-  - 68f5518ab2a511abe9f922b6
-  - 68f55159f501a4e57e524594
-  - 67d84c9ac6f17dd99b553bf9
-  - 67d84c3fc214a8385d8b143e
-  - 67d84cc20688a15941617a7c
-  - 680b9fc4013d8ee55202de91
-  - 68f55080e6d2894d84fb7a71
-  - 68f5512c415ad6460a359230
-  - 68f5514e2bbb38c915ce2344
-  - 68f55298bdfddb713aaedf9c
-  - 68f55312b67208bcb7a88896
-  - 68f5535a7caaedf574f2e6bf
-  DialogCombinedAnimQuestAvailable:
-  - 68cc221e609ad3172609e38a
-  - 68cc221965dd3d16403ded69
-  - 68cc22143f96c66674362f2f
-  - 68cc220ab0a8d810ab462218
-  - 68cc22052df4e2d993dd9610
-  - 68cc21ddc8b1e5d4d20645c9
-  DialogCombinedAnimQuestFailed: []
-  DialogCombinedAnimGreetingsWhileWork:
-  - 68c30e6fb31f75d2e16a804f
-  - 68c30e6cb0ac79e50ccbc9e3
-  - 68c30e67d3a5b5fb8d6d7dd6
-  - 68c30e52cfa7f4646a5c968c
-  - 68c30e344b53cb233a7c6596
-  DialogCombinedAnimNoJob:
-  - 68de9d2e374fd9ab7c812530
-  - 68ebedcfdd026120cef5f1eb
-  DialogCombinedAnimTradeStart: []
-  DialogCombinedAnimHandover:
-  - 68f6af56849ad025835f5674
-  - 68f6af56e6f5efd4f34ed0f1
-  - 68f6af5693188d7e7b465816
-  - 68f6af566ddd524a304c34a2
-  - 68f6af56476602ba167aee22
-  - 68fce2236898ceb24df1a75e
-  - 68fce22349a37f728e68c6de
-  DialogCombinedAnimDunno:
-  - 68d03def6b3b5da3745c8bb0
-  - 68d03def5d98062074f22a77
-  - 68d03def711e28277fb1ad07
-  - 68d03defb2b88a34c34c9543
-  - 68d03def6537f67ac22a5c59
-  - 68d03defe162c67c77f6e89a
-  - 68d03def3543699f39ea5d55
 --- !u!114 &3459
 MonoBehaviour:
   m_ObjectHideFlags: 0
