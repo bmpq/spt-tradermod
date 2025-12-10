@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using Comfort.Common;
 using EFT;
 using EFT.Dialogs;
 using EFT.UI;
@@ -153,16 +154,28 @@ namespace tarkin.tradermod.eft
 
             Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>
             {
+#if DEBUG
+                Plugin.Log.LogWarning(screenType + " = " + on);
+#endif
                 if (on)
                 {
-                    if (screenType == EMenuType.EditBuild)
+                    if (screenType == EMenuType.Trade)
+                    {
+                        if (CurrentScreenSingletonClass.Instance.RootScreenType == EEftScreenType.Hideout)
+                        {
+                            if ((bool)Singleton<SharedGameSettingsClass>.Instance.Game.Settings.TradingIntermediateScreen)
+                            {
+                                Patch_MainMenuControllerClass_ShowScreen.Instance.ShowScreen(EMenuType.MainMenu, true); // hides hideout
+                                Patch_MainMenuControllerClass_ShowScreen.Instance.ShowScreen(EMenuType.Trade, true);
+                            }
+                        }
+                    }
+                    else if (screenType == EMenuType.EditBuild)
                         _scenesManager?.Close();
                     else if (screenType == EMenuType.Hideout)
                     {
                         _scenesManager?.Close();
-#if DEBUG
-                        Plugin.Log.LogWarning("Hideout selected");
-#endif
+
                         Scene hideoutScene = SceneManager.GetSceneByName("bunker_2");
                         if (hideoutScene != null && hideoutScene.IsValid() && hideoutScene.isLoaded)
                         {
