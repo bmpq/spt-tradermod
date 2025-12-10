@@ -21,29 +21,38 @@ namespace tarkin.tradermod.bep
 
         private static CancellationTokenSource _cts = new CancellationTokenSource();
 
-        private static readonly Dictionary<string, string> _traderIdToBundleMap = new Dictionary<string, string>
-        {
-            { "579dc571d53a0658a154fbec", "vendors_fence" },
-            { "5c0647fdd443bc2504c2d371", "vendors_jaeger" },
-            { "5a7c2eca46aef81a7ca2145d", "vendors_mechanic" },
-            { "54cb50c76803fa8b248b4571", "vendors_prapor" },
-            { "5ac3b934156ae10c4430e83c", "vendors_ragman" },
-            { "58330581ace78e27b8b10cee", "vendors_skier" },
-            { "54cb57776803fa99248b456e", "vendors_therapist" },
-        };
+        private static readonly Dictionary<string, string> _resolvedBundleCache = new Dictionary<string, string>();
 
         private static readonly Dictionary<string, AssetBundle> _loadedAssetBundles = new Dictionary<string, AssetBundle>();
         private static readonly Dictionary<string, Task<AssetBundle>> _pendingBundleLoads = new Dictionary<string, Task<AssetBundle>>();
         private static readonly Dictionary<string, SceneLoadHandle> _pendingSceneLoads = new Dictionary<string, SceneLoadHandle>();
+
+        private static string GetBundleNameFromId(string traderId)
+        {
+            if (_resolvedBundleCache.TryGetValue(traderId, out string cachedName))
+                return cachedName;
+
+            string matchingFile = Directory.GetFiles(BundleDirectory, $"{traderId}*")
+                                        .Select(path => Path.GetFileName(path))
+                                        .FirstOrDefault();
+
+            if (string.IsNullOrEmpty(matchingFile))
+                return null;
+
+            _resolvedBundleCache[traderId] = matchingFile;
+            return matchingFile;
+        }
 
         public static async Task<SceneLoadHandle> LoadTraderSceneWithHandle(string traderId)
         {
             // if currently unloading, do not accept new work (shouldnt happen tho)
             if (_cts.IsCancellationRequested) return null;
 
-            if (!_traderIdToBundleMap.TryGetValue(traderId, out string traderSceneBundleName))
+            string traderSceneBundleName = GetBundleNameFromId(traderId);
+
+            if (string.IsNullOrEmpty(traderSceneBundleName))
             {
-                Logger.LogWarning($"No bundle associated with traderid:{traderId}");
+                Logger.LogWarning($"No bundle found in {BundleDirectory} matching trader ID: {traderId}");
                 return null;
             }
 
