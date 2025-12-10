@@ -161,6 +161,12 @@ namespace tarkin.tradermod.eft
 
         private async Task SwitchToTraderInternal(TraderClass trader)
         {
+            if (CurrentScreenSingletonClass.Instance.RootScreenType == EEftScreenType.Hideout)
+            {
+                Patch_MainMenuControllerClass_ShowScreen.Instance.ShowScreen(EMenuType.MainMenu, true); // hides hideout
+                Patch_MainMenuControllerClass_ShowScreen.Instance.ShowScreen(EMenuType.Trade, true);
+            }
+
             Task fadeTask = FadeToBlack(true);
             var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(trader.Id);
 
@@ -198,8 +204,12 @@ namespace tarkin.tradermod.eft
             _openedScenes[trader.Id] = traderScene;
             ManageSceneVisibility(traderScene);
 
-            SetupCamera(traderScene.CameraPoint);
+            // to avoid interfering with hideout, if it exists in the world
+            traderScene.transform.position = new Vector3(0, 300, 0);
+
             SetMainMenuBGVisible(false);
+
+            SetupCamera(traderScene.CameraPoint);
 
             FadeToBlack(false);
         }
@@ -275,9 +285,13 @@ namespace tarkin.tradermod.eft
         {
             if (targetSceneVisible != null)
             {
-                foreach (var rootGo in targetSceneVisible.gameObject.scene.GetRootGameObjects())
+                targetSceneVisible.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (_cam != null)
                 {
-                    rootGo.SetActive(true);
+                    _cam.gameObject.SetActive(false);
                 }
             }
 
@@ -285,12 +299,9 @@ namespace tarkin.tradermod.eft
             {
                 if (kvp.Value == targetSceneVisible) continue;
 
-                if (kvp.Value.gameObject.scene.IsValid() && kvp.Value.gameObject.scene.isLoaded)
+                if (kvp.Value != null)
                 {
-                    foreach (var rootGo in kvp.Value.gameObject.scene.GetRootGameObjects())
-                    {
-                        rootGo.SetActive(false);
-                    }
+                    kvp.Value.gameObject.SetActive(false);
                 }
             }
         }
@@ -301,9 +312,13 @@ namespace tarkin.tradermod.eft
             {
                 _cam = GameObject.Instantiate(Resources.Load<GameObject>("Cam2_fps_hideout")).GetComponent<Camera>();
                 _cam.GetComponent<PrismEffects>().useExposure = true;
+                _cam.GetComponent<Cinemachine.CinemachineBrain>().enabled = false;
                 _cam.fieldOfView = 60;
                 GameObject.DontDestroyOnLoad(_cam.gameObject);
             }
+
+            if (CameraClass.Instance.Camera != null)
+                CameraClass.Instance.IsActive = false;
 
             _cam.gameObject.SetActive(true);
             _cam.transform.SetPositionAndRotation(camPoint.position, camPoint.rotation);

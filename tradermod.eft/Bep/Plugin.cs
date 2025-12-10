@@ -3,6 +3,7 @@ using BepInEx.Configuration;
 using BepInEx.Logging;
 using EFT;
 using EFT.Dialogs;
+using EFT.UI;
 using EFT.UI.Screens;
 using System.Collections.Generic;
 using System.IO;
@@ -44,6 +45,8 @@ namespace tarkin.tradermod.eft
 
             // menu/pause screen, persistent through the entire game
             new Patch_MenuScreen_Show().Enable();
+
+            new Patch_MainMenuControllerClass_ShowScreen().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();
 
@@ -145,6 +148,22 @@ namespace tarkin.tradermod.eft
                 }
 
                 GetOrCreateScenesManager().Interact(trader, ETraderDialogType.NoJob);
+            };
+
+            Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>
+            {
+                if (screenType == EMenuType.Hideout && on)
+                {
+                    _scenesManager?.Close();
+#if DEBUG
+                    Plugin.Log.LogWarning("Hideout selected");
+#endif
+                    Scene hideoutScene = SceneManager.GetSceneByName("bunker_2");
+                    if (hideoutScene != null && hideoutScene.IsValid() && hideoutScene.isLoaded)
+                    {
+                        SceneManager.SetActiveScene(hideoutScene);
+                    }
+                }
             };
 
             InitConfiguration();
