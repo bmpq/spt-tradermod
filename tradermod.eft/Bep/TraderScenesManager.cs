@@ -277,7 +277,7 @@ namespace tarkin.tradermod.eft
             if (Singleton<EnvironmentUI>.Instance != null)
             {
                 Singleton<EnvironmentUI>.Instance.ShowCameraContainer(value);
-                Singleton<EnvironmentUI>.Instance.EnableOverlay(value);
+                Singleton<EnvironmentUI>.Instance.EnableOverlay(false);
             }
         }
 

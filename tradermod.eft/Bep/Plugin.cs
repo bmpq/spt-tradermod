@@ -47,6 +47,7 @@ namespace tarkin.tradermod.eft
             new Patch_MenuScreen_Show().Enable();
 
             new Patch_MainMenuControllerClass_ShowScreen().Enable();
+            new Patch_WeaponModdingScreen_Show().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();
 
@@ -152,18 +153,28 @@ namespace tarkin.tradermod.eft
 
             Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>
             {
-                if (screenType == EMenuType.Hideout && on)
+                if (on)
                 {
-                    _scenesManager?.Close();
-#if DEBUG
-                    Plugin.Log.LogWarning("Hideout selected");
-#endif
-                    Scene hideoutScene = SceneManager.GetSceneByName("bunker_2");
-                    if (hideoutScene != null && hideoutScene.IsValid() && hideoutScene.isLoaded)
+                    if (screenType == EMenuType.EditBuild)
+                        _scenesManager?.Close();
+                    else if (screenType == EMenuType.Hideout)
                     {
-                        SceneManager.SetActiveScene(hideoutScene);
+                        _scenesManager?.Close();
+#if DEBUG
+                        Plugin.Log.LogWarning("Hideout selected");
+#endif
+                        Scene hideoutScene = SceneManager.GetSceneByName("bunker_2");
+                        if (hideoutScene != null && hideoutScene.IsValid() && hideoutScene.isLoaded)
+                        {
+                            SceneManager.SetActiveScene(hideoutScene);
+                        }
                     }
                 }
+            };
+
+            Patch_WeaponModdingScreen_Show.OnPostfix += () =>
+            {
+                _scenesManager?.Close();
             };
 
             InitConfiguration();
