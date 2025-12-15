@@ -6,6 +6,7 @@ using UnityEditor;
 using tarkin.tradermod.shared;
 using EFT.Dialogs;
 using tarkin.tradermod.eft;
+using System.IO;
 
 namespace tarkin.tradermod.Editor
 {
@@ -18,6 +19,8 @@ namespace tarkin.tradermod.Editor
             public string LipsyncKey;
         }
 
+        private const string dialogueJsonPath = "W:\\SPT4.0\\BepInEx\\plugins\\tarkin\\bundles\\vendors\\dialogue.json";
+
         private TraderScene _targetScript;
         private SerializedObject _serializedObject;
 
@@ -29,6 +32,8 @@ namespace tarkin.tradermod.Editor
         private Vector2 _scrollPosSelected;
 
         private ETraderDialogType _selectedTabType = ETraderDialogType.Greetings;
+
+        private bool _isRu;
 
         [MenuItem("Tools/TraderMod/Trader Dialog Browser")]
         public static void ShowWindow()
@@ -52,6 +57,8 @@ namespace tarkin.tradermod.Editor
             {
                 ReloadData(traderIdProp.stringValue);
             }
+
+            _isRu = GUILayout.Toggle(_isRu, "ru locale");
 
             GUILayout.Space(10);
             DrawEnumToolbar();
@@ -213,13 +220,10 @@ namespace tarkin.tradermod.Editor
             _cachedTraderId = traderId;
             _allDialogs.Clear();
 
-            TextAsset jsonAsset = Resources.Load<TextAsset>("dialogue");
-            if (jsonAsset == null) return;
-
             TraderDialogsDTO data = null;
             try
             {
-                data = SafeDeserializer<TraderDialogsDTO>.Deserialize(jsonAsset.text);
+                data = SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(dialogueJsonPath));
             }
             catch
             {
@@ -231,7 +235,7 @@ namespace tarkin.tradermod.Editor
 
             foreach (var template in data.Elements)
             {
-                string localeKey = "ru";
+                string localeKey = _isRu ? "ru" : "en";
 
                 var localization = template.LocalizationDictionary != null && template.LocalizationDictionary.ContainsKey(localeKey)
                     ? template.LocalizationDictionary[localeKey]
