@@ -16,7 +16,6 @@ using tarkin.tradermod.bep.UI.Quests;
 using tarkin.tradermod.bep.UI.Trading;
 using tarkin.tradermod.eft.Bep;
 using tarkin.tradermod.eft.Bep.Patches;
-using tarkin.tradermod.eft.Bep.UILayoutTweaks;
 using tarkin.tradermod.shared;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,6 +34,8 @@ namespace tarkin.tradermod.eft
         private static DialogDataWrapper dialogData;
 
         private static SubtitlesManager _subtitlesManager;
+
+        private static TraderUIManager _traderUIManager;
 
         private void Start()
         {
@@ -79,6 +80,14 @@ namespace tarkin.tradermod.eft
                 TraderBundleManager.EnsureDependencyBundlesAreLoaded();
             };
 
+            Patch_TraderScreensGroup_Awake.OnPostfix += (parent) =>
+            {
+                if (_traderUIManager == null)
+                    _traderUIManager = new TraderUIManager(parent, dialogData);
+
+                GetOrCreateScenesManager().SetTraderUIManager(_traderUIManager);
+            };
+
             Patch_QuestsScreen_Show.OnPostfix += (trader) =>
                 GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Tasks);
 
@@ -96,6 +105,12 @@ namespace tarkin.tradermod.eft
                 {
                     _subtitlesManager.Dispose();
                     _subtitlesManager = null;
+                }
+
+                if (_traderUIManager != null)
+                {
+                    _traderUIManager.Dispose();
+                    _traderUIManager = null;
                 }
             };
 

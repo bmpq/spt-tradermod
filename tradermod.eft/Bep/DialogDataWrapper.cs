@@ -8,7 +8,7 @@ using TraderDialogTemplate = GClass3665;
 
 namespace tarkin.tradermod.eft
 {
-    internal class DialogDataWrapper
+    public class DialogDataWrapper
     {
         Dictionary<string, DialogLineTemplate> mapLines;
         Dictionary<string, string> subtitles;

@@ -26,6 +26,7 @@ using tarkin.tradermod.bep;
 using EFT.Dialogs;
 using System.IO;
 using EFT.UI.Screens;
+using tarkin.tradermod.eft.Bep;
 
 namespace tarkin.tradermod.eft
 {
@@ -35,6 +36,8 @@ namespace tarkin.tradermod.eft
         private Camera _cam;
 
         DialogDataWrapper dialogData;
+
+        private TraderUIManager _tradingUIManager;
 
         Coroutine fadeCoroutine;
 
@@ -50,6 +53,15 @@ namespace tarkin.tradermod.eft
         public TraderScenesManager(DialogDataWrapper dialogData)
         {
             this.dialogData = dialogData;
+        }
+
+        public void SetTraderUIManager(TraderUIManager tradingUIManager)
+        {
+            this._tradingUIManager = tradingUIManager;
+            _tradingUIManager.OnTraderFaceClick += () =>
+            {
+                Interact(currentlyActiveTrader, ETraderDialogType.Chatter);
+            };
         }
 
         public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)
@@ -200,6 +212,8 @@ namespace tarkin.tradermod.eft
                 lastSeenTraderTimestamp[currentlyActiveTrader.Id] = DateTime.Now;
             currentlyActiveTrader = trader;
 
+            _tradingUIManager?.SetCurrentTrader(traderScene);
+
             SceneManager.SetActiveScene(scene);
             _openedScenes[trader.Id] = traderScene;
             ManageSceneVisibility(traderScene);
@@ -236,6 +250,9 @@ namespace tarkin.tradermod.eft
 
             if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted)
             {
+#if DEBUG
+                Plugin.Log.LogWarning("Switch task already exists!");
+#endif
                 await _activeSwitchTask;
             }
 

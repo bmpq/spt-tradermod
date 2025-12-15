@@ -5353,6 +5353,7 @@ MonoBehaviour:
   - {fileID: 7849}
   traderGameObject: {fileID: 9669}
   traderId: 5a7c2eca46aef81a7ca2145d
+  chatterPrompt: 68ca016f1d61788df0be768e
 --- !u!114 &4983
 MonoBehaviour:
   m_ObjectHideFlags: 0

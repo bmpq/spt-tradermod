@@ -48,6 +48,9 @@ namespace tarkin.tradermod.shared
             return null;
         }
 
+        [SerializeField] private string chatterPrompt;
+        public string ChatterPrompt => chatterPrompt;
+
 #if UNITY_EDITOR
         private void OnValidate()
         {

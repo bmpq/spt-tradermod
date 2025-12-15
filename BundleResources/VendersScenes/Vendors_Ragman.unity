@@ -4531,6 +4531,7 @@ MonoBehaviour:
   - {fileID: 4491}
   traderGameObject: {fileID: 5614}
   traderId: 5ac3b934156ae10c4430e83c
+  chatterPrompt: 68ca99a85c9e91798319df18
 --- !u!4 &2204
 Transform:
   m_ObjectHideFlags: 0

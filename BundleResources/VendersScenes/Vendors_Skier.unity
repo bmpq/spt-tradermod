@@ -4680,6 +4680,7 @@ MonoBehaviour:
   EventSoundContentChangers: []
   treeWinds: []
   treeWindSettingsPresets: []
+  chatterPrompt: 68d09cff6897985bff4060d2
 --- !u!4 &1481
 Transform:
   m_ObjectHideFlags: 0
