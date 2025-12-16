@@ -1,4 +1,5 @@
-﻿using EFT.Dialogs;
+﻿using Comfort.Common;
+using EFT.Dialogs;
 using System.Collections.Generic;
 
 #if SPT_4_0
@@ -10,15 +11,13 @@ namespace tarkin.tradermod.eft
 {
     public class DialogDataWrapper
     {
-        Dictionary<string, DialogLineTemplate> mapLines;
-        Dictionary<string, string> subtitles;
+        private readonly Dictionary<string, DialogLineTemplate> mapLines;
+        private readonly Dictionary<string, Dictionary<string, string>> localizedSubtitles;
 
         public DialogDataWrapper(TraderDialogsDTO dto)
         {
             mapLines = new Dictionary<string, DialogLineTemplate>();
-            subtitles = new Dictionary<string, string>();
-
-            string locale = LocaleManagerClass.LocaleManagerClass.String_0;
+            localizedSubtitles = new Dictionary<string, Dictionary<string, string>>();
 
             foreach (var tdt in dto.Elements)
             {
@@ -27,11 +26,19 @@ namespace tarkin.tradermod.eft
                     mapLines[line.Id] = line;
                 }
 
-                if (tdt.LocalizationDictionary.TryGetValue(locale, out var subtitleDictionary))
+                foreach (var localePair in tdt.LocalizationDictionary)
                 {
-                    foreach (var kvp in subtitleDictionary)
+                    string localeKey = localePair.Key;
+                    var textMap = localePair.Value;
+
+                    if (!localizedSubtitles.ContainsKey(localeKey))
                     {
-                        subtitles[kvp.Key] = kvp.Value;
+                        localizedSubtitles[localeKey] = new Dictionary<string, string>();
+                    }
+
+                    foreach (var kvp in textMap)
+                    {
+                        localizedSubtitles[localeKey][kvp.Key] = kvp.Value;
                     }
                 }
             }
@@ -45,10 +52,32 @@ namespace tarkin.tradermod.eft
 
         public string GetLocalizedSubtitle(string id)
         {
-            if (subtitles.TryGetValue(id, out var subtitle))
-                return subtitle;
+            string currentLocale = "en";
+            if (Singleton<SharedGameSettingsClass>.Instantiated)
+                currentLocale = Singleton<SharedGameSettingsClass>.Instance.Game.Settings.Language.Value;
+
+            if (TryGetText(currentLocale, id, out string result))
+                return result;
+
+            if (currentLocale != "en" && TryGetText("en", id, out string fallbackResult))
+                return fallbackResult;
 
             return string.Empty;
+        }
+
+        private bool TryGetText(string locale, string id, out string text)
+        {
+            text = null;
+
+            if (localizedSubtitles.TryGetValue(locale, out var dict))
+            {
+                if (dict.TryGetValue(id, out var foundText))
+                {
+                    text = foundText;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
