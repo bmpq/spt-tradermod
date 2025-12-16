@@ -54,8 +54,11 @@ namespace tarkin.tradermod.eft
 
         public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)
         {
-            if (currentlyActiveTrader == trader) 
+            if (currentlyActiveTrader == trader)
+            {
+                SetMainMenuBGVisible(false);
                 return;
+            }
 
             _requestedTraderId = trader.Id;
 
