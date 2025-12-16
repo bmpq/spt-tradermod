@@ -1,58 +1,37 @@
 ﻿using BepInEx.Logging;
 using Comfort.Common;
-using EFT;
 using EFT.UI;
+using EFT.UI.Screens;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using tarkin.tradermod.bep.Patches;
+using tarkin.tradermod.bep;
+using tarkin.tradermod.eft.Bep;
+using tarkin.tradermod.eft.Bep.Patches;
+using tarkin.tradermod.shared;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-#if SPT_4_0
-using CombinedAnimationData = GClass4067;
-using AnimationParams = GClass4071;
-using LipSyncParams = GClass4072;
-using SubtitleParams = GClass4073;
-using NarrateController = EFT.TarkovApplication.GClass2302;
-#endif
-
-using tarkin.tradermod.shared;
-using EFT.AnimationSequencePlayer;
-using tarkin.tradermod.eft.Bep.Patches;
-using tarkin.tradermod.bep;
-using EFT.Dialogs;
-using System.IO;
-using EFT.UI.Screens;
-using tarkin.tradermod.eft.Bep;
 
 namespace tarkin.tradermod.eft
 {
     internal class TraderScenesManager : IDisposable
     {
         private static readonly ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource(nameof(TraderScenesManager));
-        private Camera _cam;
 
-        DialogDataWrapper dialogData;
+        private readonly TraderCameraController _cameraController;
+        private readonly TraderInteractionService _interactionService;
 
         private TraderUIManager _tradingUIManager;
-
-        Coroutine fadeCoroutine;
-
+        private TraderClass currentlyActiveTrader = null;
         private string _requestedTraderId = null;
+        private Task _activeSwitchTask;
 
         private readonly Dictionary<string, TraderScene> _openedScenes = new Dictionary<string, TraderScene>();
 
-        private Dictionary<string, DateTime> lastSeenTraderTimestamp = new Dictionary<string, DateTime>();
-        TraderClass currentlyActiveTrader = null;
-
-        private Task _activeSwitchTask;
-
         public TraderScenesManager(DialogDataWrapper dialogData)
         {
-            this.dialogData = dialogData;
+            _interactionService = new TraderInteractionService(dialogData);
+            _cameraController = new TraderCameraController();
         }
 
         public void SetTraderUIManager(TraderUIManager tradingUIManager)
@@ -60,13 +39,22 @@ namespace tarkin.tradermod.eft
             this._tradingUIManager = tradingUIManager;
             _tradingUIManager.OnTraderFaceClick += () =>
             {
-                Interact(currentlyActiveTrader, ETraderDialogType.Chatter);
+                if (currentlyActiveTrader != null && _openedScenes.TryGetValue(currentlyActiveTrader.Id, out var scene))
+                {
+                    _interactionService.PlayAnimation(scene, currentlyActiveTrader.Id, ETraderDialogType.Chatter);
+                }
             };
+        }
+
+        public void Interact(TraderClass trader, ETraderDialogType dialogType)
+        {
+            if (_openedScenes.TryGetValue(trader.Id, out var scene))
+                _interactionService.PlayAnimation(scene, trader.Id, ETraderDialogType.Greetings);
         }
 
         public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)
         {
-            if (currentlyActiveTrader == trader)
+            if (currentlyActiveTrader == trader) 
                 return;
 
             _requestedTraderId = trader.Id;
@@ -89,74 +77,10 @@ namespace tarkin.tradermod.eft
         {
             ManageSceneVisibility(null);
             currentlyActiveTrader = null;
-            FadeToBlack(false);
+
+            _cameraController.FadeToBlack(false);
+
             SetMainMenuBGVisible(true);
-        }
-
-        Task FadeToBlack(bool blackScreen)
-        {
-            // bridge Coroutine and Async
-            var tcs = new TaskCompletionSource<bool>();
-
-            if (fadeCoroutine != null)
-                CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
-
-            fadeCoroutine = CoroutineRunner.Instance.StartCoroutine(FadeCoroutine(blackScreen, tcs));
-
-            return tcs.Task;
-
-            IEnumerator FadeCoroutine(bool black, TaskCompletionSource<bool> completionSource)
-            {
-                if (_cam == null)
-                {
-                    completionSource.TrySetResult(false);
-                    yield break;
-                }
-
-                float t = 0;
-
-                var effectControl = _cam.GetComponent<CC_BrightnessContrastGamma>();
-                effectControl.enabled = true;
-
-                float targetBrightness = black ? -100f : 0;
-                float startBrightness = effectControl.brightness;
-
-                Quaternion startWorldRot = black 
-                    ? _cam.transform.rotation
-                    : Quaternion.LookRotation(-_cam.transform.right + _cam.transform.forward * 2f, _cam.transform.up);
-                Quaternion targetWorldRot = black
-                    ? Quaternion.LookRotation(_cam.transform.right + _cam.transform.forward * 2f, _cam.transform.up)
-                    : _cam.transform.rotation;
-
-                while (t < 1f)
-                {
-                    t += Time.deltaTime * 3f;
-                    t = Mathf.Clamp01(t);
-                    float easedT = black ? EaseInCubic(0, 1f, t) : EaseOutCubic(0, 1f, t);
-
-                    float brightness = Mathf.Lerp(startBrightness, targetBrightness, easedT);
-                    effectControl.brightness = brightness;
-
-                    _cam.transform.rotation = Quaternion.Slerp(startWorldRot, targetWorldRot, easedT);
-
-                    yield return null;
-                }
-
-                completionSource.TrySetResult(true);
-            }
-
-            static float EaseInCubic(float start, float end, float value)
-            {
-                end -= start;
-                return end * value * value * value + start;
-            }
-
-            static float EaseOutCubic(float start, float end, float value)
-            {
-                value--;
-                end -= start;
-                return end * (value * value * value + 1) + start;
-            }
         }
 
         private async Task SwitchToTrader(TraderClass trader)
@@ -179,7 +103,8 @@ namespace tarkin.tradermod.eft
                 Patch_MainMenuControllerClass_ShowScreen.Instance.ShowScreen(EMenuType.Trade, true);
             }
 
-            Task fadeTask = FadeToBlack(true);
+            Task fadeTask = _cameraController.FadeToBlack(true);
+
             var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(trader.Id);
 
             if (loadHandle == null)
@@ -209,7 +134,8 @@ namespace tarkin.tradermod.eft
             }
 
             if (currentlyActiveTrader != null)
-                lastSeenTraderTimestamp[currentlyActiveTrader.Id] = DateTime.Now;
+                _interactionService.MarkTraderSeen(currentlyActiveTrader.Id);
+
             currentlyActiveTrader = trader;
 
             _tradingUIManager?.SetCurrentTrader(traderScene);
@@ -223,79 +149,8 @@ namespace tarkin.tradermod.eft
 
             SetMainMenuBGVisible(false);
 
-            SetupCamera(traderScene.CameraPoint);
-
-            FadeToBlack(false);
-        }
-
-        public async Task Interact(TraderClass trader, ETraderDialogType interaction)
-        {
-            bool ShouldPlayGreeting(string traderId)
-            {
-                if (string.IsNullOrEmpty(traderId))
-                    return false;
-
-#if DEBUG
-                return true;
-#endif
-                if (!lastSeenTraderTimestamp.TryGetValue(traderId, out DateTime lastTime))
-                    return true; // first visit
-
-                float GREETING_COOLDOWN_SEC = 60;
-                return (DateTime.Now - lastTime).TotalSeconds > GREETING_COOLDOWN_SEC;
-            }
-
-            if (trader == null)
-                return;
-
-            if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted)
-            {
-#if DEBUG
-                Plugin.Log.LogWarning("Switch task already exists!");
-#endif
-                await _activeSwitchTask;
-            }
-
-            if (currentlyActiveTrader?.Id != trader.Id)
-            {
-                await SwitchToTrader(trader);
-            }
-
-            if (!_openedScenes.TryGetValue(trader.Id, out TraderScene traderScene))
-                return;
-
-            CombinedAnimationData GetAnimation()
-            {
-                if (interaction == ETraderDialogType.Greetings && !ShouldPlayGreeting(trader.Id)) 
-                    return null;
-
-                List<string> dialogs = traderScene.GetDialogs(interaction);
-
-                if (dialogs != null && dialogs.Count > 0)
-                {
-                    string randomId = dialogs[UnityEngine.Random.Range(0, dialogs.Count)];
-
-                    return dialogData.GetLine(randomId)?.AnimationData;
-                }
-                return null;
-            }
-
-            SequenceReader npc = traderScene.TraderGameObject.GetComponent<SequenceReader>();
-            if (npc != null)
-            {
-                var cad = GetAnimation();
-                if (cad != null)
-                    npc.Play(cad);
-            }
-        }
-
-        private void SetMainMenuBGVisible(bool value)
-        {
-            if (Singleton<EnvironmentUI>.Instance != null)
-            {
-                Singleton<EnvironmentUI>.Instance.ShowCameraContainer(value);
-                Singleton<EnvironmentUI>.Instance.EnableOverlay(false);
-            }
+            _cameraController.Setup(traderScene.CameraPoint);
+            _cameraController.FadeToBlack(false);
         }
 
         private void ManageSceneVisibility(TraderScene targetSceneVisible)
@@ -306,10 +161,7 @@ namespace tarkin.tradermod.eft
             }
             else
             {
-                if (_cam != null)
-                {
-                    _cam.gameObject.SetActive(false);
-                }
+                _cameraController.SetActive(false);
             }
 
             foreach (var kvp in _openedScenes)
@@ -323,33 +175,19 @@ namespace tarkin.tradermod.eft
             }
         }
 
-        private void SetupCamera(Transform camPoint)
+        private void SetMainMenuBGVisible(bool value)
         {
-            if (_cam == null)
+            if (Singleton<EnvironmentUI>.Instance != null)
             {
-                _cam = GameObject.Instantiate(Resources.Load<GameObject>("Cam2_fps_hideout")).GetComponent<Camera>();
-                _cam.GetComponent<PrismEffects>().useExposure = true;
-                _cam.GetComponent<Cinemachine.CinemachineBrain>().enabled = false;
-                _cam.fieldOfView = 60;
-                GameObject.DontDestroyOnLoad(_cam.gameObject);
+                Singleton<EnvironmentUI>.Instance.ShowCameraContainer(value);
+                Singleton<EnvironmentUI>.Instance.EnableOverlay(false);
             }
-
-            if (CameraClass.Instance.Camera != null)
-                CameraClass.Instance.IsActive = false;
-
-            _cam.gameObject.SetActive(true);
-            _cam.transform.SetPositionAndRotation(camPoint.position, camPoint.rotation);
         }
 
         public void Dispose()
         {
             _logger.LogInfo("Disposing self");
-
-            if (fadeCoroutine != null)
-                CoroutineRunner.Instance.StopCoroutine(fadeCoroutine);
-
-            if (_cam != null)
-                GameObject.Destroy(_cam.gameObject);
+            _cameraController.Dispose();
         }
     }
 }
