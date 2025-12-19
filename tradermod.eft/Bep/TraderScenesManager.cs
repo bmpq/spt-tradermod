@@ -46,10 +46,18 @@ namespace tarkin.tradermod.eft
             };
         }
 
-        public void Interact(TraderClass trader, ETraderDialogType dialogType)
+        public async void Interact(TraderClass trader, ETraderDialogType dialogType)
         {
+            if (_requestedTraderId != trader.Id)
+            {
+                TraderOpenHandler(trader, TraderScreensGroup.ETraderMode.Tasks);
+            }
+            if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted)
+            {
+                await _activeSwitchTask;
+            }
             if (_openedScenes.TryGetValue(trader.Id, out var scene))
-                _interactionService.PlayAnimation(scene, trader.Id, ETraderDialogType.Greetings);
+                _interactionService.PlayAnimation(scene, trader.Id, dialogType);
         }
 
         public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)

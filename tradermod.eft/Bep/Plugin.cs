@@ -88,9 +88,6 @@ namespace tarkin.tradermod.eft
                 GetOrCreateScenesManager().SetTraderUIManager(_traderUIManager);
             };
 
-            Patch_QuestsScreen_Show.OnPostfix += (trader) =>
-                GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Tasks);
-
             Patch_MenuScreen_Show.OnPostfix += () => _scenesManager?.Close();
 
             Patch_NarrateController_Unload.OnPostfix += () =>
