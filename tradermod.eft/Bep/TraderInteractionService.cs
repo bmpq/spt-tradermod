@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using BepInEx.Logging;
 using Comfort.Common;
 using EFT;
@@ -86,17 +87,19 @@ namespace tarkin.tradermod.eft
             _lastSeenTimestamps[traderId] = DateTime.Now;
         }
 
-        public void PlayAnimation(TraderScene scene, string traderId, ETraderDialogType interactionType)
+        public async Task PlayAnimation(TraderScene scene, string traderId, ETraderDialogType interactionType)
         {
-            if (scene == null || scene.TraderGameObject == null) return;
+            if (scene == null || scene.TraderGameObject == null) 
+                return;
 
             var cad = GetAnimationData(scene, traderId, interactionType);
-            if (cad == null) return;
+            if (cad == null) 
+                return;
 
             SequenceReader npc = scene.TraderGameObject.GetComponent<SequenceReader>();
             if (npc != null)
             {
-                npc.Play(cad);
+                await npc.Play(cad);
             }
             else
             {

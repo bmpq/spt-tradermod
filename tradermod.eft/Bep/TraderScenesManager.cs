@@ -45,8 +45,7 @@ namespace tarkin.tradermod.eft
         {
             if (currentlyActiveTrader != null && _openedScenes.TryGetValue(currentlyActiveTrader.Id, out var scene))
             {
-                _interactionService.PlayAnimation(scene, currentlyActiveTrader.Id, ETraderDialogType.Chatter);
-                RefreshUIState(scene);
+                var _ = PlayAnimationSequenceWhileHidingFaceButton(scene, currentlyActiveTrader.Id, ETraderDialogType.Chatter);
             }
         }
 
@@ -68,8 +67,35 @@ namespace tarkin.tradermod.eft
             {
                 await _activeSwitchTask;
             }
+
             if (_openedScenes.TryGetValue(trader.Id, out var scene))
-                _interactionService.PlayAnimation(scene, trader.Id, dialogType);
+            {
+                await PlayAnimationSequenceWhileHidingFaceButton(scene, trader.Id, dialogType);
+            }
+        }
+
+        private async Task PlayAnimationSequenceWhileHidingFaceButton(TraderScene scene, string traderId, ETraderDialogType type)
+        {
+            if (_tradingUIManager != null && currentlyActiveTrader?.Id == traderId)
+            {
+                _tradingUIManager.SetTraderState(scene, false);
+            }
+
+            try
+            {
+                await _interactionService.PlayAnimation(scene, traderId, type);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error playing animation sequence: {ex}");
+            }
+            finally
+            {
+                if (currentlyActiveTrader != null && currentlyActiveTrader.Id == traderId)
+                {
+                    RefreshUIState(scene);
+                }
+            }
         }
 
         public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)
