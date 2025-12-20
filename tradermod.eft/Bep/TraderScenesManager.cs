@@ -37,13 +37,25 @@ namespace tarkin.tradermod.eft
         public void SetTraderUIManager(TraderUIManager tradingUIManager)
         {
             this._tradingUIManager = tradingUIManager;
-            _tradingUIManager.OnTraderFaceClick += () =>
+            _tradingUIManager.OnTraderFaceClick -= OnTraderFaceClicked;
+            _tradingUIManager.OnTraderFaceClick += OnTraderFaceClicked;
+        }
+
+        private void OnTraderFaceClicked()
+        {
+            if (currentlyActiveTrader != null && _openedScenes.TryGetValue(currentlyActiveTrader.Id, out var scene))
             {
-                if (currentlyActiveTrader != null && _openedScenes.TryGetValue(currentlyActiveTrader.Id, out var scene))
-                {
-                    _interactionService.PlayAnimation(scene, currentlyActiveTrader.Id, ETraderDialogType.Chatter);
-                }
-            };
+                _interactionService.PlayAnimation(scene, currentlyActiveTrader.Id, ETraderDialogType.Chatter);
+                RefreshUIState(scene);
+            }
+        }
+
+        private void RefreshUIState(TraderScene scene)
+        {
+            if (_tradingUIManager == null) 
+                return;
+            bool hasLines = _interactionService.HasUnplayedChatter(scene);
+            _tradingUIManager.SetTraderState(scene, hasLines);
         }
 
         public async void Interact(TraderClass trader, ETraderDialogType dialogType)
@@ -90,6 +102,7 @@ namespace tarkin.tradermod.eft
             currentlyActiveTrader = null;
 
             _cameraController.FadeToBlack(false);
+            _interactionService.SavePlayedLines();
 
             SetMainMenuBGVisible(true);
         }
@@ -149,7 +162,7 @@ namespace tarkin.tradermod.eft
 
             currentlyActiveTrader = trader;
 
-            _tradingUIManager?.SetCurrentTrader(traderScene);
+            RefreshUIState(traderScene);
 
             SceneManager.SetActiveScene(scene);
             _openedScenes[trader.Id] = traderScene;
@@ -199,6 +212,8 @@ namespace tarkin.tradermod.eft
         {
             _logger.LogInfo("Disposing self");
             _cameraController.Dispose();
+            _interactionService.Dispose();
+            _tradingUIManager?.Dispose();
         }
     }
 }

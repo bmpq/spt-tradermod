@@ -90,6 +90,7 @@ namespace tarkin.tradermod.eft
 
             Patch_MenuScreen_Show.OnPostfix += () => _scenesManager?.Close();
 
+            // called when preparing raid
             Patch_NarrateController_Unload.OnPostfix += () =>
             {
                 if (_scenesManager != null)
@@ -102,12 +103,6 @@ namespace tarkin.tradermod.eft
                 {
                     _subtitlesManager.Dispose();
                     _subtitlesManager = null;
-                }
-
-                if (_traderUIManager != null)
-                {
-                    _traderUIManager.Dispose();
-                    _traderUIManager = null;
                 }
             };
 

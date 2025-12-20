@@ -46,14 +46,25 @@ namespace tarkin.tradermod.eft.Bep
             clickTrigger.Init((_) => OnTraderFaceClick?.Invoke());
         }
 
-        public void SetCurrentTrader(TraderScene traderScene)
+        public void SetTraderState(TraderScene traderScene, bool canInteract)
         {
-            var subtitle = dialogData.GetLocalizedSubtitle(traderScene?.ChatterPrompt);
+            if (traderScene == null)
+            {
+                traderFaceButton.SetActive(false);
+                return;
+            }
 
-            bool isValid = !string.IsNullOrEmpty(subtitle);
-            traderFaceButton.SetActive(isValid);
-            if (isValid)
+            var subtitle = dialogData.GetLocalizedSubtitle(traderScene.ChatterPrompt);
+            bool hasValidText = !string.IsNullOrEmpty(subtitle);
+
+            bool shouldShow = hasValidText && canInteract;
+
+            traderFaceButton.SetActive(shouldShow);
+
+            if (shouldShow)
+            {
                 traderFaceTooltip.SetMessageText(subtitle);
+            }
         }
 
         public void Dispose()
