@@ -50,6 +50,7 @@ namespace tarkin.tradermod.eft
 
             new Patch_MainMenuControllerClass_ShowScreen().Enable();
             new Patch_WeaponModdingScreen_Show().Enable();
+            new Patch_EditBuildScreen_Show().Enable();
 
             new Patch_TraderScreensGroup_Awake().Enable();
 
@@ -199,6 +200,11 @@ namespace tarkin.tradermod.eft
             };
 
             Patch_WeaponModdingScreen_Show.OnPostfix += () =>
+            {
+                _scenesManager?.Close();
+            };
+
+            Patch_EditBuildScreen_Show.OnPostfix += () =>
             {
                 _scenesManager?.Close();
             };
