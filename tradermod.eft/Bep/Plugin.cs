@@ -104,6 +104,12 @@ namespace tarkin.tradermod.eft
                     _subtitlesManager.Dispose();
                     _subtitlesManager = null;
                 }
+
+                if (_traderUIManager != null)
+                {
+                    _traderUIManager.Dispose();
+                    _traderUIManager = null;
+                }
             };
 
             Patch_QuestsListView_Show.OnPostfix += (questController, trader) =>

@@ -931,7 +931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1273}
-  - component: {fileID: 3086}
+  - component: {fileID: 1274}
   m_Layer: 0
   m_Name: SOUND
   m_TagString: Untagged
@@ -5812,6 +5812,50 @@ Transform:
   - {fileID: 1188}
   m_Father: {fileID: 1189}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a278bab7744bb2f49ab92d23d8effe4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventOnEnable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3076}
+        m_TargetAssemblyTypeName: Audio.AmbientSubsystem.AmbientSoundPlayerGroup,
+          Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  eventOnDisable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3076}
+        m_TargetAssemblyTypeName: Audio.AmbientSubsystem.AmbientSoundPlayerGroup,
+          Assembly-CSharp
+        m_MethodName: Stop
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!4 &1275
 Transform:
   m_ObjectHideFlags: 0
@@ -15220,22 +15264,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   _useCustomSpreadCurve: 0
   _loopClip: {fileID: 8300000, guid: 97cc8597be086004fbe9abd831a5eb6d, type: 3}
---- !u!114 &3086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d65b4fff8f35c50f5c85bf8d61bed1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ambientGroup: {fileID: 3076}
-  _enabledReverb: 1
-  _fadeInTime: 1
-  _fadeOutTime: 1
 --- !u!114 &3087
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -479,7 +479,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3457}
-  - component: {fileID: 3459}
   - component: {fileID: 3458}
   m_Layer: 0
   m_Name: ROOT
@@ -3805,6 +3804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5661}
+  - component: {fileID: 5662}
   m_Layer: 0
   m_Name: SOUND
   m_TagString: Untagged
@@ -5476,7 +5476,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 10
+      Data: 11
     - Name: 
       Entry: 7
       Data: 
@@ -5698,19 +5698,10 @@ MonoBehaviour:
       Data: 6|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 29
-    - Name: 
-      Entry: 1
-      Data: 67d84c3fc214a8385d8b143e
-    - Name: 
-      Entry: 1
-      Data: 680b9fc4013d8ee55202de91
+      Data: 26
     - Name: 
       Entry: 1
       Data: 68f553ac393d991c056785c5
-    - Name: 
-      Entry: 1
-      Data: 68f5539059b7ecf794ef89f1
     - Name: 
       Entry: 1
       Data: 68f553836892afdc87c8f8ac
@@ -5722,22 +5713,22 @@ MonoBehaviour:
       Data: 68f5536989d25012f620a3b3
     - Name: 
       Entry: 1
+      Data: 68f5535538140238960f849a
+    - Name: 
+      Entry: 1
       Data: 68f5534058c60d6f4c846b04
     - Name: 
       Entry: 1
       Data: 68f55326283919a60c515c4c
     - Name: 
       Entry: 1
-      Data: 68f552de5aefb415ef4e995b
+      Data: 68f5530a096b08318ed4808c
     - Name: 
       Entry: 1
       Data: 68f552bc5e89060c0f374f34
     - Name: 
       Entry: 1
       Data: 68f55278c9d861c88b935fc7
-    - Name: 
-      Entry: 1
-      Data: 68f55256d9a29eff1d5a2d7f
     - Name: 
       Entry: 1
       Data: 68f55232445da3e579af6d21
@@ -5767,25 +5758,25 @@ MonoBehaviour:
       Data: 68f55159f501a4e57e524594
     - Name: 
       Entry: 1
-      Data: 67d84c9ac6f17dd99b553bf9
+      Data: 68f551404cca1c112c747163
     - Name: 
       Entry: 1
-      Data: 68f55080e6d2894d84fb7a71
+      Data: 68f5512469b5da4e453be385
     - Name: 
       Entry: 1
-      Data: 68f5512c415ad6460a359230
+      Data: 68f5505f5f87d2fe6dfdaaec
     - Name: 
       Entry: 1
-      Data: 68f5514e2bbb38c915ce2344
+      Data: 680b9fae8163446c3b194b9b
     - Name: 
       Entry: 1
-      Data: 68f55298bdfddb713aaedf9c
+      Data: 67d84c8aec5f8427a8810be4
     - Name: 
       Entry: 1
-      Data: 68f55312b67208bcb7a88896
+      Data: 67d84c3fc214a8385d8b143e
     - Name: 
       Entry: 1
-      Data: 68f5535a7caaedf574f2e6bf
+      Data: 67d84cc20688a15941617a7c
     - Name: 
       Entry: 13
       Data: 
@@ -5893,6 +5884,48 @@ MonoBehaviour:
       Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 1
+      Data: 68d03def6b3b5da3745c8bb0
+    - Name: 
+      Entry: 1
+      Data: 68d03def5d98062074f22a77
+    - Name: 
+      Entry: 1
+      Data: 68d03def711e28277fb1ad07
+    - Name: 
+      Entry: 1
+      Data: 68d03defb2b88a34c34c9543
+    - Name: 
+      Entry: 1
+      Data: 68d03def6537f67ac22a5c59
+    - Name: 
+      Entry: 1
+      Data: 68d03defe162c67c77f6e89a
+    - Name: 
+      Entry: 1
+      Data: 68d03def3543699f39ea5d55
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
       Data: 0
     - Name: 
       Entry: 13
@@ -5996,56 +6029,6 @@ MonoBehaviour:
   traderGameObject: {fileID: 8232}
   traderId: 54cb50c76803fa8b248b4571
   chatterPrompt: 682dafa0928edd0f37023135
---- !u!114 &3459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ffccc1284520a6ded7b5419c809427f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StaticLoot: []
-  LootableContainers: []
-  WorldInteractiveObjects: []
-  SyncAbles: []
-  ControlledLampGroups: []
-  TriggerEntities: []
-  NavMeshLinks: []
-  SpawnPointMarkers: []
-  BotZones: []
-  ExfiltrationPoints: []
-  AIPlaceInfos: []
-  StationaryWeapons: []
-  MovingPlatforms: []
-  BorderZones: []
-  RestrictableZones: []
-  Lamps: []
-  Windows: []
-  SynchronizableObjects: []
-  AirdropPoints: []
-  BufferZoneContainers: []
-  TransitPoints: []
-  LocationOrigins: []
-  EventObjects: []
-  FlameDamages: []
-  EventEnvironments: []
-  AreasControllers: []
-  AudioSources:
-  - {fileID: 8216}
-  - {fileID: 8215}
-  - {fileID: 8213}
-  - {fileID: 8210}
-  - {fileID: 8212}
-  - {fileID: 8211}
-  - {fileID: 8214}
-  BroadcastPlayers: []
-  EventSoundContentChangers: []
-  treeWinds: []
-  treeWindSettingsPresets: []
 --- !u!4 &3480
 Transform:
   m_ObjectHideFlags: 0
@@ -7255,6 +7238,50 @@ Transform:
   - {fileID: 3562}
   m_Father: {fileID: 3457}
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &5662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a278bab7744bb2f49ab92d23d8effe4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventOnEnable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8332}
+        m_TargetAssemblyTypeName: Audio.AmbientSubsystem.AmbientSoundPlayerGroup,
+          Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  eventOnDisable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8332}
+        m_TargetAssemblyTypeName: Audio.AmbientSubsystem.AmbientSoundPlayerGroup,
+          Assembly-CSharp
+        m_MethodName: Stop
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!4 &5671
 Transform:
   m_ObjectHideFlags: 0
