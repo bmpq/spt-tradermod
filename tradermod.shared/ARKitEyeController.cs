@@ -11,7 +11,12 @@ namespace tarkin.tradermod.shared
     public class ARKitEyeController : MonoBehaviour
     {
         public SkinnedMeshRenderer targetMesh;
-        public Transform headTransform;
+
+        [Space(10)]
+        public Transform leftEyeOrigin;
+        public Transform rightEyeOrigin;
+
+        [Space(10)]
         public Transform lookTarget;
 
         [Range(10f, 90f)]
@@ -25,60 +30,77 @@ namespace tarkin.tradermod.shared
         private void Start()
         {
             if (targetMesh == null) targetMesh = GetComponent<SkinnedMeshRenderer>();
-            if (headTransform == null) headTransform = transform;
 
-            _idxDownLeft = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookDownLeft");
-            _idxDownRight = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookDownRight");
-            _idxInLeft = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookInLeft");
-            _idxInRight = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookInRight");
-            _idxOutLeft = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookOutLeft");
-            _idxOutRight = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookOutRight");
-            _idxUpLeft = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookUpLeft");
-            _idxUpRight = targetMesh.sharedMesh.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookUpRight");
+            if (leftEyeOrigin == null) leftEyeOrigin = transform;
+            if (rightEyeOrigin == null) rightEyeOrigin = transform;
+
+            CacheBlendShapeIndices();
         }
 
         private void LateUpdate()
         {
-            if (lookTarget == null || targetMesh == null || headTransform == null) 
+            if (lookTarget == null || targetMesh == null) 
                 return;
 
-            Vector3 localTargetPos = headTransform.InverseTransformPoint(lookTarget.position);
-
-            float pitch = Mathf.Atan2(localTargetPos.y, localTargetPos.z) * Mathf.Rad2Deg;
-            float yaw = Mathf.Atan2(localTargetPos.x, localTargetPos.z) * Mathf.Rad2Deg;
-
-            float xNorm = Mathf.Clamp(yaw / maxEyeAngle, -1f, 1f);
-            float yNorm = Mathf.Clamp(pitch / maxEyeAngle, -1f, 1f);
-
-            UpdateEyeShapes(xNorm, yNorm);
+            UpdateSingleEye(leftEyeOrigin, true);
+            UpdateSingleEye(rightEyeOrigin, false);
         }
 
-        private void UpdateEyeShapes(float x, float y)
+        private void UpdateSingleEye(Transform eyeOrigin, bool isLeftEye)
         {
-            float vUp = 0f, vDown = 0f;
-            float hLeftIn = 0f, hLeftOut = 0f;
-            float hRightIn = 0f, hRightOut = 0f;
+            Vector3 localTarget = eyeOrigin.InverseTransformPoint(lookTarget.position);
 
-            if (y > 0) vUp = y * 100f;
-            else vDown = -y * 100f;
+            float pitchAngle = Mathf.Atan2(localTarget.y, localTarget.z) * Mathf.Rad2Deg;
+            float yawAngle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
 
-            if (x > 0) hLeftIn = x * 100f;
-            else hLeftOut = -x * 100f;
+            float xNorm = Mathf.Clamp(yawAngle / maxEyeAngle, -1f, 1f);
+            float yNorm = Mathf.Clamp(pitchAngle / maxEyeAngle, -1f, 1f);
 
-            if (x > 0) hRightOut = x * 100f;
-            else hRightIn = -x * 100f;
+            float wUp = 0f, wDown = 0f;
+            float wIn = 0f, wOut = 0f;
 
-            if (_idxUpLeft != -1) targetMesh.SetBlendShapeWeight(_idxUpLeft, vUp);
-            if (_idxUpRight != -1) targetMesh.SetBlendShapeWeight(_idxUpRight, vUp);
+            if (yNorm > 0) wUp = yNorm * 100f;
+            else wDown = -yNorm * 100f;
 
-            if (_idxDownLeft != -1) targetMesh.SetBlendShapeWeight(_idxDownLeft, vDown);
-            if (_idxDownRight != -1) targetMesh.SetBlendShapeWeight(_idxDownRight, vDown);
+            if (isLeftEye)
+            {
+                if (xNorm > 0) wIn = xNorm * 100f;
+                else wOut = -xNorm * 100f;
 
-            if (_idxInLeft != -1) targetMesh.SetBlendShapeWeight(_idxInLeft, hLeftIn);
-            if (_idxOutLeft != -1) targetMesh.SetBlendShapeWeight(_idxOutLeft, hLeftOut);
+                SetWeight(_idxUpLeft, wUp);
+                SetWeight(_idxDownLeft, wDown);
+                SetWeight(_idxInLeft, wIn);
+                SetWeight(_idxOutLeft, wOut);
+            }
+            else
+            {
+                if (xNorm > 0) wOut = xNorm * 100f;
+                else wIn = -xNorm * 100f;
 
-            if (_idxInRight != -1) targetMesh.SetBlendShapeWeight(_idxInRight, hRightIn);
-            if (_idxOutRight != -1) targetMesh.SetBlendShapeWeight(_idxOutRight, hRightOut);
+                SetWeight(_idxUpRight, wUp);
+                SetWeight(_idxDownRight, wDown);
+                SetWeight(_idxInRight, wIn);
+                SetWeight(_idxOutRight, wOut);
+            }
+        }
+
+        private void SetWeight(int index, float weight)
+        {
+            if (index != -1) targetMesh.SetBlendShapeWeight(index, weight);
+        }
+
+        private void CacheBlendShapeIndices()
+        {
+            Mesh m = targetMesh.sharedMesh;
+            _idxDownLeft = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookDownLeft");
+            _idxUpLeft = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookUpLeft");
+            _idxInLeft = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookInLeft");
+            _idxOutLeft = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookOutLeft");
+
+            _idxDownRight = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookDownRight");
+            _idxUpRight = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookUpRight");
+            _idxInRight = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookInRight");
+            _idxOutRight = m.GetBlendShapeIndex("ARKIT_Blendshapes.eyeLookOutRight");
         }
     }
 }
