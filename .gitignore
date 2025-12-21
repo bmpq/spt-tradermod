@@ -5,3 +5,5 @@
 .obj/
 
 BundleResources/Equi/*.png
+
+BundleResources/ModifiedTextures/*.png

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace tarkin.tradermod.shared
@@ -20,7 +16,7 @@ namespace tarkin.tradermod.shared
         public Transform lookTarget;
 
         [Range(10f, 90f)]
-        public float maxEyeAngle = 40f;
+        public float maxEyeAngle = 50f;
 
         private int _idxDownLeft, _idxDownRight;
         private int _idxInLeft, _idxInRight;
@@ -50,8 +46,16 @@ namespace tarkin.tradermod.shared
         {
             Vector3 localTarget = eyeOrigin.InverseTransformPoint(lookTarget.position);
 
-            float pitchAngle = Mathf.Atan2(localTarget.y, localTarget.z) * Mathf.Rad2Deg;
-            float yawAngle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
+            if (localTarget.sqrMagnitude < 0.001f) return;
+
+            Quaternion localRotation = Quaternion.LookRotation(localTarget, Vector3.up);
+
+            Vector3 euler = localRotation.eulerAngles;
+
+            float yawAngle = NormalizeAngle(euler.y);
+            float pitchAngle = NormalizeAngle(euler.x);
+
+            pitchAngle = -pitchAngle;
 
             float xNorm = Mathf.Clamp(yawAngle / maxEyeAngle, -1f, 1f);
             float yNorm = Mathf.Clamp(pitchAngle / maxEyeAngle, -1f, 1f);
@@ -82,6 +86,12 @@ namespace tarkin.tradermod.shared
                 SetWeight(_idxInRight, wIn);
                 SetWeight(_idxOutRight, wOut);
             }
+        }
+
+        private float NormalizeAngle(float angle)
+        {
+            if (angle > 180f) return angle - 360f;
+            return angle;
         }
 
         private void SetWeight(int index, float weight)
