@@ -61,6 +61,8 @@ namespace tarkin.tradermod.eft
 
             new Patch_QuestsScreen_Awake().Enable();
 
+            new Patch_QuestObjectiveView_QuestHandover().Enable();
+
             new Patch_TraderDealScreen_Show().Enable();
             new Patch_QuestsScreen_Show().Enable();
 
@@ -164,6 +166,11 @@ namespace tarkin.tradermod.eft
                 }
 
                 GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.NoJob);
+            };
+
+            Patch_QuestObjectiveView_QuestHandover.OnPostfix += (quest) =>
+            {
+                GetOrCreateScenesManager().Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.Handover);
             };
 
             Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>
