@@ -27,9 +27,6 @@ namespace tarkin.tradermod.eft
     {
         internal static new ManualLogSource Log;
 
-        internal static ConfigEntry<KeyboardShortcut> KeyCapture;
-        internal static ConfigEntry<int> ResolutionWidth;
-
         private static TraderScenesManager _scenesManager;
         private static DialogDataWrapper dialogData;
 
@@ -212,17 +209,8 @@ namespace tarkin.tradermod.eft
                 }
             };
 
-            Patch_WeaponModdingScreen_Show.OnPostfix += () =>
-            {
-                _scenesManager?.Close();
-            };
-
-            Patch_EditBuildScreen_Show.OnPostfix += () =>
-            {
-                _scenesManager?.Close();
-            };
-
-            InitConfiguration();
+            Patch_WeaponModdingScreen_Show.OnPostfix += () => _scenesManager?.Close();
+            Patch_EditBuildScreen_Show.OnPostfix += () => _scenesManager?.Close();
         }
 
         private static TraderScenesManager GetOrCreateScenesManager()
@@ -230,12 +218,6 @@ namespace tarkin.tradermod.eft
             if (_scenesManager == null)
                 _scenesManager = new TraderScenesManager(dialogData);
             return _scenesManager;
-        }
-
-        private void InitConfiguration()
-        {
-            KeyCapture = Config.Bind("", "KeyCapture", new KeyboardShortcut(KeyCode.F11));
-            ResolutionWidth = Config.Bind("", "ResolutionWidth", 4096);
         }
     }
 }

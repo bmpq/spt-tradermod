@@ -21,14 +21,18 @@ namespace tarkin.tradermod.bep.UI.Trading
             GameObject ____buyRestrictionWarning,
             TraderAssortmentControllerClass ___traderAssortmentControllerClass)
         {
-            if (____buyRestrictionWarning.activeSelf)
+            try
             {
-                bool showLabel = __instance.Item_0.IsEmptyStack ||
-                    __instance.Item_0.BuyRestrictionCurrent >= ___traderAssortmentControllerClass.SelectedItemBuyRestrictionMax;
+                if (____buyRestrictionWarning.activeSelf)
+                {
+                    bool showLabel = __instance.Item_0.IsEmptyStack ||
+                        __instance.Item_0.BuyRestrictionCurrent >= ___traderAssortmentControllerClass.SelectedItemBuyRestrictionMax;
 
-                if (!showLabel)
-                    ____buyRestrictionWarning.SetActive(false);
+                    if (!showLabel)
+                        ____buyRestrictionWarning.SetActive(false);
+                }
             }
+            catch { }
         }
     }
 }
