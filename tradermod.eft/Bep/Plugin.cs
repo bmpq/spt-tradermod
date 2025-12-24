@@ -168,8 +168,14 @@ namespace tarkin.tradermod.eft
                 GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.NoJob);
             };
 
-            Patch_QuestObjectiveView_QuestHandover.OnPostfix += (quest) =>
+            Patch_QuestObjectiveView_QuestHandover.OnPostfix += (quest, success) =>
             {
+                if (!success)
+                {
+                    Log.LogWarning("handover cancelled");
+                    return;
+                }
+
                 GetOrCreateScenesManager().Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.Handover);
             };
 
