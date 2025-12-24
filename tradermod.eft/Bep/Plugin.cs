@@ -71,7 +71,7 @@ namespace tarkin.tradermod.eft
             dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json"))));
 
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
-                GetOrCreateScenesManager().TraderOpenHandler(trader, EFT.UI.TraderScreensGroup.ETraderMode.Trade);
+                GetOrCreateScenesManager().TraderOpenHandler(trader.Id, EFT.UI.TraderScreensGroup.ETraderMode.Trade);
 
             Patch_MenuUI_Awake.OnPostfix += () =>
             {
@@ -148,13 +148,13 @@ namespace tarkin.tradermod.eft
 
                 if (counterFailed > 0)
                 {
-                    GetOrCreateScenesManager().Interact(trader, ETraderDialogType.QuestFailed);
+                    GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.QuestFailed);
                     return;
                 }
 
                 if (counterAvailableToStart > 0)
                 {
-                    GetOrCreateScenesManager().Interact(trader, ETraderDialogType.QuestAvailable);
+                    GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.QuestAvailable);
                     return;
                 }
 
@@ -163,7 +163,7 @@ namespace tarkin.tradermod.eft
                     return;
                 }
 
-                GetOrCreateScenesManager().Interact(trader, ETraderDialogType.NoJob);
+                GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.NoJob);
             };
 
             Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>

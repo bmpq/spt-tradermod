@@ -22,7 +22,7 @@ namespace tarkin.tradermod.eft
         private readonly TraderInteractionService _interactionService;
 
         private TraderUIManager _tradingUIManager;
-        private TraderClass currentlyActiveTrader = null;
+        private string currentlyActiveTraderId = null;
         private string _requestedTraderId = null;
         private Task _activeSwitchTask;
 
@@ -43,9 +43,9 @@ namespace tarkin.tradermod.eft
 
         private void OnTraderFaceClicked()
         {
-            if (currentlyActiveTrader != null && _openedScenes.TryGetValue(currentlyActiveTrader.Id, out var scene))
+            if (!string.IsNullOrEmpty(currentlyActiveTraderId) && _openedScenes.TryGetValue(currentlyActiveTraderId, out var scene))
             {
-                var _ = PlayAnimationSequenceWhileHidingFaceButton(scene, currentlyActiveTrader.Id, ETraderDialogType.Chatter);
+                var _ = PlayAnimationSequenceWhileHidingFaceButton(scene, currentlyActiveTraderId, ETraderDialogType.Chatter);
             }
         }
 
@@ -57,26 +57,26 @@ namespace tarkin.tradermod.eft
             _tradingUIManager.SetTraderState(scene, hasLines);
         }
 
-        public async void Interact(TraderClass trader, ETraderDialogType dialogType)
+        public async void Interact(string traderId, ETraderDialogType dialogType)
         {
-            if (_requestedTraderId != trader.Id)
+            if (_requestedTraderId != traderId)
             {
-                TraderOpenHandler(trader, TraderScreensGroup.ETraderMode.Tasks);
+                TraderOpenHandler(traderId, TraderScreensGroup.ETraderMode.Tasks);
             }
             if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted)
             {
                 await _activeSwitchTask;
             }
 
-            if (_openedScenes.TryGetValue(trader.Id, out var scene))
+            if (_openedScenes.TryGetValue(traderId, out var scene))
             {
-                await PlayAnimationSequenceWhileHidingFaceButton(scene, trader.Id, dialogType);
+                await PlayAnimationSequenceWhileHidingFaceButton(scene, traderId, dialogType);
             }
         }
 
         private async Task PlayAnimationSequenceWhileHidingFaceButton(TraderScene scene, string traderId, ETraderDialogType type)
         {
-            if (_tradingUIManager != null && currentlyActiveTrader?.Id == traderId)
+            if (_tradingUIManager != null && currentlyActiveTraderId == traderId)
             {
                 _tradingUIManager.SetTraderState(scene, false);
             }
@@ -91,29 +91,29 @@ namespace tarkin.tradermod.eft
             }
             finally
             {
-                if (currentlyActiveTrader != null && currentlyActiveTrader.Id == traderId)
+                if (currentlyActiveTraderId == traderId)
                 {
                     RefreshUIState(scene);
                 }
             }
         }
 
-        public async void TraderOpenHandler(TraderClass trader, TraderScreensGroup.ETraderMode mode)
+        public async void TraderOpenHandler(string traderId, TraderScreensGroup.ETraderMode mode)
         {
-            if (currentlyActiveTrader == trader)
+            if (currentlyActiveTraderId == traderId)
             {
                 SetMainMenuBGVisible(false);
                 return;
             }
 
-            _requestedTraderId = trader.Id;
+            _requestedTraderId = traderId;
 
             try
             {
-                await SwitchToTrader(trader);
+                await SwitchToTrader(traderId);
 
                 if (mode == TraderScreensGroup.ETraderMode.Trade)
-                    Interact(trader, ETraderDialogType.Greetings);
+                    Interact(traderId, ETraderDialogType.Greetings);
             }
             catch (Exception ex)
             {
@@ -125,7 +125,7 @@ namespace tarkin.tradermod.eft
         public void Close()
         {
             ManageSceneVisibility(null);
-            currentlyActiveTrader = null;
+            currentlyActiveTraderId = string.Empty;
 
             _cameraController.FadeToBlack(false);
             _interactionService.SavePlayedLines();
@@ -133,19 +133,19 @@ namespace tarkin.tradermod.eft
             SetMainMenuBGVisible(true);
         }
 
-        private async Task SwitchToTrader(TraderClass trader)
+        private async Task SwitchToTrader(string traderId)
         {
-            if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted && _requestedTraderId == trader.Id)
+            if (_activeSwitchTask != null && !_activeSwitchTask.IsCompleted && _requestedTraderId == traderId)
             {
                 await _activeSwitchTask;
                 return;
             }
 
-            _activeSwitchTask = SwitchToTraderInternal(trader);
+            _activeSwitchTask = SwitchToTraderInternal(traderId);
             await _activeSwitchTask;
         }
 
-        private async Task SwitchToTraderInternal(TraderClass trader)
+        private async Task SwitchToTraderInternal(string traderId)
         {
             if (CurrentScreenSingletonClass.Instance.RootScreenType == EEftScreenType.Hideout)
             {
@@ -155,7 +155,7 @@ namespace tarkin.tradermod.eft
 
             Task fadeTask = _cameraController.FadeToBlack(true);
 
-            var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(trader.Id);
+            var loadHandle = await TraderBundleManager.LoadTraderSceneWithHandle(traderId);
 
             if (loadHandle == null)
             {
@@ -167,9 +167,9 @@ namespace tarkin.tradermod.eft
             // wait for BOTH the Fade animation AND the Loading to finish
             await Task.WhenAll(fadeTask, loadHandle.WaitUntilReady());
 
-            if (_requestedTraderId != trader.Id)
+            if (_requestedTraderId != traderId)
             {
-                _logger.LogInfo($"User switched from {trader.Id} before load finished. Aborting switch.");
+                _logger.LogInfo($"User switched from {traderId} before load finished. Aborting switch.");
                 return;
             }
 
@@ -183,15 +183,15 @@ namespace tarkin.tradermod.eft
                 return;
             }
 
-            if (currentlyActiveTrader != null)
-                _interactionService.MarkTraderSeen(currentlyActiveTrader.Id);
+            if (!string.IsNullOrEmpty(currentlyActiveTraderId))
+                _interactionService.MarkTraderSeen(currentlyActiveTraderId);
 
-            currentlyActiveTrader = trader;
+            currentlyActiveTraderId = traderId;
 
             RefreshUIState(traderScene);
 
             SceneManager.SetActiveScene(scene);
-            _openedScenes[trader.Id] = traderScene;
+            _openedScenes[traderId] = traderScene;
             ManageSceneVisibility(traderScene);
 
             // to avoid interfering with hideout, if it exists in the world
