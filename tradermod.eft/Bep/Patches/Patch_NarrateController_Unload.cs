@@ -11,6 +11,8 @@ namespace tarkin.tradermod.eft.Bep.Patches
 {
     internal class Patch_NarrateController_Unload : ModulePatch
     {
+        private static readonly BepInEx.Logging.ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource(nameof(Patch_NarrateController_Unload));
+
         public static event Action OnPostfix;
 
         protected override MethodBase GetTargetMethod()
@@ -28,9 +30,15 @@ namespace tarkin.tradermod.eft.Bep.Patches
         {
             await originalTask;
 
-            await TraderBundleManager.UnloadAllBundles();
-
-            OnPostfix?.Invoke();
+            try
+            {
+                await TraderBundleManager.UnloadAllBundles();
+                OnPostfix?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Failed to unload traders: {ex}");
+            }
         }
     }
 }
