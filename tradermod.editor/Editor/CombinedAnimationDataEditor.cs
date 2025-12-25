@@ -20,6 +20,7 @@ public class CombinedAnimationEditorWindow : EditorWindow
     private LipSyncDictionary _lipSyncDictionary;
     private AnimationDictionary _animationDictionary;
     private SecondaryAnimationDictionary _secondaryAnimationDictionary;
+    private SequenceReader _sequenceReader;
 
     private List<string> _cachedAnimKeys = new List<string>();
     private List<string> _cachedSecondaryKeys = new List<string>();
@@ -110,6 +111,7 @@ public class CombinedAnimationEditorWindow : EditorWindow
         if (_lipSyncDictionary == null) _lipSyncDictionary = FindFirstObjectByType<LipSyncDictionary>();
         if (_animationDictionary == null) _animationDictionary = FindFirstObjectByType<AnimationDictionary>();
         if (_secondaryAnimationDictionary == null) _secondaryAnimationDictionary = FindFirstObjectByType<SecondaryAnimationDictionary>();
+        if (_sequenceReader == null) _sequenceReader = FindFirstObjectByType<SequenceReader>();
 
         _cachedAnimKeys = _animationDictionary != null ? _animationDictionary.GetAllKeys() : new List<string>();
         _cachedSecondaryKeys = _secondaryAnimationDictionary != null ? _secondaryAnimationDictionary.GetAllKeys() : new List<string>();
@@ -167,7 +169,11 @@ public class CombinedAnimationEditorWindow : EditorWindow
         if (_currentData == null) return;
 
         DrawReferences();
+
+        EditorGUILayout.BeginHorizontal();
+        DrawPreviewControls();
         DrawTimelineHeader();
+        EditorGUILayout.EndHorizontal();
 
         _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
         EditorGUI.BeginChangeCheck();
@@ -229,21 +235,35 @@ public class CombinedAnimationEditorWindow : EditorWindow
         EditorGUILayout.BeginHorizontal();
         _localeAsset = (TextAsset)EditorGUILayout.ObjectField("Locale", _localeAsset, typeof(TextAsset), false);
         _lipSyncDictionary = (LipSyncDictionary)EditorGUILayout.ObjectField("Lips", _lipSyncDictionary, typeof(LipSyncDictionary), true);
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.BeginHorizontal();
         _animationDictionary = (AnimationDictionary)EditorGUILayout.ObjectField("Anims", _animationDictionary, typeof(AnimationDictionary), true);
         _secondaryAnimationDictionary = (SecondaryAnimationDictionary)EditorGUILayout.ObjectField("Sec Anims", _secondaryAnimationDictionary, typeof(SecondaryAnimationDictionary), true);
+        _sequenceReader = (SequenceReader)EditorGUILayout.ObjectField("Seq Reader", _sequenceReader, typeof(SequenceReader), true);
         EditorGUILayout.EndHorizontal();
 
         if (EditorGUI.EndChangeCheck()) RefreshReferenceCaches();
         EditorGUILayout.EndVertical();
     }
 
+    private void DrawPreviewControls()
+    {
+        EditorGUI.BeginDisabledGroup(!Application.isPlaying || _sequenceReader == null);
+
+        EditorGUILayout.BeginHorizontal(GUILayout.Width(_inspectorWidth));
+        if (GUILayout.Button(EditorGUIUtility.IconContent("PlayButton On"), GUILayout.Width(20)))
+        {
+            _sequenceReader.json = _selectedAsset.text;
+            _sequenceReader.Play();
+        }
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUI.EndDisabledGroup();
+    }
+
     private void DrawTimelineHeader()
     {
-        Rect rect = EditorGUILayout.GetControlRect(false, 20);
-        Rect rightRect = new Rect(rect.x + _inspectorWidth, rect.y, rect.width - _inspectorWidth, rect.height);
+        Rect rect = EditorGUILayout.GetControlRect(false);
+        Rect rightRect = new Rect(rect.x, rect.y, rect.width, rect.height);
 
         // bg
         EditorGUI.DrawRect(rightRect, new Color(0.2f, 0.2f, 0.2f));
