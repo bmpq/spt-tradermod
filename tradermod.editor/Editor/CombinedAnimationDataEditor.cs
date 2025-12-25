@@ -49,8 +49,7 @@ public class CombinedAnimationEditorWindow : EditorWindow
     {
         if (Selection.activeObject is TextAsset asset)
         {
-            _selectedAsset = asset;
-            ParseData();
+            AttemptChangeAsset(asset, force: true);
         }
         RefreshReferenceCaches();
     }
@@ -59,12 +58,69 @@ public class CombinedAnimationEditorWindow : EditorWindow
 
     private void OnSelectionChange()
     {
-        CheckAndImportPrevious();
-        if (Selection.activeObject is TextAsset asset)
+        if (Selection.activeObject is TextAsset asset && asset != _selectedAsset)
         {
-            _selectedAsset = asset;
-            ParseData();
+            AttemptChangeAsset(asset);
             Repaint();
+        }
+    }
+
+    private void AttemptChangeAsset(TextAsset newAsset, bool force = false)
+    {
+        if (newAsset == null) return;
+
+        CombinedAnimationData tempData;
+        bool valid = TryParse(newAsset, out tempData);
+
+        if (valid)
+        {
+            CheckAndImportPrevious();
+
+            _selectedAsset = newAsset;
+            _currentData = tempData;
+            _isValidJson = true;
+            _errorMessage = "";
+            _needsReimport = false;
+        }
+        else if (force)
+        {
+            _selectedAsset = newAsset;
+            _currentData = null;
+            _isValidJson = false;
+            try { JsonConvert.DeserializeObject<CombinedAnimationData>(newAsset.text); }
+            catch (System.Exception ex) { _errorMessage = ex.Message; }
+        }
+    }
+
+    private bool TryParse(TextAsset asset, out CombinedAnimationData data)
+    {
+        data = null;
+        if (asset == null) return false;
+
+        try
+        {
+            data = JsonConvert.DeserializeObject<CombinedAnimationData>(asset.text);
+            if (data == null) data = CombinedAnimationData.Default;
+
+            if (data.animKeysWithParams == null) data.animKeysWithParams = new List<AnimationParams>();
+            if (data.secondaryAnimKeysWithParams == null) data.secondaryAnimKeysWithParams = new List<AnimationParams>();
+            if (data.lipSyncKeysWithParams == null) data.lipSyncKeysWithParams = new List<LipSyncParams>();
+            if (data.subtitleKeysWithParams == null) data.subtitleKeysWithParams = new List<SubtitleParams>();
+            if (data.mediaData == null) data.mediaData = new MediaData();
+
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private void ReloadCurrentAsset()
+    {
+        if (_selectedAsset != null)
+        {
+            AttemptChangeAsset(_selectedAsset, force: true);
         }
     }
 
@@ -76,34 +132,6 @@ public class CombinedAnimationEditorWindow : EditorWindow
             if (!string.IsNullOrEmpty(path)) AssetDatabase.ImportAsset(path);
         }
         _needsReimport = false;
-    }
-
-    private void ParseData()
-    {
-        _currentData = null;
-        _isValidJson = true;
-        _errorMessage = "";
-        _needsReimport = false;
-
-        if (_selectedAsset == null) return;
-
-        try
-        {
-            _currentData = JsonConvert.DeserializeObject<CombinedAnimationData>(_selectedAsset.text);
-            if (_currentData == null) _currentData = CombinedAnimationData.Default;
-
-            if (_currentData.animKeysWithParams == null) _currentData.animKeysWithParams = new List<AnimationParams>();
-            if (_currentData.secondaryAnimKeysWithParams == null) _currentData.secondaryAnimKeysWithParams = new List<AnimationParams>();
-            if (_currentData.lipSyncKeysWithParams == null) _currentData.lipSyncKeysWithParams = new List<LipSyncParams>();
-            if (_currentData.subtitleKeysWithParams == null) _currentData.subtitleKeysWithParams = new List<SubtitleParams>();
-            if (_currentData.mediaData == null) _currentData.mediaData = new MediaData();
-        }
-        catch (System.Exception ex)
-        {
-            _isValidJson = false;
-            _errorMessage = ex.Message;
-            _currentData = null;
-        }
     }
 
     private void RefreshReferenceCaches()
@@ -155,14 +183,14 @@ public class CombinedAnimationEditorWindow : EditorWindow
 
         if (_selectedAsset == null)
         {
-            EditorGUILayout.HelpBox("Select a TextAsset.", MessageType.Info);
+            EditorGUILayout.HelpBox("Select a valid CombinedAnimationData TextAsset.", MessageType.Info);
             return;
         }
 
         if (!_isValidJson)
         {
             EditorGUILayout.HelpBox($"JSON Error: {_errorMessage}", MessageType.Error);
-            if (GUILayout.Button("Retry Parse")) ParseData();
+            if (GUILayout.Button("Retry Parse")) ReloadCurrentAsset();
             return;
         }
 
@@ -205,9 +233,10 @@ public class CombinedAnimationEditorWindow : EditorWindow
         TextAsset newAsset = (TextAsset)EditorGUILayout.ObjectField(_selectedAsset, typeof(TextAsset), false, GUILayout.Width(200));
         if (EditorGUI.EndChangeCheck())
         {
-            CheckAndImportPrevious();
-            _selectedAsset = newAsset;
-            ParseData();
+            if (newAsset != _selectedAsset)
+            {
+                AttemptChangeAsset(newAsset);
+            }
         }
 
         if (_needsReimport) EditorGUILayout.LabelField("*", GUILayout.Width(10));
