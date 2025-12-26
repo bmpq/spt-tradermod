@@ -8,16 +8,6 @@ namespace tarkin.tradermod.shared
         [SerializeField] private TMP_Text text;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        private void OnEnable()
-        {
-            SubtitleBehaviour.OnSubtitleChange += SetText;
-        }
-
-        private void OnDisable()
-        {
-            SubtitleBehaviour.OnSubtitleChange -= SetText;
-        }
-
         public void SetText(string subtitle)
         {
             if (string.IsNullOrEmpty(subtitle))

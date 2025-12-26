@@ -50,6 +50,32 @@ namespace tarkin.tradermod.eft
             return line;
         }
 
+        public void AddExtraLocalizationData(Dictionary<string, Dictionary<string, string>> data)
+        {
+            foreach (var kvp in data)
+            {
+                AddExtraLocalizationData(kvp.Key, kvp.Value);
+            }
+        }
+
+        public void AddExtraLocalizationData(string locale, Dictionary<string, string> data)
+        {
+            if (string.IsNullOrEmpty(locale) || data == null || data.Count == 0)
+                return;
+
+            if (!localizedSubtitles.TryGetValue(locale, out var localeDict))
+            {
+                localeDict = new Dictionary<string, string>();
+                localizedSubtitles[locale] = localeDict;
+            }
+
+            foreach (var kvp in data)
+            {
+                // will overwrite
+                localeDict[kvp.Key] = kvp.Value;
+            }
+        }
+
         public string GetLocalizedSubtitle(string id)
         {
             string currentLocale = "en";

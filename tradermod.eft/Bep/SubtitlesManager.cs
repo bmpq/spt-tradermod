@@ -21,6 +21,7 @@ namespace tarkin.tradermod.eft.Bep
             SpawnSubtitlesController();
 
             SequencePlayer.OnSubtitleChanged += SequencePlayer_OnSubtitleChanged;
+            SubtitleBehaviour.OnSubtitleChange += SequencePlayer_OnSubtitleChanged;
         }
 
         private void SequencePlayer_OnSubtitleChanged(string subtitleId)
@@ -43,6 +44,7 @@ namespace tarkin.tradermod.eft.Bep
         public void Dispose()
         {
             SequencePlayer.OnSubtitleChanged -= SequencePlayer_OnSubtitleChanged;
+            SubtitleBehaviour.OnSubtitleChange -= SequencePlayer_OnSubtitleChanged;
 
             if (view != null)
                 GameObject.Destroy(view.gameObject);

@@ -18,6 +18,7 @@ namespace tarkin.tradermod.eft
     {
         private static readonly ManualLogSource _logger = BepInEx.Logging.Logger.CreateLogSource(nameof(TraderScenesManager));
 
+        private readonly DialogDataWrapper _dialogData;
         private readonly TraderCameraController _cameraController;
         private readonly TraderInteractionService _interactionService;
 
@@ -30,6 +31,7 @@ namespace tarkin.tradermod.eft
 
         public TraderScenesManager(DialogDataWrapper dialogData)
         {
+            _dialogData = dialogData;
             _interactionService = new TraderInteractionService(dialogData);
             _cameraController = new TraderCameraController();
         }
@@ -185,6 +187,8 @@ namespace tarkin.tradermod.eft
 
             if (!string.IsNullOrEmpty(currentlyActiveTraderId))
                 _interactionService.MarkTraderSeen(currentlyActiveTraderId);
+
+            _dialogData.AddExtraLocalizationData(traderScene.GetExtraLocales());
 
             currentlyActiveTraderId = traderId;
 

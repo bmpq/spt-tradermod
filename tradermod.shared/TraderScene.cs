@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.Playables;
+using Newtonsoft.Json;
 
 namespace tarkin.tradermod.shared
 {
@@ -46,6 +47,39 @@ namespace tarkin.tradermod.shared
         [SerializeField] private Dictionary<ETraderDialogType, List<PlayableAsset>> _timelineDialogs;
         public Dictionary<ETraderDialogType, List<PlayableAsset>> TimelineDialogs => _timelineDialogs;
 
+        [SerializeField] private List<TextAsset> _extraLocales;
+        private Dictionary<string, Dictionary<string, string>> _parsedExtraLocales;
+        public Dictionary<string, Dictionary<string, string>> GetExtraLocales()
+        {
+            if (_parsedExtraLocales == null)
+            {
+                _parsedExtraLocales = new Dictionary<string, Dictionary<string, string>>();
+
+                if (_extraLocales != null)
+                {
+                    foreach (var asset in _extraLocales)
+                    {
+                        if (asset == null) continue;
+
+                        try
+                        {
+                            var content = JsonConvert.DeserializeObject<Dictionary<string, string>>(asset.text);
+                            if (content != null && !_parsedExtraLocales.ContainsKey(asset.name))
+                            {
+                                _parsedExtraLocales.Add(asset.name, content);
+                            }
+                        }
+                        catch (System.Exception ex)
+                        {
+                            Debug.LogError($"Failed to parse locale '{asset.name}': {ex.Message}");
+                        }
+                    }
+                }
+            }
+
+            return _parsedExtraLocales;
+        }
+
         public List<string> GetDialogs(ETraderDialogType type)
         {
             if (_dialogs.TryGetValue(type, out var list))
@@ -61,6 +95,14 @@ namespace tarkin.tradermod.shared
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            _parsedExtraLocales = null;
+            if (GetExtraLocales().Count > 0)
+            {
+                foreach (var locale in GetExtraLocales())
+                {
+                    Debug.Log($"{locale.Key} - {locale.Value.Count} keys");
+                }
+            }
             // make sure not in prefab mode
             if (!UnityEditor.PrefabUtility.IsPartOfPrefabAsset(this))
             {
