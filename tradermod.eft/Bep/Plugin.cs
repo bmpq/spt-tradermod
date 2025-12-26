@@ -15,6 +15,7 @@ using tarkin.tradermod.bep.UI;
 using tarkin.tradermod.bep.UI.Quests;
 using tarkin.tradermod.bep.UI.Trading;
 using tarkin.tradermod.eft.Bep;
+using tarkin.tradermod.eft.Bep.DebugTools;
 using tarkin.tradermod.eft.Bep.Patches;
 using tarkin.tradermod.shared;
 using UnityEngine;
@@ -211,6 +212,12 @@ namespace tarkin.tradermod.eft
 
             Patch_WeaponModdingScreen_Show.OnPostfix += () => _scenesManager?.Close();
             Patch_EditBuildScreen_Show.OnPostfix += () => _scenesManager?.Close();
+
+#if DEBUG
+            var tester = new GameObject("trader debug").AddComponent<InteractionTester>();
+            DontDestroyOnLoad(tester.gameObject);
+            tester.SceneManagerGetter = GetOrCreateScenesManager;
+#endif
         }
 
         private static TraderScenesManager GetOrCreateScenesManager()
