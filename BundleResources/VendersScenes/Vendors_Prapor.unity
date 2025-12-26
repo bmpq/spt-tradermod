@@ -2214,7 +2214,7 @@ GameObject:
   - component: {fileID: 8566}
   - component: {fileID: 8370}
   m_Layer: 0
-  m_Name: Head_audiosource
+  m_Name: VOICE_audiosource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5455,9 +5455,12 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: 9f463d907fbc00b45bc8b26b92256700, type: 2}
-    - {fileID: 11400000, guid: 5d1bd3a40f9c6354bba943e654626dd3, type: 2}
-    - {fileID: 11400000, guid: 6431045818c1a8a469b549319cdcc87d, type: 2}
+    - {fileID: 11400000, guid: 3809708952ecd384f8e48498a6ecb052, type: 2}
+    - {fileID: 11400000, guid: 29316272d42377e4e903fc066ef3de6e, type: 2}
+    - {fileID: 11400000, guid: ee693ff05ff456546af39f288934d72c, type: 2}
+    - {fileID: 11400000, guid: 013aefa64257a0a4495d6f7bf806b21a, type: 2}
+    - {fileID: 11400000, guid: cf0caae72c232c445b03a2f07a0cf715, type: 2}
+    - {fileID: 11400000, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -5483,7 +5486,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 11
+      Data: 7
     - Name: 
       Entry: 7
       Data: 
@@ -5495,25 +5498,13 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 10
+      Data: 5
     - Name: 
       Entry: 1
       Data: 68fce22338729758d1910ba4
     - Name: 
       Entry: 1
       Data: 68fce223b0f14631eb59d34e
-    - Name: 
-      Entry: 1
-      Data: 68f6af56476602ba167aee22
-    - Name: 
-      Entry: 1
-      Data: 68f6af566ddd524a304c34a2
-    - Name: 
-      Entry: 1
-      Data: 68f6af5693188d7e7b465816
-    - Name: 
-      Entry: 1
-      Data: 68f6af56e6f5efd4f34ed0f1
     - Name: 
       Entry: 1
       Data: 68fce22322baf488df84a2a9
@@ -5523,9 +5514,6 @@ MonoBehaviour:
     - Name: 
       Entry: 1
       Data: 68fce22349a37f728e68c6de
-    - Name: 
-      Entry: 1
-      Data: 68f6af56849ad025835f5674
     - Name: 
       Entry: 13
       Data: 
@@ -5546,7 +5534,7 @@ MonoBehaviour:
       Data: 3|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 18
+      Data: 17
     - Name: 
       Entry: 1
       Data: 6914771d3ef479b57ec64404
@@ -5598,9 +5586,6 @@ MonoBehaviour:
     - Name: 
       Entry: 1
       Data: 68fced19c9d0b2650dd271f1
-    - Name: 
-      Entry: 1
-      Data: 67ea8070ea09a43c4fefe289
     - Name: 
       Entry: 13
       Data: 
@@ -5804,73 +5789,13 @@ MonoBehaviour:
       Data: 7|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 1
       Data: 68de9d2e374fd9ab7c812530
     - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 7
-    - Name: $v
-      Entry: 7
-      Data: 8|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 10
-    - Name: $v
-      Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 4
-    - Name: $v
-      Entry: 7
-      Data: 10|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
+      Entry: 1
+      Data: 68d03def5d98062074f22a77
     - Name: 
       Entry: 13
       Data: 
@@ -5888,7 +5813,7 @@ MonoBehaviour:
       Data: 9
     - Name: $v
       Entry: 7
-      Data: 11|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+      Data: 8|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
     - Name: 
       Entry: 12
       Data: 7
@@ -5923,27 +5848,6 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 12|System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -5951,12 +5855,12 @@ MonoBehaviour:
       Data: 
     - Name: _timelineDialogs
       Entry: 7
-      Data: 13|System.Collections.Generic.Dictionary`2[[tarkin.tradermod.shared.ETraderDialogType,
+      Data: 9|System.Collections.Generic.Dictionary`2[[tarkin.tradermod.shared.ETraderDialogType,
         tradermod.shared],[System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
         UnityEngine.CoreModule]], mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 14|System.Collections.Generic.EnumEqualityComparer`1[[tarkin.tradermod.shared.ETraderDialogType,
+      Data: 10|System.Collections.Generic.EnumEqualityComparer`1[[tarkin.tradermod.shared.ETraderDialogType,
         tradermod.shared]], mscorlib
     - Name: 
       Entry: 12
@@ -5969,23 +5873,45 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 0
+      Data: 6
     - Name: $v
       Entry: 7
-      Data: 15|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
+      Data: 11|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
         UnityEngine.CoreModule]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 11
+    - Name: $v
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
     - Name: 
       Entry: 10
       Data: 1
@@ -6003,17 +5929,26 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 3
+      Data: 12
     - Name: $v
       Entry: 7
-      Data: 16|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
+      Data: 13|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
         UnityEngine.CoreModule]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 10
       Data: 2
+    - Name: 
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 10
+      Data: 5
     - Name: 
       Entry: 13
       Data: 
@@ -6117,6 +6052,9 @@ MonoBehaviour:
   traderGameObject: {fileID: 8232}
   traderId: 54cb50c76803fa8b248b4571
   director: {fileID: 3459}
+  _extraLocales:
+  - {fileID: 4900000, guid: 203576000eed9bf419964439ef7e9211, type: 3}
+  - {fileID: 4900000, guid: 092eeb74eafddf949a3ab6b9c1215f9c, type: 3}
   chatterPrompt: 682dafa0928edd0f37023135
 --- !u!320 &3459
 PlayableDirector:
@@ -6127,7 +6065,7 @@ PlayableDirector:
   m_GameObject: {fileID: 335}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 6431045818c1a8a469b549319cdcc87d, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -6156,6 +6094,54 @@ PlayableDirector:
   - key: {fileID: 4552841983294133307, guid: 5d1bd3a40f9c6354bba943e654626dd3, type: 2}
     value: {fileID: 8216}
   - key: {fileID: 6369289130280687317, guid: 5d1bd3a40f9c6354bba943e654626dd3, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: 3809708952ecd384f8e48498a6ecb052, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: 3809708952ecd384f8e48498a6ecb052, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: 3809708952ecd384f8e48498a6ecb052, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: 3809708952ecd384f8e48498a6ecb052, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: 29316272d42377e4e903fc066ef3de6e, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: 29316272d42377e4e903fc066ef3de6e, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: 29316272d42377e4e903fc066ef3de6e, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: 29316272d42377e4e903fc066ef3de6e, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: ee693ff05ff456546af39f288934d72c, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: ee693ff05ff456546af39f288934d72c, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: ee693ff05ff456546af39f288934d72c, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: ee693ff05ff456546af39f288934d72c, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: 013aefa64257a0a4495d6f7bf806b21a, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: 013aefa64257a0a4495d6f7bf806b21a, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: 013aefa64257a0a4495d6f7bf806b21a, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: 013aefa64257a0a4495d6f7bf806b21a, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: cf0caae72c232c445b03a2f07a0cf715, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: cf0caae72c232c445b03a2f07a0cf715, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: cf0caae72c232c445b03a2f07a0cf715, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: cf0caae72c232c445b03a2f07a0cf715, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
     value: {fileID: 8594}
   m_ExposedReferences:
     m_References: []
@@ -16181,13 +16167,11 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 20.176453
-  - 11.589966
+  - 17.39093
+  - 8.829041
   - 0
-  - 80.29419
-  - 79.7041
-  - 0
-  - 0
+  - 79.23169
+  - 78.7486
   - 0
   - 0
   - 0
@@ -16221,15 +16205,17 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 0.000031959255
-  - 0.0000023045277
-  - 2.1777785
-  - 50.633263
-  - 0.00012507095
-  - 7.4023023e-19
-  - 0.000000009812272
-  - 4.5086674e-19
-  - 1.4814596e-18
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   m_RootBone: {fileID: 5553}
@@ -31473,11 +31459,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.13188988
+      value: 0.17683855
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15034978
+      value: 0.09342446
       objectReference: {fileID: 0}
     - target: {fileID: 8726491890682852289, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_Name

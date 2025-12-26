@@ -18,7 +18,9 @@ namespace tarkin.tradermod.shared
         TradeStart,
         Handover,
         Dunno,
-        QuestStart
+        QuestStart,
+        QuestComplete,
+        QuestInProgress
     }
 
     public class TraderScene : SerializedMonoBehaviour

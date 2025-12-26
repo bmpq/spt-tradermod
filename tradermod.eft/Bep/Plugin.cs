@@ -162,6 +162,7 @@ namespace tarkin.tradermod.eft
 
                 if (counterStarted > 0)
                 {
+                    GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.QuestInProgress);
                     return;
                 }
 
