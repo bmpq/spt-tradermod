@@ -1301,7 +1301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,7 +2251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2618
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,7 +3301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2823
 GameObject:
   m_ObjectHideFlags: 0
@@ -5457,6 +5457,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: 3809708952ecd384f8e48498a6ecb052, type: 2}
     - {fileID: 11400000, guid: 29316272d42377e4e903fc066ef3de6e, type: 2}
+    - {fileID: 11400000, guid: f554c9bab1f3f7b45806ebd7f0439d74, type: 2}
+    - {fileID: 11400000, guid: 74ef349005b6c1c4baddc4798e6acab0, type: 2}
     - {fileID: 11400000, guid: ee693ff05ff456546af39f288934d72c, type: 2}
     - {fileID: 11400000, guid: 013aefa64257a0a4495d6f7bf806b21a, type: 2}
     - {fileID: 11400000, guid: cf0caae72c232c445b03a2f07a0cf715, type: 2}
@@ -5911,10 +5913,16 @@ MonoBehaviour:
         UnityEngine.CoreModule]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 10
+      Data: 3
     - Name: 
       Entry: 13
       Data: 
@@ -5939,16 +5947,16 @@ MonoBehaviour:
       Data: 4
     - Name: 
       Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 10
       Data: 4
     - Name: 
       Entry: 10
       Data: 5
+    - Name: 
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 10
+      Data: 7
     - Name: 
       Entry: 13
       Data: 
@@ -6065,7 +6073,7 @@ PlayableDirector:
   m_GameObject: {fileID: 335}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 74ef349005b6c1c4baddc4798e6acab0, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -6142,6 +6150,22 @@ PlayableDirector:
   - key: {fileID: 4552841983294133307, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
     value: {fileID: 8216}
   - key: {fileID: 6369289130280687317, guid: a3be0a31a3d48e746849267c42ec780b, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: f554c9bab1f3f7b45806ebd7f0439d74, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: f554c9bab1f3f7b45806ebd7f0439d74, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: f554c9bab1f3f7b45806ebd7f0439d74, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: f554c9bab1f3f7b45806ebd7f0439d74, type: 2}
+    value: {fileID: 8594}
+  - key: {fileID: -1258488449116662456, guid: 74ef349005b6c1c4baddc4798e6acab0, type: 2}
+    value: {fileID: 8232}
+  - key: {fileID: -9091693818625019978, guid: 74ef349005b6c1c4baddc4798e6acab0, type: 2}
+    value: {fileID: 1505056987}
+  - key: {fileID: 4552841983294133307, guid: 74ef349005b6c1c4baddc4798e6acab0, type: 2}
+    value: {fileID: 8216}
+  - key: {fileID: 6369289130280687317, guid: 74ef349005b6c1c4baddc4798e6acab0, type: 2}
     value: {fileID: 8594}
   m_ExposedReferences:
     m_References: []
@@ -16167,13 +16191,11 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 17.39093
-  - 8.829041
+  - 11.663208
+  - 3.9011228
   - 0
-  - 79.23169
-  - 78.7486
-  - 0
-  - 0
+  - 66.68799
+  - 66.44574
   - 0
   - 0
   - 0
@@ -16209,13 +16231,15 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 4.555449e-11
+  - 2.2489714e-15
+  - 3.126225e-11
+  - 0.00003658758
+  - 2.6563006e-15
+  - 2.6841623e-21
+  - 1.9202793e-17
+  - 5.260381e-16
+  - 3.7052265e-17
   - 0
   - 0
   m_RootBone: {fileID: 5553}
@@ -31459,11 +31483,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.17683855
+      value: 0.04434742
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.09342446
+      value: -0.1950213
       objectReference: {fileID: 0}
     - target: {fileID: 8726491890682852289, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_Name

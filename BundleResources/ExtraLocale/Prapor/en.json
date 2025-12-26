@@ -1,7 +1,10 @@
 {
-  "prapor_chto_tam_po_zadache": "How's it going with the task?",
   "prapor_cho_tam_zadacha": "Well, is the assignment complete?",
+  "prapor_chto_tam_po_zadache": "How's it going with the task?",
+  "prapor_krasavchik": "Attaboy!",
+  "prapor_molodca": "Attaboy.",
   "prapor_nu_molodec": "Well done, what can I say. You managed to handle that trivial task.",
+  "prapor_priyatno_obosralsya": "Good to see that for once you didn’t shit the bed.",
   "prapor_vse_gotovo": "All done?",
   "prapor_vse_sdelano": "All done?"
 }
