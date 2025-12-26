@@ -61,6 +61,8 @@ namespace tarkin.tradermod.eft
 
             new Patch_QuestObjectiveView_QuestHandover().Enable();
 
+            new Patch_QuestControllerClient_TryNotifyConditionalStatusChanged().Enable();
+
             new Patch_TraderDealScreen_Show().Enable();
             new Patch_QuestsScreen_Show().Enable();
 
@@ -178,6 +180,12 @@ namespace tarkin.tradermod.eft
                 }
 
                 GetOrCreateScenesManager().Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.Handover);
+            };
+
+            Patch_QuestControllerClient_TryNotifyConditionalStatusChanged.OnPostfix += (quest) =>
+            {
+                if (quest.QuestStatus == EFT.Quests.EQuestStatus.AvailableForFinish)
+                    GetOrCreateScenesManager().Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.QuestComplete);
             };
 
             Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>
