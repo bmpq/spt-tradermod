@@ -136,9 +136,11 @@ namespace tarkin.tradermod.eft
                             counterAvailableToStart++;
                             break;
                         case EFT.Quests.EQuestStatus.Started:
+                        case EFT.Quests.EQuestStatus.AvailableForFinish:
                             counterStarted++;
                             break;
                         case EFT.Quests.EQuestStatus.Fail:
+                        case EFT.Quests.EQuestStatus.FailRestartable:
                         case EFT.Quests.EQuestStatus.Expired:
                         case EFT.Quests.EQuestStatus.MarkedAsFailed:
                             counterFailed++;

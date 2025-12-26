@@ -203,6 +203,8 @@ namespace tarkin.tradermod.eft
 
             SetMainMenuBGVisible(false);
 
+            traderScene.TraderGameObject.gameObject.GetOrAddComponent<NPCPropSoundPlayer>();
+
             _cameraController.Setup(traderScene.CameraPoint);
             _cameraController.FadeToBlack(false);
         }
@@ -224,6 +226,8 @@ namespace tarkin.tradermod.eft
 
                 if (kvp.Value != null)
                 {
+                    if (kvp.Value.Director != null)
+                        kvp.Value.Director.Stop();
                     kvp.Value.gameObject.SetActive(false);
                 }
             }

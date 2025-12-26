@@ -17,33 +17,34 @@ using EFTJsonConverters = JsonSerializerSettingsClass;
 
 namespace tarkin.tradermod.eft
 {
+    public class DictionaryInADictionaryConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(IReadOnlyDictionary<string, Dictionary<string, string>>);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null)
+                return null;
+
+            var concreteDictionary = serializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(reader);
+
+            return concreteDictionary;
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            serializer.Serialize(writer, value);
+        }
+    }
+
     public class SafeDeserializer<T>
     {
 #if SPT_4_0
         private static readonly ManualLogSource Logger = BepInEx.Logging.Logger.CreateLogSource(nameof(SafeDeserializer<T>));
 #endif
-        private class DictionaryInADictionaryConverter : JsonConverter
-        {
-            public override bool CanConvert(Type objectType)
-            {
-                return objectType == typeof(IReadOnlyDictionary<string, Dictionary<string, string>>);
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-                if (reader.TokenType == JsonToken.Null)
-                    return null;
-
-                var concreteDictionary = serializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(reader);
-
-                return concreteDictionary;
-            }
-
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-            {
-                serializer.Serialize(writer, value);
-            }
-        }
 
         public static T Deserialize(string jsonContent)
         {

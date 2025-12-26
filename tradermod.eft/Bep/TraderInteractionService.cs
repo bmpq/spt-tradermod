@@ -29,7 +29,12 @@ namespace tarkin.tradermod.eft
         private readonly string _savePath;
         private bool _isDirty;
 
-        private const float GREETING_COOLDOWN_SEC = 60;
+        private const float GREETING_COOLDOWN_SEC =
+#if DEBUG
+            1;
+#else
+            60;
+#endif
 
         public TraderInteractionService(DialogDataWrapper dialogData)
         {
@@ -98,7 +103,7 @@ namespace tarkin.tradermod.eft
 
             if (directorAvailable && scene.TimelineDialogs.TryGetValue(interactionType, out var dialogList) && dialogList.Count > 0)
             {
-                scene.Director.SetPlayableAsset(dialogList.Random());
+                scene.Director.playableAsset = dialogList.Random();
 
                 var tcs = new TaskCompletionSource<bool>();
 

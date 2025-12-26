@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace tarkin.tradermod.eft
+namespace tarkin.tradermod.shared
 {
-    internal class CoroutineRunner : MonoBehaviour
+    public class CoroutineRunner : MonoBehaviour
     {
         private static CoroutineRunner _instance;
         public static CoroutineRunner Instance
