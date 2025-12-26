@@ -1,6 +1,7 @@
 ﻿using EFT.UI;
 using System;
 using tarkin.tradermod.bep;
+using tarkin.tradermod.shared;
 using UnityEngine;
 
 #if SPT_4_0

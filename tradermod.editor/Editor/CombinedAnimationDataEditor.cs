@@ -52,9 +52,20 @@ public class CombinedAnimationEditorWindow : EditorWindow
             AttemptChangeAsset(asset, force: true);
         }
         RefreshReferenceCaches();
+
+        EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
     }
 
-    private void OnDisable() => CheckAndImportPrevious();
+    private void EditorApplication_playModeStateChanged(PlayModeStateChange obj)
+    {
+        RefreshReferenceCaches();
+    }
+
+    private void OnDisable() 
+    { 
+        CheckAndImportPrevious();
+        EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
+    }
 
     private void OnSelectionChange()
     {
@@ -96,6 +107,9 @@ public class CombinedAnimationEditorWindow : EditorWindow
     {
         data = null;
         if (asset == null) return false;
+
+        if (!asset.text.StartsWith("{\r\n  \"animations\""))
+            return false;
 
         try
         {

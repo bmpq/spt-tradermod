@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.Playables;
 
 namespace tarkin.tradermod.shared
 {
@@ -38,6 +39,12 @@ namespace tarkin.tradermod.shared
         private Dictionary<ETraderDialogType, List<string>> _dialogs = new Dictionary<ETraderDialogType, List<string>>();
 
         public Dictionary<ETraderDialogType, List<string>> Dialogs => _dialogs;
+
+        [SerializeField] private PlayableDirector director;
+        public PlayableDirector Director => director;
+
+        [SerializeField] private Dictionary<ETraderDialogType, List<PlayableAsset>> _timelineDialogs;
+        public Dictionary<ETraderDialogType, List<PlayableAsset>> TimelineDialogs => _timelineDialogs;
 
         public List<string> GetDialogs(ETraderDialogType type)
         {

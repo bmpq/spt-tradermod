@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
+using tarkin.tradermod.shared;
 using UnityEngine;
 
 namespace tarkin.tradermod.eft

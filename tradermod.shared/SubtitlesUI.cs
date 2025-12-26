@@ -1,12 +1,22 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace tarkin.tradermod.eft.Bep
+namespace tarkin.tradermod.shared
 {
     public class SubtitlesUI : MonoBehaviour
     {
         [SerializeField] private TMP_Text text;
         [SerializeField] private CanvasGroup canvasGroup;
+
+        private void OnEnable()
+        {
+            SubtitleBehaviour.OnSubtitleChange += SetText;
+        }
+
+        private void OnDisable()
+        {
+            SubtitleBehaviour.OnSubtitleChange -= SetText;
+        }
 
         public void SetText(string subtitle)
         {
