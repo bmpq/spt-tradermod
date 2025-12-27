@@ -216,6 +216,8 @@ namespace tarkin.tradermod.eft
                         if (hideoutScene != null && hideoutScene.IsValid() && hideoutScene.isLoaded)
                         {
                             SceneManager.SetActiveScene(hideoutScene);
+
+                            CameraClass.Instance.IsActive = true;
                         }
                     }
                 }

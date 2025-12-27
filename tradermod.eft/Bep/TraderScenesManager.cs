@@ -126,6 +126,8 @@ namespace tarkin.tradermod.eft
 
         public void Close()
         {
+            _interactionService.StopAnimation();
+
             ManageSceneVisibility(null);
             currentlyActiveTraderId = string.Empty;
 

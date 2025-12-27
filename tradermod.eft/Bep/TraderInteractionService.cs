@@ -13,6 +13,7 @@ using UnityEngine;
 
 #if SPT_4_0
 using CombinedAnimationData = GClass4067;
+using SequencePlayer = GClass4065;
 #endif
 
 namespace tarkin.tradermod.eft
@@ -206,6 +207,11 @@ namespace tarkin.tradermod.eft
             {
                 _isDirty = true;
             }
+        }
+
+        public void StopAnimation()
+        {
+            SequencePlayer.StopSequence();
         }
 
         public void Dispose()
