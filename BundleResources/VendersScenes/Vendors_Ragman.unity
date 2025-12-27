@@ -13046,8 +13046,8 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 11.1
-  - 16.5
+  - 0
+  - 12.3
   - 0
   - 0
   - 0
@@ -16562,11 +16562,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.118230276
+      value: -0.02464197
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.16131213
+      value: -0.19847612
       objectReference: {fileID: 0}
     - target: {fileID: 8726491890682852289, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_Name
