@@ -10,6 +10,7 @@ using EFT.AnimationSequencePlayer;
 using Newtonsoft.Json;
 using tarkin.tradermod.shared;
 using UnityEngine;
+using UnityEngine.Playables;
 
 #if SPT_4_0
 using CombinedAnimationData = GClass4067;
@@ -29,6 +30,8 @@ namespace tarkin.tradermod.eft
 
         private readonly string _savePath;
         private bool _isDirty;
+
+        private bool _isAnimatingTask;
 
         private const float GREETING_COOLDOWN_SEC =
 #if DEBUG
@@ -93,52 +96,79 @@ namespace tarkin.tradermod.eft
             _lastSeenTimestamps[traderId] = DateTime.Now;
         }
 
+        public bool IsBusy(TraderScene scene)
+        {
+            if (_isAnimatingTask) return true;
+
+            if (scene != null && scene.Director != null && scene.Director.state == PlayState.Playing)
+                return true;
+
+            if (SequencePlayer.IsPlaying)
+                return true;
+
+            return false;
+        }
+
         public async Task PlayAnimation(TraderScene scene, string traderId, ETraderDialogType interactionType)
         {
             if (scene == null || scene.TraderGameObject == null) 
                 return;
 
-            // my custom timeline animations
+            PlayableAsset selectedTimeline = null;
+            CombinedAnimationData selectedNativeData = null;
             bool directorAvailable = scene.Director != null;
-            if (directorAvailable)
-                scene.Director.Stop();
 
             if (directorAvailable && scene.TimelineDialogs.TryGetValue(interactionType, out var dialogList) && dialogList.Count > 0)
             {
-                await StopNativeFormatAnimation();
+                selectedTimeline = dialogList.Random();
+            }
 
-                scene.Director.playableAsset = dialogList.Random();
+            if (selectedTimeline == null)
+            {
+                selectedNativeData = GetAnimationData(scene, traderId, interactionType);
+            }
 
-                var tcs = new TaskCompletionSource<bool>();
+            if (selectedTimeline == null && selectedNativeData == null)
+            {
+                return;
+            }
 
-                Action<UnityEngine.Playables.PlayableDirector> onStopped = null;
+            if (directorAvailable) scene.Director.Stop();
+            await StopNativeFormatAnimation();
 
-                onStopped = (director) =>
+            _isAnimatingTask = true;
+            try
+            {
+                if (selectedTimeline != null)
                 {
-                    scene.Director.stopped -= onStopped;
-                    tcs.TrySetResult(true);
-                };
-
-                scene.Director.stopped += onStopped;
-                scene.Director.Play();
-
-                await tcs.Task;
-                return;
+                    scene.Director.playableAsset = selectedTimeline;
+                    var tcs = new TaskCompletionSource<bool>();
+                    Action<PlayableDirector> onStopped = null;
+                    onStopped = (director) =>
+                    {
+                        scene.Director.stopped -= onStopped;
+                        tcs.TrySetResult(true);
+                    };
+                    scene.Director.stopped += onStopped;
+                    scene.Director.Play();
+                    await tcs.Task;
+                }
+                else if (selectedNativeData != null)
+                {
+                    SequenceReader npc = scene.TraderGameObject.GetComponent<SequenceReader>();
+                    if (npc != null)
+                    {
+                        await npc.Play(selectedNativeData);
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"Trader {traderId} missing SequenceReader component.");
+                    }
+                }
             }
-
-            // eft native format json data animation
-            var cad = GetAnimationData(scene, traderId, interactionType);
-            if (cad == null) 
-                return;
-
-            SequenceReader npc = scene.TraderGameObject.GetComponent<SequenceReader>();
-            if (npc != null)
+            finally
             {
-                await npc.Play(cad);
-            }
-            else
-            {
-                _logger.LogWarning($"Trader {traderId} missing SequenceReader component.");
+                _isAnimatingTask = false;
             }
         }
 
@@ -217,6 +247,7 @@ namespace tarkin.tradermod.eft
         public async Task StopNativeFormatAnimation()
         {
             SequencePlayer.StopSequence();
+            _isAnimatingTask = false;
             await Task.Yield();
         }
 

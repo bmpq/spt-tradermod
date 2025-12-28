@@ -46,7 +46,7 @@ namespace tarkin.tradermod.eft.Bep
             clickTrigger.Init((_) => OnTraderFaceClick?.Invoke());
         }
 
-        public void SetTraderState(TraderScene traderScene, bool canInteract)
+        public void SetTraderCanInteractState(TraderScene traderScene, bool canInteract)
         {
             if (traderScene == null)
             {

@@ -29,6 +29,16 @@ namespace tarkin.tradermod.eft
 
         private readonly Dictionary<string, TraderScene> _openedScenes = new Dictionary<string, TraderScene>();
 
+        private CancellationTokenSource _idleCts;
+        private int _currentInteractionId = 0;
+
+        private const float IDLE_INTERVAL_SEC =
+#if DEBUG
+            1f;
+#else
+            15f;
+#endif
+
         public TraderScenesManager(DialogDataWrapper dialogData)
         {
             _dialogData = dialogData;
@@ -59,23 +69,27 @@ namespace tarkin.tradermod.eft
             if (_tradingUIManager == null) 
                 return;
             bool hasLines = _interactionService.HasUnplayedChatter(scene);
-            _tradingUIManager.SetTraderState(scene, hasLines);
+            _tradingUIManager.SetTraderCanInteractState(scene, hasLines);
         }
 
         public async void Interact(string traderId, ETraderDialogType dialogType)
         {
             try
             {
-                if (currentlyActiveTraderId == traderId)
+                if (currentlyActiveTraderId == traderId && _openedScenes.TryGetValue(traderId, out var scene))
                 {
-                    if (_openedScenes.TryGetValue(traderId, out var scene))
+                    // an idle twitch should never interrupt any running anim
+                    if (dialogType == ETraderDialogType.IdleTwitch && _interactionService.IsBusy(scene))
                     {
-                        await PlayAnimationSequenceWhileHidingFaceButton(scene, traderId, dialogType);
+                        return;
                     }
+
+                    await PlayAnimationSequenceWhileHidingFaceButton(scene, traderId, dialogType);
                 }
                 else
                 {
-                    TraderOpenHandler(traderId);
+                    if (dialogType != ETraderDialogType.IdleTwitch)
+                        TraderOpenHandler(traderId);
                 }
             }
             catch (Exception ex)
@@ -86,9 +100,12 @@ namespace tarkin.tradermod.eft
 
         private async Task PlayAnimationSequenceWhileHidingFaceButton(TraderScene scene, string traderId, ETraderDialogType type)
         {
+            _currentInteractionId++;
+            int myId = _currentInteractionId;
+
             if (_tradingUIManager != null && currentlyActiveTraderId == traderId)
             {
-                _tradingUIManager.SetTraderState(scene, false);
+                _tradingUIManager.SetTraderCanInteractState(scene, false);
             }
 
             try
@@ -101,7 +118,7 @@ namespace tarkin.tradermod.eft
             }
             finally
             {
-                if (currentlyActiveTraderId == traderId)
+                if (myId == _currentInteractionId && currentlyActiveTraderId == traderId)
                 {
                     RefreshUIState(scene);
                 }
@@ -138,6 +155,7 @@ namespace tarkin.tradermod.eft
 
         public void Close()
         {
+            StopIdleLoop();
             _interactionService.StopNativeFormatAnimation();
 
             ManageSceneVisibility(null);
@@ -149,8 +167,47 @@ namespace tarkin.tradermod.eft
             SetMainMenuBGVisible(true);
         }
 
+        private void StopIdleLoop()
+        {
+            if (_idleCts != null)
+            {
+                _idleCts.Cancel();
+                _idleCts.Dispose();
+                _idleCts = null;
+            }
+        }
+
+        private void StartIdleLoop(string traderId)
+        {
+            StopIdleLoop();
+            _idleCts = new CancellationTokenSource();
+            _ = IdleLoopInternal(traderId, _idleCts.Token);
+        }
+
+        private async Task IdleLoopInternal(string traderId, CancellationToken token)
+        {
+            while (!token.IsCancellationRequested)
+            {
+                try
+                {
+                    int delayMs = (int)(IDLE_INTERVAL_SEC * 1000);
+                    await Task.Delay(delayMs, token);
+                    if (token.IsCancellationRequested || currentlyActiveTraderId != traderId) break;
+
+                    Interact(traderId, ETraderDialogType.IdleTwitch);
+                }
+                catch (TaskCanceledException) { break; }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning($"Idle loop error: {ex.Message}");
+                }
+            }
+        }
+
         private async Task<bool> SwitchToTraderInternal(string traderId)
         {
+            StopIdleLoop();
+
             if (CurrentScreenSingletonClass.Instance.RootScreenType == EEftScreenType.Hideout)
             {
                 Patch_MainMenuControllerClass_ShowScreen.Instance.ShowScreen(EMenuType.MainMenu, true);
@@ -207,6 +264,7 @@ namespace tarkin.tradermod.eft
             _cameraController.Setup(traderScene.CameraPoint);
             _cameraController.FadeToBlack(false);
 
+            StartIdleLoop(traderId);
             return true;
         }
 
@@ -246,6 +304,7 @@ namespace tarkin.tradermod.eft
         public void Dispose()
         {
             _logger.LogInfo("Disposing self");
+            StopIdleLoop();
             _cameraController.Dispose();
             _interactionService.Dispose();
             _tradingUIManager?.Dispose();
