@@ -3671,7 +3671,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4013}
   - component: {fileID: 5665}
-  - component: {fileID: 5710}
   m_Layer: 8
   m_Name: Hair_Ragman
   m_TagString: Untagged
@@ -13201,16 +13200,16 @@ SkinnedMeshRenderer:
   - 12.3
   - 0
   - 0
-  - 1.9128213e-18
-  - 5.758331e-19
-  - 4.0340693e-18
-  - 4.324978e-18
-  - 4.6205585e-19
-  - 2.9312178e-22
-  - 1.7903092e-21
-  - 4.3934514e-22
   - 0
-  - 1.6194218e-21
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   m_RootBone: {fileID: 3618}
@@ -13321,22 +13320,6 @@ LODGroup:
     - renderer: {fileID: 4672}
     - renderer: {fileID: 4671}
   m_Enabled: 1
---- !u!114 &5710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36755ac6fd3d65f25843e07eaad70cc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lights:
-  - {fileID: 5628}
-  - {fileID: 5635}
-  - {fileID: 5620}
 --- !u!114 &5843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14373,7 +14356,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _useCustomSpreadCurve: 0
-  _loopClip: {fileID: 8300000, guid: f7d48eb1a203ef94eb9a5db7ac5c0bc6, type: 3}
+  _loopClip: {fileID: 8300000, guid: 5729d6ce65248e949bd4790f069fe501, type: 3}
 --- !u!114 &5880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16740,11 +16723,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.038534548
+      value: 0.19973582
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19625261
+      value: 0.0102761965
       objectReference: {fileID: 0}
     - target: {fileID: 8726491890682852289, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_Name

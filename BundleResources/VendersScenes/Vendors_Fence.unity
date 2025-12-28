@@ -3165,6 +3165,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: b091c422ffb3dcd44bd3b785e835b9c9, type: 2}
     - {fileID: 11400000, guid: 7d9479dd207d15041aaf25f0ac013d2c, type: 2}
+    - {fileID: 11400000, guid: 44f65a0b26231ef4d966c067fda5f881, type: 2}
+    - {fileID: 11400000, guid: f8b61177fdf5e594594d46e904928caf, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -3583,7 +3585,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -3603,6 +3605,34 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 7
+      Data: 16|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 10
+      Data: 3
     - Name: 
       Entry: 13
       Data: 
@@ -3647,7 +3677,7 @@ PlayableDirector:
   m_GameObject: {fileID: 184}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 7d9479dd207d15041aaf25f0ac013d2c, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: f8b61177fdf5e594594d46e904928caf, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -3676,6 +3706,18 @@ PlayableDirector:
   - key: {fileID: 2987032937883240456, guid: 22fc5752430dfc94585034a47cb5f073, type: 2}
     value: {fileID: 3392}
   - key: {fileID: -6455559736634049427, guid: 22fc5752430dfc94585034a47cb5f073, type: 2}
+    value: {fileID: 1721791139}
+  - key: {fileID: 7248177178508734335, guid: 44f65a0b26231ef4d966c067fda5f881, type: 2}
+    value: {fileID: 3395}
+  - key: {fileID: 2987032937883240456, guid: 44f65a0b26231ef4d966c067fda5f881, type: 2}
+    value: {fileID: 3392}
+  - key: {fileID: -6455559736634049427, guid: 44f65a0b26231ef4d966c067fda5f881, type: 2}
+    value: {fileID: 1721791139}
+  - key: {fileID: 7248177178508734335, guid: f8b61177fdf5e594594d46e904928caf, type: 2}
+    value: {fileID: 3395}
+  - key: {fileID: 2987032937883240456, guid: f8b61177fdf5e594594d46e904928caf, type: 2}
+    value: {fileID: 3392}
+  - key: {fileID: -6455559736634049427, guid: f8b61177fdf5e594594d46e904928caf, type: 2}
     value: {fileID: 1721791139}
   m_ExposedReferences:
     m_References: []
