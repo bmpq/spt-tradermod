@@ -78,8 +78,8 @@ MonoBehaviour:
     m_Duration: 2.233333333333334
     m_TimeScale: 1
     m_ParentTrack: {fileID: -1258488449116662456}
-    m_EaseInDuration: 0.0698995590209961
-    m_EaseOutDuration: 0.12904047966003418
+    m_EaseInDuration: 0.17194581031799316
+    m_EaseOutDuration: 0.2424314022064209
     m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:
@@ -135,7 +135,7 @@ MonoBehaviour:
     m_ExposedParameterNames: []
     m_AnimationCurves: {fileID: 0}
     m_Recordable: 0
-    m_PostExtrapolationMode: 1
+    m_PostExtrapolationMode: 0
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: Infinity
     m_PreExtrapolationTime: 0

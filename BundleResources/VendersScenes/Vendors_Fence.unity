@@ -321,7 +321,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1342}
-  - component: {fileID: 3442}
   - component: {fileID: 3443}
   m_Layer: 0
   m_Name: SOUND
@@ -8564,22 +8563,6 @@ MonoBehaviour:
   - {fileID: 3448}
   - {fileID: 3444}
   - {fileID: 3447}
---- !u!114 &3442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d65b4fff8f35c50f5c85bf8d61bed1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ambientGroup: {fileID: 3441}
-  _enabledReverb: 1
-  _fadeInTime: 1
-  _fadeOutTime: 1
 --- !u!114 &3443
 MonoBehaviour:
   m_ObjectHideFlags: 0

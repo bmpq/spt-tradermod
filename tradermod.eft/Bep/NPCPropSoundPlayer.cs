@@ -22,12 +22,23 @@ namespace tarkin.tradermod.eft.Bep
         void Start()
         {
             audioClipData = GetComponent<AudioClipDataConfigurator>();
-            audioSource = (AudioSource)AccessTools.Field(typeof(NPCAudioSourceSpatializeController), "_speechSource").GetValue(GetComponent<NPCAudioSourceSpatializeController>());
+            var speechsourceholder = GetComponent<NPCAudioSourceSpatializeController>();
+            if (speechsourceholder == null)
+            {
+                Destroy(this);
+                return;
+            }
+            audioSource = (AudioSource)AccessTools.Field(typeof(NPCAudioSourceSpatializeController), "_speechSource").GetValue(speechsourceholder);
         }
 
         void OnEnable()
         {
             eventReceiver = GetComponent<NPCAnimationsEventReceiver>();
+            if (eventReceiver == null)
+            {
+                Destroy(this);
+                return;
+            }
 
             // stops working on reenable without force reinit
             (AccessTools.Field(typeof(NPCAnimationsEventReceiver), "list_0").GetValue(eventReceiver) as System.Collections.IList)?.Clear();
@@ -38,7 +49,8 @@ namespace tarkin.tradermod.eft.Bep
 
         void OnDisable()
         {
-            eventReceiver.OnNeedToPlaySomeSound -= EventReceiver_OnNeedToPlaySomeSound;
+            if (eventReceiver != null)
+                eventReceiver.OnNeedToPlaySomeSound -= EventReceiver_OnNeedToPlaySomeSound;
         }
 
         private void EventReceiver_OnNeedToPlaySomeSound(string name)

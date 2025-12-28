@@ -32,7 +32,7 @@ namespace tarkin.tradermod.eft.Bep.Patches
 
             try
             {
-                TraderBundleManager.UnloadAllBundles();
+                await TraderBundleManager.UnloadAllBundles();
                 OnPostfix?.Invoke();
             }
             catch (Exception ex)

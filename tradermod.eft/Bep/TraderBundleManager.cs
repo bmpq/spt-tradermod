@@ -196,11 +196,14 @@ namespace tarkin.tradermod.eft.Bep
             Plugin.Log.LogInfo($"Replaced {counter} shaders to native");
         }
 
-        public static void UnloadAllBundles()
+        public async static Task UnloadAllBundles()
         {
             foreach (var kvp in _loadedAssetBundles)
             {
-                if (kvp.Value != null) kvp.Value.Unload(true);
+                if (kvp.Value != null) 
+                    kvp.Value.Unload(true);
+
+                await Task.Yield();
             }
             _loadedAssetBundles.Clear();
             _resolvedBundleCache.Clear();

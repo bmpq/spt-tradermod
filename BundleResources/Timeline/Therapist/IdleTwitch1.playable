@@ -78,8 +78,8 @@ MonoBehaviour:
     m_Duration: 6.8
     m_TimeScale: 1
     m_ParentTrack: {fileID: -1258488449116662456}
-    m_EaseInDuration: 0.16736125946044922
-    m_EaseOutDuration: 0.3625936508178711
+    m_EaseInDuration: 0.5160174369812012
+    m_EaseOutDuration: 0.543889045715332
     m_BlendInDuration: -1
     m_BlendOutDuration: -1
     m_MixInCurve:

@@ -130,6 +130,11 @@ namespace tarkin.tradermod.eft
             if (currentlyActiveTraderId == traderId)
             {
                 SetMainMenuBGVisible(false);
+
+                // hideout bastard
+                await Task.Yield();
+                if (CameraClass.Instance.Camera != null)
+                    CameraClass.Instance.IsActive = false;
                 return;
             }
 

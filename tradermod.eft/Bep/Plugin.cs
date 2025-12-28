@@ -150,12 +150,6 @@ namespace tarkin.tradermod.eft
                     }
                 }
 
-                if (counterFailed > 0)
-                {
-                    GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.QuestFailed);
-                    return;
-                }
-
                 if (counterAvailableToStart > 0)
                 {
                     GetOrCreateScenesManager().Interact(trader.Id, ETraderDialogType.QuestAvailable);
@@ -184,8 +178,13 @@ namespace tarkin.tradermod.eft
 
             Patch_QuestControllerClient_TryNotifyConditionalStatusChanged.OnPostfix += (quest) =>
             {
+                if (_scenesManager == null)
+                    return;
+
                 if (quest.QuestStatus == EFT.Quests.EQuestStatus.AvailableForFinish)
-                    GetOrCreateScenesManager().Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.QuestComplete);
+                    _scenesManager.Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.QuestComplete);
+                else if (quest.QuestStatus == EFT.Quests.EQuestStatus.Started)
+                    _scenesManager.Interact(quest.QuestDataClass.Template.TraderId, ETraderDialogType.QuestStart);
             };
 
             Patch_MainMenuControllerClass_ShowScreen.OnPostfix += (screenType, on) =>
