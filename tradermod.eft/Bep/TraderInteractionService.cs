@@ -98,12 +98,15 @@ namespace tarkin.tradermod.eft
             if (scene == null || scene.TraderGameObject == null) 
                 return;
 
+            // my custom timeline animations
             bool directorAvailable = scene.Director != null;
             if (directorAvailable)
                 scene.Director.Stop();
 
             if (directorAvailable && scene.TimelineDialogs.TryGetValue(interactionType, out var dialogList) && dialogList.Count > 0)
             {
+                await StopNativeFormatAnimation();
+
                 scene.Director.playableAsset = dialogList.Random();
 
                 var tcs = new TaskCompletionSource<bool>();
@@ -123,6 +126,7 @@ namespace tarkin.tradermod.eft
                 return;
             }
 
+            // eft native format json data animation
             var cad = GetAnimationData(scene, traderId, interactionType);
             if (cad == null) 
                 return;
@@ -209,9 +213,11 @@ namespace tarkin.tradermod.eft
             }
         }
 
-        public void StopAnimation()
+        // needed because eft animation logic is static and keeps running even when the caller game object is no longer active
+        public async Task StopNativeFormatAnimation()
         {
             SequencePlayer.StopSequence();
+            await Task.Yield();
         }
 
         public void Dispose()

@@ -73,7 +73,7 @@ namespace tarkin.tradermod.eft
             dialogData = new DialogDataWrapper(SafeDeserializer<TraderDialogsDTO>.Deserialize(File.ReadAllText(Path.Combine(TraderBundleManager.BundleDirectory, "dialogue.json"))));
 
             Patch_TraderDealScreen_Show.OnTraderTradingOpen += (trader) =>
-                GetOrCreateScenesManager().TraderOpenHandler(trader.Id, EFT.UI.TraderScreensGroup.ETraderMode.Trade);
+                GetOrCreateScenesManager().TraderOpenHandler(trader.Id);
 
             Patch_MenuUI_Awake.OnPostfix += () =>
             {

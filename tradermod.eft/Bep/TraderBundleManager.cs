@@ -1,16 +1,15 @@
 ﻿using BepInEx.Logging;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using tarkin.tradermod.eft;
 using tarkin.tradermod.shared;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace tarkin.tradermod.bep
+namespace tarkin.tradermod.eft.Bep
 {
     internal class TraderBundleManager
     {
@@ -19,43 +18,40 @@ namespace tarkin.tradermod.bep
         public static readonly string BundleDirectory = Path.Combine(BepInEx.Paths.PluginPath, "tarkin", "bundles", "vendors");
         private static readonly string[] DependencyBundles = new string[] { "vendors_shared" };
 
-        private static CancellationTokenSource _cts = new CancellationTokenSource();
-
         private static readonly Dictionary<string, string> _resolvedBundleCache = new Dictionary<string, string>();
-
         private static readonly Dictionary<string, AssetBundle> _loadedAssetBundles = new Dictionary<string, AssetBundle>();
-        private static readonly Dictionary<string, Task<AssetBundle>> _pendingBundleLoads = new Dictionary<string, Task<AssetBundle>>();
-        private static readonly Dictionary<string, SceneLoadHandle> _pendingSceneLoads = new Dictionary<string, SceneLoadHandle>();
+
+        private static readonly SemaphoreSlim _bundleLock = new SemaphoreSlim(1, 1);
 
         private static string GetBundleNameFromId(string traderId)
         {
             if (_resolvedBundleCache.TryGetValue(traderId, out string cachedName))
                 return cachedName;
 
+            if (!Directory.Exists(BundleDirectory)) 
+                return null;
+
             string matchingFile = Directory.GetFiles(BundleDirectory, $"{traderId}*")
                                         .Select(path => Path.GetFileName(path))
                                         .FirstOrDefault();
 
-            if (string.IsNullOrEmpty(matchingFile))
-                return null;
+            if (!string.IsNullOrEmpty(matchingFile))
+                _resolvedBundleCache[traderId] = matchingFile;
 
-            _resolvedBundleCache[traderId] = matchingFile;
             return matchingFile;
         }
 
-        public static async Task<SceneLoadHandle> LoadTraderSceneWithHandle(string traderId)
+        public static async Task<Scene?> LoadTraderScene(string traderId)
         {
-            // if currently unloading, do not accept new work (shouldnt happen tho)
-            if (_cts.IsCancellationRequested) return null;
-
             string traderSceneBundleName = GetBundleNameFromId(traderId);
 
             if (string.IsNullOrEmpty(traderSceneBundleName))
             {
-                Logger.LogWarning($"No bundle found in {BundleDirectory} matching trader ID: {traderId}");
+                Logger.LogWarning($"No bundle found for trader ID: {traderId}");
                 return null;
             }
 
+            await _bundleLock.WaitAsync();
             try
             {
                 await EnsureDependencyBundlesAreLoaded();
@@ -65,17 +61,39 @@ namespace tarkin.tradermod.bep
 
                 if (!bundle.isStreamedSceneAssetBundle || bundle.GetAllScenePaths().Length == 0)
                 {
-                    Logger.LogError($"Bundle {traderSceneBundleName} is not a scene bundle!");
+                    Logger.LogError($"Bundle {traderSceneBundleName} contains no scenes.");
                     return null;
                 }
 
                 string sceneName = Path.GetFileNameWithoutExtension(bundle.GetAllScenePaths()[0]);
 
-                return PrepareScene(sceneName);
-            }
-            catch (TaskCanceledException)
-            {
+                Scene existingScene = SceneManager.GetSceneByName(sceneName);
+                if (existingScene.IsValid() && existingScene.isLoaded)
+                {
+                    return existingScene;
+                }
+
+                await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+                Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+
+                if (loadedScene.IsValid())
+                {
+                    ReplaceShadersToNative(loadedScene);
+                    return loadedScene;
+                }
+
+                Logger.LogError($"Scene loaded but handle is invalid: {sceneName}");
                 return null;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Exception loading trader scene: {ex}");
+                return null;
+            }
+            finally
+            {
+                _bundleLock.Release();
             }
         }
 
@@ -87,181 +105,67 @@ namespace tarkin.tradermod.bep
             }
         }
 
-        public static Task<AssetBundle> LoadAssetBundleAsync(string bundleName)
+        private static async Task<AssetBundle> LoadAssetBundleAsync(string bundleName)
         {
-#if DEBUG
-            Logger.LogWarning($"Requesting bundle load: {bundleName}");
-#endif
-
             if (_loadedAssetBundles.TryGetValue(bundleName, out AssetBundle cachedBundle) && cachedBundle != null)
-                return Task.FromResult(cachedBundle);
+                return cachedBundle;
 
-            if (_pendingBundleLoads.TryGetValue(bundleName, out Task<AssetBundle> pendingTask))
-                return pendingTask;
+            string fullPath = Path.Combine(BundleDirectory, bundleName);
+            if (!File.Exists(fullPath))
+            {
+                Logger.LogError($"Bundle file missing: {fullPath}");
+                return null;
+            }
 
-            var tcs = new TaskCompletionSource<AssetBundle>();
-            _pendingBundleLoads[bundleName] = tcs.Task;
+            var op = AssetBundle.LoadFromFileAsync(fullPath);
+            await op;
 
-            // Pass the current token to the coroutine
-            CoroutineRunner.Instance.StartCoroutine(LoadAssetBundleCoroutine(bundleName, tcs, _cts.Token));
-            return tcs.Task;
+            if (op.assetBundle == null)
+            {
+                Logger.LogError($"Failed to load asset bundle: {bundleName}");
+                return null;
+            }
+
+            _loadedAssetBundles[bundleName] = op.assetBundle;
+            return op.assetBundle;
         }
 
-        private static IEnumerator LoadAssetBundleCoroutine(string bundleName, TaskCompletionSource<AssetBundle> tcs, CancellationToken token)
+        public static async Task<T> LoadAssetFromBundleAsync<T>(string bundleName, string assetName, bool fuzzyAssetName = false) where T : UnityEngine.Object
         {
-            try
+            AssetBundle bundle = await LoadAssetBundleAsync(bundleName);
+
+            if (bundle == null)
             {
-                string fullPath = Path.Combine(BundleDirectory, bundleName);
-                if (!File.Exists(fullPath))
+                Logger.LogError($"Cannot load asset '{assetName}': Bundle '{bundleName}' failed to load.");
+                return null;
+            }
+
+            if (fuzzyAssetName)
+            {
+                string foundPath = bundle.GetAllAssetNames()
+                    .FirstOrDefault(path => path.Contains(assetName));
+
+                if (!string.IsNullOrEmpty(foundPath))
                 {
-                    Logger.LogError($"Bundle missing: {fullPath}");
-                    tcs.TrySetResult(null);
-                    yield break;
-                }
-
-                if (token.IsCancellationRequested)
-                {
-                    tcs.TrySetCanceled();
-                    yield break;
-                }
-
-#if DEBUG
-                System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
-#endif
-
-                AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(fullPath);
-
-                // Wait for load, checking cancellation
-                while (!request.isDone)
-                {
-                    if (token.IsCancellationRequested)
-                    {
-                        tcs.TrySetCanceled();
-                        yield break;
-                    }
-                    yield return null;
-                }
-
-                if (request.assetBundle == null)
-                {
-                    Logger.LogError($"Failed to load bundle: {bundleName}");
-                    tcs.TrySetResult(null);
+                    assetName = foundPath;
                 }
                 else
                 {
-                    if (token.IsCancellationRequested)
-                    {
-                        request.assetBundle.Unload(true);
-                        tcs.TrySetCanceled();
-                    }
-                    else
-                    {
-                        _loadedAssetBundles[bundleName] = request.assetBundle;
-
-#if DEBUG
-                        sw.Stop();
-                        Logger.LogWarning($"[Load Time] '{bundleName}' loaded in {sw.ElapsedMilliseconds} ms");
-#endif
-
-                        tcs.TrySetResult(request.assetBundle);
-                    }
+                    Logger.LogWarning($"Fuzzy search failed to find asset containing '{assetName}' in bundle '{bundleName}'");
                 }
             }
-            finally
+
+            AssetBundleRequest request = bundle.LoadAssetAsync<T>(assetName);
+
+            await request;
+
+            if (request.asset == null)
             {
-                if (_pendingBundleLoads.ContainsKey(bundleName) && _pendingBundleLoads[bundleName] == tcs.Task)
-                {
-                    _pendingBundleLoads.Remove(bundleName);
-                }
-            }
-        }
-
-        public static SceneLoadHandle PrepareScene(string sceneName)
-        {
-            Scene existingScene = SceneManager.GetSceneByName(sceneName);
-            if (existingScene.IsValid() && existingScene.isLoaded)
-            {
-                var handle = new SceneLoadHandle();
-                handle.SetReady();
-                handle.SetResult(existingScene);
-                return handle;
+                Logger.LogError($"Asset '{assetName}' of type {typeof(T).Name} not found in bundle '{bundleName}'.");
+                return null;
             }
 
-            if (_pendingSceneLoads.TryGetValue(sceneName, out SceneLoadHandle existingHandle))
-            {
-                return existingHandle;
-            }
-
-            var newHandle = new SceneLoadHandle();
-            _pendingSceneLoads[sceneName] = newHandle;
-
-            CoroutineRunner.Instance.StartCoroutine(LoadSceneCoroutine(sceneName, newHandle, _cts.Token));
-
-            return newHandle;
-        }
-
-        private static IEnumerator LoadSceneCoroutine(string sceneName, SceneLoadHandle handle, CancellationToken token)
-        {
-            try
-            {
-                if (token.IsCancellationRequested)
-                {
-                    handle.SetCanceled();
-                    yield break;
-                }
-
-                AsyncOperation asyncOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-                asyncOp.allowSceneActivation = false;
-
-                while (asyncOp.progress < 0.9f)
-                {
-                    if (token.IsCancellationRequested)
-                    {
-                        handle.SetCanceled();
-                        yield break;
-                    }
-                    yield return null;
-                }
-
-                handle.SetReady();
-
-                while (!handle.ShouldActivate)
-                {
-                    if (token.IsCancellationRequested)
-                    {
-                        handle.SetCanceled();
-                        yield break;
-                    }
-                    yield return null;
-                }
-
-                asyncOp.allowSceneActivation = true;
-
-                while (!asyncOp.isDone)
-                {
-                    yield return null;
-                }
-
-                // if cancelled during final activation
-                if (token.IsCancellationRequested)
-                {
-                    Scene badScene = SceneManager.GetSceneByName(sceneName);
-                    if (badScene.IsValid()) SceneManager.UnloadSceneAsync(badScene);
-                    handle.SetCanceled();
-                    yield break;
-                }
-
-                Scene loadedScene = SceneManager.GetSceneByName(sceneName);
-                ReplaceShadersToNative(loadedScene);
-                handle.SetResult(loadedScene);
-            }
-            finally
-            {
-                if (_pendingSceneLoads.ContainsKey(sceneName) && _pendingSceneLoads[sceneName] == handle)
-                {
-                    _pendingSceneLoads.Remove(sceneName);
-                }
-            }
+            return request.asset as T;
         }
 
         private static void ReplaceShadersToNative(Scene loadedScene)
@@ -292,94 +196,14 @@ namespace tarkin.tradermod.bep
             Plugin.Log.LogInfo($"Replaced {counter} shaders to native");
         }
 
-        public static async Task<T> LoadAssetFromBundleAsync<T>(string bundleName, string assetName, bool fuzzyAssetName = false) where T : UnityEngine.Object
+        public static void UnloadAllBundles()
         {
-            AssetBundle bundle = await LoadAssetBundleAsync(bundleName);
-            if (bundle == null)
-            {
-                Logger.LogError($"Cannot load asset '{assetName}': Bundle '{bundleName}' failed to load.");
-                return null;
-            }
-
-            if (_cts.IsCancellationRequested) return null;
-            var tcs = new TaskCompletionSource<T>();
-            CoroutineRunner.Instance.StartCoroutine(LoadAssetCoroutine(bundle, assetName, fuzzyAssetName, tcs, _cts.Token));
-
-            return await tcs.Task;
-        }
-
-        private static IEnumerator LoadAssetCoroutine<T>(AssetBundle bundle, string assetName, bool fuzzyAssetName, TaskCompletionSource<T> tcs, CancellationToken token) where T : UnityEngine.Object
-        {
-            if (token.IsCancellationRequested)
-            {
-                tcs.TrySetCanceled();
-                yield break;
-            }
-
-            if (fuzzyAssetName)
-            {
-                foreach (var fullPath in bundle.GetAllAssetNames())
-                {
-                    if (fullPath.Contains(assetName))
-                    {
-                        assetName = fullPath;
-                        break;
-                    }
-                }
-            }
-
-            AssetBundleRequest request = bundle.LoadAssetAsync<T>(assetName);
-            while (!request.isDone)
-            {
-                if (token.IsCancellationRequested)
-                {
-                    tcs.TrySetCanceled();
-                    yield break;
-                }
-                yield return null;
-            }
-
-            if (request.asset == null)
-            {
-                Logger.LogError($"Asset '{assetName}' of type {typeof(T).Name} not found in bundle '{bundle.name}'.");
-                tcs.TrySetResult(null);
-            }
-            else
-            {
-                tcs.TrySetResult(request.asset as T);
-            }
-        }
-
-        public static async Task UnloadAllBundles()
-        {
-            Logger.LogInfo("UnloadAllBundles...");
-
-            _cts.Cancel();
-
-            var pendingBundleTasks = _pendingBundleLoads.Values.ToList();
-            var pendingSceneTasks = _pendingSceneLoads.Values.Select(h => h.WaitUntilReady()).ToList();
-
-            try { await Task.WhenAll(pendingBundleTasks); }
-            catch {}
-            try { await Task.WhenAll(pendingSceneTasks); }
-            catch {}
-
             foreach (var kvp in _loadedAssetBundles)
             {
-                if (kvp.Value != null)
-                {
-                    kvp.Value.Unload(true);
-                }
+                if (kvp.Value != null) kvp.Value.Unload(true);
             }
-
             _loadedAssetBundles.Clear();
-            _pendingBundleLoads.Clear();
-            _pendingSceneLoads.Clear();
-
-            _cts.Dispose();
-            _cts = new CancellationTokenSource();
-
-            Logger.LogInfo("UnloadAllBundles complete.");
+            _resolvedBundleCache.Clear();
         }
     }
 }
