@@ -4933,6 +4933,10 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 3cfac99c74ff58942bb5d626e494d766, type: 2}
     - {fileID: 11400000, guid: 0bed12870062ace42bdd2380636cf58d, type: 2}
     - {fileID: 11400000, guid: 9627ef0b6ebe6414abbef7a745e9a347, type: 2}
+    - {fileID: 11400000, guid: f0156506a75821448b1c13aaff61817b, type: 2}
+    - {fileID: 11400000, guid: 0c46f06a7814640409a532e858835612, type: 2}
+    - {fileID: 11400000, guid: 4d4fc77d557b6aa40a8573269ca94a43, type: 2}
+    - {fileID: 11400000, guid: c3511e3f403482f40b325a399d3a2281, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -5282,7 +5286,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -5333,6 +5337,40 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 4
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 7
+      Data: 15|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 10
+      Data: 8
     - Name: 
       Entry: 13
       Data: 
@@ -5434,7 +5472,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1343}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: d2bf2a9cf137fa94c947c75d7804b8e0, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 9627ef0b6ebe6414abbef7a745e9a347, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -5479,6 +5517,44 @@ PlayableDirector:
   - key: {fileID: 2987032937883240456, guid: d2bf2a9cf137fa94c947c75d7804b8e0, type: 2}
     value: {fileID: 9667}
   - key: {fileID: -6455559736634049427, guid: d2bf2a9cf137fa94c947c75d7804b8e0, type: 2}
+    value: {fileID: 680350210}
+  - key: {fileID: 7248177178508734335, guid: f0156506a75821448b1c13aaff61817b, type: 2}
+    value: {fileID: 9669}
+  - key: {fileID: -779740452091682727, guid: f0156506a75821448b1c13aaff61817b, type: 2}
+    value: {fileID: 10008}
+  - key: {fileID: 2987032937883240456, guid: f0156506a75821448b1c13aaff61817b, type: 2}
+    value: {fileID: 9667}
+  - key: {fileID: -6455559736634049427, guid: f0156506a75821448b1c13aaff61817b, type: 2}
+    value: {fileID: 680350210}
+  - key: {fileID: 7248177178508734335, guid: 0c46f06a7814640409a532e858835612, type: 2}
+    value: {fileID: 9669}
+  - key: {fileID: -779740452091682727, guid: 0c46f06a7814640409a532e858835612, type: 2}
+    value: {fileID: 10008}
+  - key: {fileID: 2987032937883240456, guid: 0c46f06a7814640409a532e858835612, type: 2}
+    value: {fileID: 9667}
+  - key: {fileID: -6455559736634049427, guid: 0c46f06a7814640409a532e858835612, type: 2}
+    value: {fileID: 680350210}
+  - key: {fileID: 7248177178508734335, guid: 4d4fc77d557b6aa40a8573269ca94a43, type: 2}
+    value: {fileID: 9669}
+  - key: {fileID: -779740452091682727, guid: 4d4fc77d557b6aa40a8573269ca94a43, type: 2}
+    value: {fileID: 10008}
+  - key: {fileID: 2987032937883240456, guid: 4d4fc77d557b6aa40a8573269ca94a43, type: 2}
+    value: {fileID: 9667}
+  - key: {fileID: -6455559736634049427, guid: 4d4fc77d557b6aa40a8573269ca94a43, type: 2}
+    value: {fileID: 680350210}
+  - key: {fileID: 7248177178508734335, guid: c3511e3f403482f40b325a399d3a2281, type: 2}
+    value: {fileID: 9669}
+  - key: {fileID: -779740452091682727, guid: c3511e3f403482f40b325a399d3a2281, type: 2}
+    value: {fileID: 10008}
+  - key: {fileID: 2987032937883240456, guid: c3511e3f403482f40b325a399d3a2281, type: 2}
+    value: {fileID: 9667}
+  - key: {fileID: -6455559736634049427, guid: c3511e3f403482f40b325a399d3a2281, type: 2}
+    value: {fileID: 680350210}
+  - key: {fileID: 7248177178508734335, guid: 4eed2a188d15fb44db36819f1cbe8ee3, type: 2}
+    value: {fileID: 9669}
+  - key: {fileID: 2987032937883240456, guid: 4eed2a188d15fb44db36819f1cbe8ee3, type: 2}
+    value: {fileID: 9667}
+  - key: {fileID: -6455559736634049427, guid: 4eed2a188d15fb44db36819f1cbe8ee3, type: 2}
     value: {fileID: 680350210}
   m_ExposedReferences:
     m_References: []
@@ -15158,17 +15234,17 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
+  - 1.0311603e-31
+  - 9.256583e-19
+  - 7.628795e-12
+  - 2.5133466e-26
+  - 8.752719e-10
+  - 8.819511e-34
+  - 8.386531e-27
+  - 1.4980262e-36
   - 0
   - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 4.942848e-38
   - 0
   m_RootBone: {fileID: 5790}
   m_AABB:

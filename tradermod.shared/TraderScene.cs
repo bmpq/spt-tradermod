@@ -20,7 +20,8 @@ namespace tarkin.tradermod.shared
         Dunno,
         QuestStart,
         QuestComplete,
-        QuestInProgress
+        QuestInProgress,
+        IdleTwitch
     }
 
     public class TraderScene : SerializedMonoBehaviour

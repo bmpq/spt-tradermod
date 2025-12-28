@@ -5061,6 +5061,7 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 11400000, guid: ff47e2f2f20eb9b41802e27b317ea37c, type: 2}
     - {fileID: 11400000, guid: 36b8af2823d6b2248aba47348cbce9b1, type: 2}
+    - {fileID: 11400000, guid: c3be12ed455b289478bf779738ef0ab1, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -5362,7 +5363,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -5404,6 +5405,31 @@ MonoBehaviour:
     - Name: 
       Entry: 10
       Data: 1
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 13
+    - Name: $v
+      Entry: 7
+      Data: 13|System.Collections.Generic.List`1[[UnityEngine.Playables.PlayableAsset,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 10
+      Data: 2
     - Name: 
       Entry: 13
       Data: 
@@ -5476,7 +5502,7 @@ PlayableDirector:
   m_GameObject: {fileID: 145}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: ff47e2f2f20eb9b41802e27b317ea37c, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: c3be12ed455b289478bf779738ef0ab1, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -5505,6 +5531,14 @@ PlayableDirector:
   - key: {fileID: 4552841983294133307, guid: 345a808486d889745b71e1876c6b5cd0, type: 2}
     value: {fileID: 3012}
   - key: {fileID: 6369289130280687317, guid: 345a808486d889745b71e1876c6b5cd0, type: 2}
+    value: {fileID: 3115}
+  - key: {fileID: -1258488449116662456, guid: c3be12ed455b289478bf779738ef0ab1, type: 2}
+    value: {fileID: 3013}
+  - key: {fileID: -9091693818625019978, guid: c3be12ed455b289478bf779738ef0ab1, type: 2}
+    value: {fileID: 2114405541}
+  - key: {fileID: 4552841983294133307, guid: c3be12ed455b289478bf779738ef0ab1, type: 2}
+    value: {fileID: 3012}
+  - key: {fileID: 6369289130280687317, guid: c3be12ed455b289478bf779738ef0ab1, type: 2}
     value: {fileID: 3115}
   m_ExposedReferences:
     m_References: []
@@ -14355,16 +14389,16 @@ SkinnedMeshRenderer:
   - 0
   - 0
   - 0
-  - 26.242447
+  - 19.416046
   - 0
-  - 55.55817
-  - 0
-  - 0
+  - 10.324554
   - 0
   - 0
   - 0
-  - 17.176514
-  - 56.06453
+  - 0
+  - 0
+  - 11.266556
+  - 10.391312
   - 0
   - 0
   - 0
@@ -16969,11 +17003,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1329793
+      value: 0.14419556
       objectReference: {fileID: 0}
     - target: {fileID: 5378794417257073931, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06940108
+      value: 0.04132363
       objectReference: {fileID: 0}
     - target: {fileID: 6771337306241939693, guid: 3685c7fba14ac4e4c887c2a9936a7fdb, type: 3}
       propertyPath: speed
