@@ -19,6 +19,13 @@ namespace tarkin.tradermod.eft
                 _cam.GetComponent<PrismEffects>().useExposure = true;
                 _cam.GetComponent<Cinemachine.CinemachineBrain>().enabled = false;
                 _cam.fieldOfView = 60;
+
+                _cam.backgroundColor = Color.black;
+                _cam.clearFlags = CameraClearFlags.SolidColor;
+                var vignette = _cam.GetComponent<CC_FastVignette>();
+                vignette.enabled = true;
+                vignette.darkness = 44;
+
                 GameObject.DontDestroyOnLoad(_cam.gameObject);
             }
 
