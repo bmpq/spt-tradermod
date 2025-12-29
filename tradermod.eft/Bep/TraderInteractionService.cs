@@ -141,6 +141,12 @@ namespace tarkin.tradermod.eft
             {
                 if (selectedTimeline != null)
                 {
+                    if (scene.TraderGameObject.TryGetComponent<AnimationDictionary>(out var nativeAnimDict))
+                    {
+                        // disable props
+                        SequencePlayer.smethod_4(nativeAnimDict);
+                    }
+
                     scene.Director.playableAsset = selectedTimeline;
                     var tcs = new TaskCompletionSource<bool>();
                     Action<PlayableDirector> onStopped = null;
