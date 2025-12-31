@@ -205,8 +205,6 @@ namespace tarkin.tradermod.eft
                             }
                         }
                     }
-                    else if (screenType == EMenuType.EditBuild)
-                        _scenesManager?.Close();
                     else if (screenType == EMenuType.Hideout)
                     {
                         _scenesManager?.Close();
